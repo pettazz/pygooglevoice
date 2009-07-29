@@ -51,7 +51,7 @@ To find out the other commands, type `help`.
     voice.send_sms(phoneNumber, text) # Sends text message to phoneNumber
     
     # Voicemail
-    voice.download(msg) # Download MP3 of voicemail by sha1 hash
+    voice.download(msg) # Download MP3 of voicemail or recorded call by sha1 hash
     
     # Folders
     print voice.inbox().items() # Prints out dict of vital stats and paginated list of inbox messages
