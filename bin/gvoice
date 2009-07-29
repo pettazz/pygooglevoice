@@ -1,7 +1,12 @@
 #!/usr/bin/env python
 import sys
 from optparse import OptionParser
-from googlevoice import Voice,LoginError,input
+from googlevoice import Voice
+from googlevoice.util import LoginError,pprint
+try:
+    from googlevoice.util import input
+except:
+    pass
 
 parser = OptionParser(usage='''gvoice [-e <email> -p <password>] commands
     Where commands are
@@ -45,9 +50,8 @@ def login(email=options.email, passwd=options.passwd):
             login(None, None)
 
 def pprint_folder(name):
-    from pprint import pprint
     ctx = getattr(voice, name)()
-    print '%s Folder' % name.title(), '(%s)' % ctx['totalSize']
+    pprint('%s Folder (%s)' % (name.title(),ctx['totalSize']))
     for sha1,items in ctx['messages'].items():
         pprint(items,indent=4)
 
@@ -57,7 +61,7 @@ except IndexError:
     action = 'interactive'
 
 if action == 'help':
-    print parser.usage
+    print(parser.usage)
     sys.exit(0)
 
 voice = Voice()
@@ -75,15 +79,15 @@ if action == 'interactive':
         elif action in ('logout','lo'): voice.logout()
         elif action in ('call','c'): 
             voice.call(input('Outgoing number: '), input('Forwarding number: '))
-            print 'Calling...'
+            pprint('Calling...')
         elif action in ('cancelcall','cc'): voice.cancel()
-        elif action in ('balance','b'): print voice.balance()
+        #elif action in ('balance','b'): print(voice.balance())
         elif action in ('sendsms','s'):
             voice.send_sms(input('Phone number: '), input('Message: '))
-            print 'Message Sent'
+            pprint('Message Sent')
         elif action in ('download','d'):
-            print 'MP3 downloaded to %s' % voice.download(input('Message sha1: '))
-        elif action in ('help','h','?'): print parser.usage
+            pprint('MP3 downloaded to %s' % voice.download(input('Message sha1: ')))
+        elif action in ('help','h','?'): print(parser.usage)
         elif action in ('trash','t'): pprint_folder('trash')
         elif action in ('spam','sp'): pprint_folder('spam')
         elif action in ('voicemail','v'): pprint_folder('voicemail')
@@ -98,7 +102,7 @@ else:
         try:
             num,args = args[0],args[1:]
         except:
-            print 'Please provide a message'
+            print('Please provide a message')
             sys.exit(0)
         args = (num, ' '.join(args))
     help(getattr(voice,action))

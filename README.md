@@ -11,13 +11,13 @@ Works for Python 2 and Python 3
 INSTALL
 -------------------------------
 
-**Download the code from GitHub**
+**Download the code from GoogleCode**
 
-    $ git clone git://github.com/justquick/python-googlevoice.git 
+    $ hg clone https://pygooglevoice.googlecode.com/hg/ pygooglevoice  
 
 **Install the module**
 
-    $ cd python-googlevoice
+    $ cd pygooglevoice
     $ sudo python setup.py install
 
 USAGE
@@ -65,8 +65,4 @@ Simple examples are located in the `examples` directory
 **API Documentation**
 
 HTML format located in the `docs` directory
-
-**Future Ideas**
-Contact Searching/listing
-https://www.google.com/voice/c/data/contacts?thumb=true&groups=true&show=ALL&psort=DisplayName&max=10000&out=js&rf=&gc=true&jsx=true
 

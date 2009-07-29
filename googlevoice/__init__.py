@@ -12,7 +12,9 @@ class Voice(object):
         for name in settings.FEEDS:
             setattr(self, name, self.__multiformat(name))
             setattr(self, '%s_html' % name, self.__multiformat(name, 'html'))
-        
+    
+    # Some handy methods
+      
     @property
     def special(self):
         """
@@ -82,26 +84,6 @@ class Voice(object):
             'forwardingNumber':forwardingNumber or 'undefined',
             'cancelType': 'C2C',
         })
-
-    @property
-    def balance(self):
-        """
-        Returns current account balance
-        """
-        if self.special:
-            return self.__do_special_page('BALANCE').read()
-    
-    def delete(self, *msgs):
-        """
-        Moves any messages indicated by sha1 hash to the Trash
-        """
-        self.__messages_post('delete', trash=1, *msgs)
-        
-    def star(self, *msgs):
-        """
-        Star a list of messages
-        """
-        self.__messages_post('star', star=1, *msgs)
         
     def send_sms(self, phoneNumber, text):
         """
@@ -133,6 +115,28 @@ class Voice(object):
         fo.write(self.__do_page('download', msg).read())
         fo.close()
         return fn
+
+    # Experimental methods
+
+    @property
+    def _balance(self):
+        """
+        Returns current account balance
+        """
+        if self.special:
+            return self.__do_special_page('BALANCE').read()
+    
+    def _delete(self, *msgs):
+        """
+        Moves any messages indicated by sha1 hash to the Trash
+        """
+        self.__messages_post('delete', trash=1, *msgs)
+        
+    def _star(self, *msgs):
+        """
+        Star a list of messages
+        """
+        self.__messages_post('star', star=1, *msgs)
 
     def __do_page(self, page, data=None, headers={}):
         """
