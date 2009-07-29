@@ -4,7 +4,6 @@ FEEDS = ('contacts','inbox','starred','all','spam','trash','voicemail','sms','re
 BASE = 'https://www.google.com/voice/'
 LOGOUT = BASE+'account/signout'
 INBOX = BASE+'#inbox'
-
 CALL = BASE+'call/connect/'
 CANCEL = BASE+'call/cancel/'
 DELETE = BASE+'inbox/deleteMessages/'
@@ -14,8 +13,6 @@ DOWNLOAD = BASE+'media/send_voicemail/'
 BALANCE = BASE+'settings/billingcredit/'
 
 XML_SEARCH = BASE+'inbox/search/'
-
-
 XML_CONTACTS = BASE+'contacts/'
 XML_RECENT = BASE+'inbox/recent/'
 XML_INBOX = XML_RECENT+'inbox/'

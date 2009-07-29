@@ -78,148 +78,190 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="googlevoice.settings-module.html#LOGIN" class="summary-name">LOGIN</a> = <code title="'https://www.google.com/accounts/ServiceLoginAuth?service=grandcentral\
-'">'https://www.google.com/accounts/ServiceLoginAuth?serv<code class="variable-ellipsis">...</code></code>
+'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/accounts/ServiceLoginAuth?serv</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="googlevoice.settings-module.html#FEEDS" class="summary-name">FEEDS</a> = <code title="'inbox', 'starred', 'all', 'spam', 'trash', 'voicemail', 'sms', 'recor\
-ded', 'placed', 'recieved', 'missed'">'inbox', 'starred', 'all', 'spam', 'trash', 'voicemail<code class="variable-ellipsis">...</code></code>
+        <a href="googlevoice.settings-module.html#FEEDS" class="summary-name">FEEDS</a> = <code title="('contacts',
+ 'inbox',
+ 'starred',
+ 'all',
+ 'spam',
+ 'trash',
+ 'voicemail',
+ 'sms',
+..."><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">contacts</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">inbox</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">starred</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">all</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">spam</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">trash</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="BASE"></a><span class="summary-name">BASE</span> = <code title="'https://www.google.com/voice/'">'https://www.google.com/voice/'</code>
+        <a name="BASE"></a><span class="summary-name">BASE</span> = <code title="'https://www.google.com/voice/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="LOGOUT"></a><span class="summary-name">LOGOUT</span> = <code title="BASE+ 'account/signout'">BASE+ 'account/signout'</code>
+        <a name="LOGOUT"></a><span class="summary-name">LOGOUT</span> = <code title="'https://www.google.com/voice/account/signout'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/account/signout</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="INBOX"></a><span class="summary-name">INBOX</span> = <code title="BASE+ '#inbox'">BASE+ '#inbox'</code>
+        <a name="INBOX"></a><span class="summary-name">INBOX</span> = <code title="'https://www.google.com/voice/#inbox'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/#inbox</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="CALL"></a><span class="summary-name">CALL</span> = <code title="BASE+ 'call/connect/'">BASE+ 'call/connect/'</code>
+        <a name="CALL"></a><span class="summary-name">CALL</span> = <code title="'https://www.google.com/voice/call/connect/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/call/connect/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="CANCEL"></a><span class="summary-name">CANCEL</span> = <code title="BASE+ 'call/cancel/'">BASE+ 'call/cancel/'</code>
+        <a name="CANCEL"></a><span class="summary-name">CANCEL</span> = <code title="'https://www.google.com/voice/call/cancel/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/call/cancel/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="SMS"></a><span class="summary-name">SMS</span> = <code title="BASE+ 'sms/send/'">BASE+ 'sms/send/'</code>
+        <a name="DELETE"></a><span class="summary-name">DELETE</span> = <code title="'https://www.google.com/voice/inbox/deleteMessages/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/deleteMessages/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="DOWNLOAD"></a><span class="summary-name">DOWNLOAD</span> = <code title="BASE+ 'media/send_voicemail/'">BASE+ 'media/send_voicemail/'</code>
+        <a name="STAR"></a><span class="summary-name">STAR</span> = <code title="'https://www.google.com/voice/inbox/star/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/star/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="XML_BASE"></a><span class="summary-name">XML_BASE</span> = <code title="BASE+ 'inbox/recent/'">BASE+ 'inbox/recent/'</code>
+        <a name="SMS"></a><span class="summary-name">SMS</span> = <code title="'https://www.google.com/voice/sms/send/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/sms/send/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="XML_INBOX"></a><span class="summary-name">XML_INBOX</span> = <code title="XML_BASE+ 'inbox/'">XML_BASE+ 'inbox/'</code>
+        <a name="DOWNLOAD"></a><span class="summary-name">DOWNLOAD</span> = <code title="'https://www.google.com/voice/media/send_voicemail/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/media/send_voicemail/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="XML_STARRED"></a><span class="summary-name">XML_STARRED</span> = <code title="XML_BASE+ 'starred/'">XML_BASE+ 'starred/'</code>
+        <a name="BALANCE"></a><span class="summary-name">BALANCE</span> = <code title="'https://www.google.com/voice/settings/billingcredit/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/settings/billingcredit/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="XML_ALL"></a><span class="summary-name">XML_ALL</span> = <code title="XML_BASE+ 'add/'">XML_BASE+ 'add/'</code>
+        <a name="XML_SEARCH"></a><span class="summary-name">XML_SEARCH</span> = <code title="'https://www.google.com/voice/inbox/search/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/search/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="XML_SPAM"></a><span class="summary-name">XML_SPAM</span> = <code title="XML_BASE+ 'spam/'">XML_BASE+ 'spam/'</code>
+        <a name="XML_CONTACTS"></a><span class="summary-name">XML_CONTACTS</span> = <code title="'https://www.google.com/voice/contacts/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/contacts/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="XML_TRASH"></a><span class="summary-name">XML_TRASH</span> = <code title="XML_BASE+ 'trash/'">XML_BASE+ 'trash/'</code>
+        <a name="XML_RECENT"></a><span class="summary-name">XML_RECENT</span> = <code title="'https://www.google.com/voice/inbox/recent/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/recent/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="XML_VOICEMAIL"></a><span class="summary-name">XML_VOICEMAIL</span> = <code title="XML_BASE+ 'voicemail/'">XML_BASE+ 'voicemail/'</code>
+        <a name="XML_INBOX"></a><span class="summary-name">XML_INBOX</span> = <code title="'https://www.google.com/voice/inbox/recent/inbox/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/recent/inbox/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="XML_SMS"></a><span class="summary-name">XML_SMS</span> = <code title="XML_BASE+ 'sms/'">XML_BASE+ 'sms/'</code>
+        <a href="googlevoice.settings-module.html#XML_STARRED" class="summary-name">XML_STARRED</a> = <code title="'https://www.google.com/voice/inbox/recent/starred/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/recent/starr</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="XML_RECORDED"></a><span class="summary-name">XML_RECORDED</span> = <code title="XML_BASE+ 'recorded/'">XML_BASE+ 'recorded/'</code>
+        <a name="XML_ALL"></a><span class="summary-name">XML_ALL</span> = <code title="'https://www.google.com/voice/inbox/recent/add/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/recent/add/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="XML_PLACED"></a><span class="summary-name">XML_PLACED</span> = <code title="XML_BASE+ 'placed/'">XML_BASE+ 'placed/'</code>
+        <a name="XML_SPAM"></a><span class="summary-name">XML_SPAM</span> = <code title="'https://www.google.com/voice/inbox/recent/spam/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/recent/spam/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="XML_RECIEVED"></a><span class="summary-name">XML_RECIEVED</span> = <code title="XML_BASE+ 'recieved/'">XML_BASE+ 'recieved/'</code>
+        <a name="XML_TRASH"></a><span class="summary-name">XML_TRASH</span> = <code title="'https://www.google.com/voice/inbox/recent/trash/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/recent/trash/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="XML_MISSED"></a><span class="summary-name">XML_MISSED</span> = <code title="XML_BASE+ 'missed/'">XML_BASE+ 'missed/'</code>
+        <a href="googlevoice.settings-module.html#XML_VOICEMAIL" class="summary-name">XML_VOICEMAIL</a> = <code title="'https://www.google.com/voice/inbox/recent/voicemail/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/recent/voi</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="XML_SMS"></a><span class="summary-name">XML_SMS</span> = <code title="'https://www.google.com/voice/inbox/recent/sms/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/recent/sms/</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="googlevoice.settings-module.html#XML_RECORDED" class="summary-name">XML_RECORDED</a> = <code title="'https://www.google.com/voice/inbox/recent/recorded/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/recent/reco</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="XML_PLACED"></a><span class="summary-name">XML_PLACED</span> = <code title="'https://www.google.com/voice/inbox/recent/placed/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/recent/placed/</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="googlevoice.settings-module.html#XML_RECIEVED" class="summary-name">XML_RECIEVED</a> = <code title="'https://www.google.com/voice/inbox/recent/recieved/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/recent/reci</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="XML_MISSED"></a><span class="summary-name">XML_MISSED</span> = <code title="'https://www.google.com/voice/inbox/recent/missed/'"><code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/recent/missed/</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -253,8 +295,8 @@ ded', 'placed', 'recieved', 'missed'">'inbox', 'starred', 'all', 'spam', 'trash'
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-'https://www.google.com/accounts/ServiceLoginAuth?service=grandcentral<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-'
+<code class="variable-quote">'</code><code class="variable-string">https://www.google.com/accounts/ServiceLoginAuth?service=grandcentral</code><code class="variable-quote"></code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-quote">'</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -272,8 +314,87 @@ ded', 'placed', 'recieved', 'missed'">'inbox', 'starred', 'all', 'spam', 'trash'
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-'inbox', 'starred', 'all', 'spam', 'trash', 'voicemail', 'sms', 'recor<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ded', 'placed', 'recieved', 'missed'
+<code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">contacts</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">inbox</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">starred</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">all</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">spam</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">trash</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">voicemail</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">sms</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="XML_STARRED"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">XML_STARRED</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/recent/starred/</code><code class="variable-quote">'</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="XML_VOICEMAIL"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">XML_VOICEMAIL</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/recent/voicemail/</code><code class="variable-quote">'</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="XML_RECORDED"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">XML_RECORDED</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/recent/recorded/</code><code class="variable-quote">'</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="XML_RECIEVED"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">XML_RECIEVED</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">'</code><code class="variable-string">https://www.google.com/voice/inbox/recent/recieved/</code><code class="variable-quote">'</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -307,7 +428,7 @@ ded', 'placed', 'recieved', 'missed'
   <tr>
     <td align="left" class="footer">
     Generated by Epydoc 3.0.1
-    on Tue Jul 28 11:07:46 2009
+    on Wed Jul 29 14:56:53 2009
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

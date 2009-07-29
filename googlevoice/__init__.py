@@ -13,8 +13,9 @@ class Voice(object):
             setattr(self, name, self.__multiformat(name))
             setattr(self, '%s_html' % name, self.__multiformat(name, 'html'))
     
+    ######################
     # Some handy methods
-      
+    ######################  
     @property
     def special(self):
         """
@@ -97,27 +98,30 @@ class Voice(object):
     def search(self, query):
         """
         Search your Google Voice Account history for calls, voicemails, and sms
+        Returns formatted dict of anything matching query
         """
         return self.__multiformat('search', data='?q=%s'%quote(query))()
         
-    def download(self, msg, adir='.'):
+    def download(self, msg, adir=None):
         """
         Download a voicemail or recorded call MP3 matching the given msg sha1 hash
         Saves files to adir (default current directory)
         Message hashes can be found in list(self.voicemail()['messages'])
         Returns location of saved file
         """
-        from os.path import join
+        from os import path,getcwd
         assert is_sha1(msg), 'Message id not a SHA1 hash'
-        
-        fn = join(adir, '%s.mp3' % msg)
+        if adir is None:
+            adir = getcwd()
+        fn = path.join(adir, '%s.mp3' % msg)
         fo = open(fn, 'wb')
         fo.write(self.__do_page('download', msg).read())
         fo.close()
         return fn
 
+    ######################
     # Experimental methods
-
+    ######################
     @property
     def _balance(self):
         """
@@ -138,6 +142,9 @@ class Voice(object):
         """
         self.__messages_post('star', star=1, *msgs)
 
+    ######################
+    # Helper methods
+    ######################
     def __do_page(self, page, data=None, headers={}):
         """
         Loads a page out of the settings and pass it on to urllib Request

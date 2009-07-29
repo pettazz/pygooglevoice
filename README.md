@@ -1,6 +1,9 @@
 Python Google Voice
 =============
 
+Joe McCall & Justin Quick
+
+
 Exposing the Google Voice API to the Python language
 ----------------------------------------------------
 
