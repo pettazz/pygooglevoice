@@ -1,0 +1,105 @@
+#!/System/Library/Frameworks/Python.framework/Versions/2.5/Resources/Python.app/Contents/MacOS/Python
+import sys
+from optparse import OptionParser
+from googlevoice import Voice,LoginError,input
+
+parser = OptionParser(usage='''gvoice [-e <email> -p <password>] commands
+    Where commands are
+    
+    login (li) - log into the voice service
+    logout (lo) - log out of the service and make sure cookie is deleted
+    balance (b) - print current account balance
+    help
+
+    Voice Commands
+        call (c) - call an outgoing number from a forwarding number
+        cancel (cc) - cancel a particular call
+        download (d) - download mp3 message given id number
+        send_sms (s) - send sms messages
+        
+    Folder Views
+        inbox (i)
+        voicemail (v)
+        starred (st)
+        all (a)
+        spam (sp)
+        trash (t)
+        voicemail (v)
+        sms (sm)
+        recorded (r)
+        placed (p)
+        recieved (re)
+        missed (m)''')
+parser.add_option("-e", "--email", dest="email", default=None,
+                  help="Google Voice Account Email")
+parser.add_option("-p", "--password", dest='passwd', default=None,
+                  help='Your account password (prompted if blank)')
+
+options, args = parser.parse_args()
+
+def login(email=options.email, passwd=options.passwd):
+    try:
+        voice.login(options.email,options.passwd)
+    except LoginError:
+        if input('Login failed. Retry?[Y/n] ').lower() in ('', 'y'):
+            login(None, None)
+
+def pprint_folder(name):
+    from pprint import pprint
+    ctx = getattr(voice, name)()
+    print '%s Folder' % name.title(), '(%s)' % ctx['totalSize']
+    for sha1,items in ctx['messages'].items():
+        pprint(items,indent=4)
+
+try:
+    action,args = args[0],args[1:]
+except IndexError:
+    action = 'interactive'
+
+if action == 'help':
+    print parser.usage
+    sys.exit(0)
+
+voice = Voice()
+login()
+
+if action == 'interactive':
+    while 1:
+        try:
+            action = input('gvoice> ').lower().strip()
+        except KeyboardInterrupt:
+            sys.exit(0)
+        if not action: continue
+        elif action in ('q','quit','exit'): break
+        elif action in ('login','li'): login()
+        elif action in ('logout','lo'): voice.logout()
+        elif action in ('call','c'): 
+            voice.call(input('Outgoing number: '), input('Forwarding number: '))
+            print 'Calling...'
+        elif action in ('cancelcall','cc'): voice.cancel()
+        elif action in ('balance','b'): print voice.balance()
+        elif action in ('sendsms','s'):
+            voice.send_sms(input('Phone number: '), input('Message: '))
+            print 'Message Sent'
+        elif action in ('download','d'):
+            print 'MP3 downloaded to %s' % voice.download(input('Message sha1: '))
+        elif action in ('help','h','?'): print parser.usage
+        elif action in ('trash','t'): pprint_folder('trash')
+        elif action in ('spam','sp'): pprint_folder('spam')
+        elif action in ('voicemail','v'): pprint_folder('voicemail')
+        elif action in ('all','a'): pprint_folder('all')
+        elif action in ('starred','st'): pprint_folder('starred')
+        elif action in ('missed','m'): pprint_folder('missed')
+        elif action in ('recieved','re'): pprint_folder('recieved')
+        elif action in ('recorded','r'): pprint_folder('recorded')
+        elif action in ('sms','sm'): pprint_folder('sms')
+else:
+    if action == 'send_sms':
+        try:
+            num,args = args[0],args[1:]
+        except:
+            print 'Please provide a message'
+            sys.exit(0)
+        args = (num, ' '.join(args))
+    help(getattr(voice,action))
+    getattr(voice,action)(*args)

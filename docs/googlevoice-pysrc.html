@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>googlevoice</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Package&nbsp;googlevoice
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="googlevoice-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="googlevoice-module.html">Package googlevoice</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package googlevoice=googlevoice-module.html"><a title="googlevoice" class="py-name" href="#" onclick="return doclink('link-0', 'googlevoice', 'link-0');">googlevoice</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module googlevoice.settings=googlevoice.settings-module.html"><a title="googlevoice.settings" class="py-name" href="#" onclick="return doclink('link-1', 'settings', 'link-1');">settings</a></tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-2" class="py-name"><a title="googlevoice" class="py-name" href="#" onclick="return doclink('link-2', 'googlevoice', 'link-0');">googlevoice</a></tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Module googlevoice.util=googlevoice.util-module.html"><a title="googlevoice.util" class="py-name" href="#" onclick="return doclink('link-3', 'util', 'link-3');">util</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="Voice"></a><div id="Voice-def"><a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt> <a class="py-toggle" href="#" id="Voice-toggle" onclick="return toggle('Voice');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="googlevoice.Voice-class.html">Voice</a><tt class="py-op">(</tt><tt class="py-base-class">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Voice-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Voice-expanded"><a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-docstring">    Main voice instance for interacting with the Google Voice service</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-docstring">    Also contains callable methods for each folder (eg inbox,voicemail,sms,etc)</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="Voice.__init__"></a><div id="Voice.__init__-def"><a name="L9"></a><tt class="py-lineno">  9</tt> <a class="py-toggle" href="#" id="Voice.__init__-toggle" onclick="return toggle('Voice.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="googlevoice.Voice-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Voice.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Voice.__init__-expanded"><a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line">            <tt class="py-keyword">from</tt> <tt class="py-name">http</tt><tt class="py-op">.</tt><tt class="py-name">cookiejar</tt> <tt class="py-keyword">import</tt> <tt class="py-name">LWPCookieJar</tt> <tt class="py-keyword">as</tt> <tt class="py-name">CJ</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">ImportError</tt><tt class="py-op">:</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line">            <tt class="py-keyword">from</tt> <tt class="py-name">cookielib</tt> <tt class="py-keyword">import</tt> <tt class="py-name">LWPCookieJar</tt> <tt class="py-keyword">as</tt> <tt class="py-name">CJ</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line">        <tt class="py-name">install_opener</tt><tt class="py-op">(</tt><tt class="py-name">build_opener</tt><tt class="py-op">(</tt><tt class="py-name">HTTPCookieProcessor</tt><tt class="py-op">(</tt><tt class="py-name">CJ</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line">         </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">name</tt> <tt class="py-keyword">in</tt> <tt id="link-4" class="py-name"><a title="googlevoice.settings" class="py-name" href="#" onclick="return doclink('link-4', 'settings', 'link-1');">settings</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Variable googlevoice.settings.FEEDS=googlevoice.settings-module.html#FEEDS"><a title="googlevoice.settings.FEEDS" class="py-name" href="#" onclick="return doclink('link-5', 'FEEDS', 'link-5');">FEEDS</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line">            <tt class="py-name">setattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">name</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Method googlevoice.Voice.__multiformat()=googlevoice.Voice-class.html#__multiformat"><a title="googlevoice.Voice.__multiformat" class="py-name" href="#" onclick="return doclink('link-6', '__multiformat', 'link-6');">__multiformat</a></tt><tt class="py-op">(</tt><tt class="py-name">name</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line">            <tt class="py-name">setattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-string">'%s_html'</tt> <tt class="py-op">%</tt> <tt class="py-name">name</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="googlevoice.Voice.__multiformat" class="py-name" href="#" onclick="return doclink('link-7', '__multiformat', 'link-6');">__multiformat</a></tt><tt class="py-op">(</tt><tt class="py-name">name</tt><tt class="py-op">,</tt> <tt class="py-string">'html'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"> </tt>
+<a name="Voice.__do_page"></a><div id="Voice.__do_page-def"><a name="L20"></a><tt class="py-lineno"> 20</tt> <a class="py-toggle" href="#" id="Voice.__do_page-toggle" onclick="return toggle('Voice.__do_page');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="googlevoice.Voice-class.html#__do_page">__do_page</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">page</tt><tt class="py-op">,</tt> <tt class="py-param">data</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">headers</tt><tt class="py-op">=</tt><tt class="py-op">{</tt><tt class="py-op">}</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Voice.__do_page-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Voice.__do_page-expanded"><a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-docstring">        Loads a page out of the settings and pass it on to urllib Request</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">data</tt><tt class="py-op">,</tt> <tt class="py-name">dict</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">            <tt class="py-name">data</tt> <tt class="py-op">=</tt> <tt class="py-name">urlencode</tt><tt class="py-op">(</tt><tt class="py-name">data</tt><tt class="py-op">)</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">page</tt> <tt class="py-op">==</tt> <tt class="py-string">'download'</tt><tt class="py-op">:</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">urlopen</tt><tt class="py-op">(</tt><tt class="py-name">Request</tt><tt class="py-op">(</tt><tt class="py-name">getattr</tt><tt class="py-op">(</tt><tt id="link-8" class="py-name"><a title="googlevoice.settings" class="py-name" href="#" onclick="return doclink('link-8', 'settings', 'link-1');">settings</a></tt><tt class="py-op">,</tt> <tt class="py-string">'DOWNLOAD'</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-name">data</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">urlopen</tt><tt class="py-op">(</tt><tt class="py-name">Request</tt><tt class="py-op">(</tt><tt class="py-name">getattr</tt><tt class="py-op">(</tt><tt id="link-9" class="py-name"><a title="googlevoice.settings" class="py-name" href="#" onclick="return doclink('link-9', 'settings', 'link-1');">settings</a></tt><tt class="py-op">,</tt> <tt class="py-name">page</tt><tt class="py-op">.</tt><tt class="py-name">upper</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">data</tt><tt class="py-op">,</tt> <tt class="py-name">headers</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"> </tt>
+<a name="Voice.__do_special_page"></a><div id="Voice.__do_special_page-def"><a name="L30"></a><tt class="py-lineno"> 30</tt> <a class="py-toggle" href="#" id="Voice.__do_special_page-toggle" onclick="return toggle('Voice.__do_special_page');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="googlevoice.Voice-class.html#__do_special_page">__do_special_page</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">page</tt><tt class="py-op">,</tt> <tt class="py-param">data</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">headers</tt><tt class="py-op">=</tt><tt class="py-op">{</tt><tt class="py-op">}</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Voice.__do_special_page-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Voice.__do_special_page-expanded"><a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-docstring">        Add self.special to request data</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">data</tt><tt class="py-op">,</tt> <tt class="py-name">dict</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">            <tt class="py-name">data</tt><tt class="py-op">.</tt><tt class="py-name">update</tt><tt class="py-op">(</tt><tt class="py-op">{</tt><tt class="py-string">'_rnr_se'</tt><tt class="py-op">:</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method googlevoice.Voice.special()=googlevoice.Voice-class.html#special"><a title="googlevoice.Voice.special" class="py-name" href="#" onclick="return doclink('link-10', 'special', 'link-10');">special</a></tt><tt class="py-op">}</tt><tt class="py-op">)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Method googlevoice.Voice.__do_page()=googlevoice.Voice-class.html#__do_page"><a title="googlevoice.Voice.__do_page" class="py-name" href="#" onclick="return doclink('link-11', '__do_page', 'link-11');">__do_page</a></tt><tt class="py-op">(</tt><tt class="py-name">page</tt><tt class="py-op">,</tt> <tt class="py-name">data</tt><tt class="py-op">,</tt> <tt class="py-name">headers</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">     </tt>
+<a name="Voice.__do_xml_page"></a><div id="Voice.__do_xml_page-def"><a name="L38"></a><tt class="py-lineno"> 38</tt> <a class="py-toggle" href="#" id="Voice.__do_xml_page-toggle" onclick="return toggle('Voice.__do_xml_page');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="googlevoice.Voice-class.html#__do_xml_page">__do_xml_page</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">page</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Voice.__do_xml_page-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Voice.__do_xml_page-expanded"><a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-docstring">        Parses XML folder page (eg inbox,voicemail,sms,etc)</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-docstring">        Returns a str tuple (json format, html format)</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-12" class="py-name" targets="Class googlevoice.util.XMLParser=googlevoice.util.XMLParser-class.html"><a title="googlevoice.util.XMLParser" class="py-name" href="#" onclick="return doclink('link-12', 'XMLParser', 'link-12');">XMLParser</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method googlevoice.Voice.__do_special_page()=googlevoice.Voice-class.html#__do_special_page"><a title="googlevoice.Voice.__do_special_page" class="py-name" href="#" onclick="return doclink('link-13', '__do_special_page', 'link-13');">__do_special_page</a></tt><tt class="py-op">(</tt><tt class="py-string">'XML_%s'</tt> <tt class="py-op">%</tt> <tt class="py-name">page</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">read</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">     </tt>
+<a name="Voice.__multiformat"></a><div id="Voice.__multiformat-def"><a name="L45"></a><tt class="py-lineno"> 45</tt> <a class="py-toggle" href="#" id="Voice.__multiformat-toggle" onclick="return toggle('Voice.__multiformat');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="googlevoice.Voice-class.html#__multiformat">__multiformat</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">page</tt><tt class="py-op">,</tt> <tt class="py-param">format</tt><tt class="py-op">=</tt><tt class="py-string">'json'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Voice.__multiformat-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Voice.__multiformat-expanded"><a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-docstring">        Uses json/simplejson to load given format from folder page</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-docstring">        Returns wrapped function available at self.</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">        <tt class="py-keyword">def</tt> <tt class="py-def-name">inner</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">format</tt> <tt class="py-op">==</tt> <tt class="py-string">'json'</tt><tt class="py-op">:</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">load</tt><tt class="py-op">(</tt><tt class="py-name">StringIO</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method googlevoice.Voice.__do_xml_page()=googlevoice.Voice-class.html#__do_xml_page"><a title="googlevoice.Voice.__do_xml_page" class="py-name" href="#" onclick="return doclink('link-14', '__do_xml_page', 'link-14');">__do_xml_page</a></tt><tt class="py-op">(</tt><tt class="py-name">page</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="googlevoice.Voice.__do_xml_page" class="py-name" href="#" onclick="return doclink('link-15', '__do_xml_page', 'link-14');">__do_xml_page</a></tt><tt class="py-op">(</tt><tt class="py-name">page</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">        <tt class="py-name">inner</tt><tt class="py-op">.</tt><tt class="py-name">__doc__</tt> <tt class="py-op">=</tt> <tt class="py-string">'Formatted %s for the %s'</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">format</tt><tt class="py-op">,</tt> <tt class="py-name">page</tt><tt class="py-op">)</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">inner</tt> </tt>
+</div><a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">         </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">    <tt class="py-decorator">@</tt><tt class="py-decorator">property</tt> </tt>
+<a name="Voice.special"></a><div id="Voice.special-def"><a name="L59"></a><tt class="py-lineno"> 59</tt> <a class="py-toggle" href="#" id="Voice.special-toggle" onclick="return toggle('Voice.special');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="googlevoice.Voice-class.html#special">special</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Voice.special-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Voice.special-expanded"><a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"><tt class="py-docstring">        Returns special identifier for your session (if logged in)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-keyword">import</tt> <tt class="py-name">re</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">hasattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-string">'_special'</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt class="py-name">getattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-string">'_special'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_special</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">            <tt class="py-name">regex</tt> <tt class="py-op">=</tt> <tt class="py-name">bytes</tt><tt class="py-op">(</tt><tt class="py-string">"('_rnr_se':) '(.+)'"</tt><tt class="py-op">,</tt> <tt class="py-string">'utf8'</tt><tt class="py-op">)</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">NameError</tt><tt class="py-op">:</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">            <tt class="py-name">regex</tt> <tt class="py-op">=</tt> <tt class="py-string">r"('_rnr_se':) '(.+)'"</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">            <tt class="py-name">sp</tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">search</tt><tt class="py-op">(</tt><tt class="py-name">regex</tt><tt class="py-op">,</tt> <tt class="py-name">urlopen</tt><tt class="py-op">(</tt><tt id="link-16" class="py-name"><a title="googlevoice.settings" class="py-name" href="#" onclick="return doclink('link-16', 'settings', 'link-1');">settings</a></tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Variable googlevoice.settings.INBOX=googlevoice.settings-module.html#INBOX"><a title="googlevoice.settings.INBOX" class="py-name" href="#" onclick="return doclink('link-17', 'INBOX', 'link-17');">INBOX</a></tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">read</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">group</tt><tt class="py-op">(</tt><tt class="py-number">2</tt><tt class="py-op">)</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">AttributeError</tt><tt class="py-op">:</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">            <tt class="py-name">sp</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_special</tt> <tt class="py-op">=</tt> <tt class="py-name">sp</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">sp</tt> </tt>
+</div><a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">     </tt>
+<a name="Voice.login"></a><div id="Voice.login-def"><a name="L77"></a><tt class="py-lineno"> 77</tt> <a class="py-toggle" href="#" id="Voice.login-toggle" onclick="return toggle('Voice.login');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="googlevoice.Voice-class.html#login">login</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">email</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">passwd</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Voice.login-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Voice.login-expanded"><a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"><tt class="py-docstring">        Login to the service using your Google Voice account</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"><tt class="py-docstring">        Credentials will be propmpted for if not given</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">email</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">            <tt class="py-name">email</tt> <tt class="py-op">=</tt> <tt id="link-18" class="py-name" targets="Function googlevoice.util.input()=googlevoice.util-module.html#input"><a title="googlevoice.util.input" class="py-name" href="#" onclick="return doclink('link-18', 'input', 'link-18');">input</a></tt><tt class="py-op">(</tt><tt class="py-string">'Email address: '</tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">         </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">passwd</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">            <tt class="py-keyword">from</tt> <tt class="py-name">getpass</tt> <tt class="py-keyword">import</tt> <tt class="py-name">getpass</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">            <tt class="py-name">passwd</tt> <tt class="py-op">=</tt> <tt class="py-name">getpass</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">         </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="googlevoice.Voice.__do_page" class="py-name" href="#" onclick="return doclink('link-19', '__do_page', 'link-11');">__do_page</a></tt><tt class="py-op">(</tt><tt class="py-string">'LOGIN'</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt><tt class="py-string">'Email'</tt><tt class="py-op">:</tt><tt class="py-name">email</tt><tt class="py-op">,</tt><tt class="py-string">'Passwd'</tt><tt class="py-op">:</tt><tt class="py-name">passwd</tt><tt class="py-op">}</tt><tt class="py-op">)</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">         </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-keyword">del</tt> <tt class="py-name">email</tt><tt class="py-op">,</tt><tt class="py-name">passwd</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">         </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">            <tt class="py-keyword">assert</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="googlevoice.Voice.special" class="py-name" href="#" onclick="return doclink('link-20', 'special', 'link-10');">special</a></tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-op">(</tt><tt id="link-21" class="py-name" targets="Class exceptions.AssertionError=exceptions.AssertionError-class.html"><a title="exceptions.AssertionError" class="py-name" href="#" onclick="return doclink('link-21', 'AssertionError', 'link-21');">AssertionError</a></tt><tt class="py-op">,</tt> <tt class="py-name">AttributeError</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-22" class="py-name" targets="Class googlevoice.util.LoginError=googlevoice.util.LoginError-class.html"><a title="googlevoice.util.LoginError" class="py-name" href="#" onclick="return doclink('link-22', 'LoginError', 'link-22');">LoginError</a></tt> </tt>
+</div><a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">         </tt>
+<a name="Voice.logout"></a><div id="Voice.logout-def"><a name="L98"></a><tt class="py-lineno"> 98</tt> <a class="py-toggle" href="#" id="Voice.logout-toggle" onclick="return toggle('Voice.logout');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="googlevoice.Voice-class.html#logout">logout</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Voice.logout-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Voice.logout-expanded"><a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"><tt class="py-docstring">        Logs out an instance and makes sure it does not still have a session</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">        <tt class="py-name">urlopen</tt><tt class="py-op">(</tt><tt id="link-23" class="py-name"><a title="googlevoice.settings" class="py-name" href="#" onclick="return doclink('link-23', 'settings', 'link-1');">settings</a></tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Variable googlevoice.settings.LOGOUT=googlevoice.settings-module.html#LOGOUT"><a title="googlevoice.settings.LOGOUT" class="py-name" href="#" onclick="return doclink('link-24', 'LOGOUT', 'link-24');">LOGOUT</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-keyword">del</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_special</tt>  </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-25" class="py-name"><a title="googlevoice.Voice.special" class="py-name" href="#" onclick="return doclink('link-25', 'special', 'link-10');">special</a></tt> <tt class="py-op">==</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">     </tt>
+<a name="Voice.call"></a><div id="Voice.call-def"><a name="L106"></a><tt class="py-lineno">106</tt> <a class="py-toggle" href="#" id="Voice.call-toggle" onclick="return toggle('Voice.call');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="googlevoice.Voice-class.html#call">call</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">outgoingNumber</tt><tt class="py-op">,</tt> <tt class="py-param">forwardingNumber</tt><tt class="py-op">,</tt> <tt class="py-param">subscriberNumber</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Voice.call-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Voice.call-expanded"><a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"><tt class="py-docstring">        Make a call to an outgoing number using your forwarding number</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="googlevoice.Voice.__do_special_page" class="py-name" href="#" onclick="return doclink('link-26', '__do_special_page', 'link-13');">__do_special_page</a></tt><tt class="py-op">(</tt><tt class="py-string">'CALL'</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">            <tt class="py-string">'outgoingNumber'</tt><tt class="py-op">:</tt><tt class="py-name">outgoingNumber</tt><tt class="py-op">,</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">            <tt class="py-string">'forwardingNumber'</tt><tt class="py-op">:</tt><tt class="py-name">forwardingNumber</tt><tt class="py-op">,</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">            <tt class="py-string">'subscriberNumber'</tt><tt class="py-op">:</tt><tt class="py-name">subscriberNumber</tt> <tt class="py-keyword">or</tt> <tt class="py-string">'undefined'</tt><tt class="py-op">,</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">            <tt class="py-string">'remember'</tt><tt class="py-op">:</tt><tt class="py-string">'0'</tt><tt class="py-op">,</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">        <tt class="py-op">}</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">    <tt id="link-27" class="py-name" targets="Method googlevoice.util.XMLParser.__call__()=googlevoice.util.XMLParser-class.html#__call__"><a title="googlevoice.util.XMLParser.__call__" class="py-name" href="#" onclick="return doclink('link-27', '__call__', 'link-27');">__call__</a></tt> <tt class="py-op">=</tt> <tt id="link-28" class="py-name" targets="Method googlevoice.Voice.call()=googlevoice.Voice-class.html#call"><a title="googlevoice.Voice.call" class="py-name" href="#" onclick="return doclink('link-28', 'call', 'link-28');">call</a></tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">     </tt>
+<a name="Voice.cancel"></a><div id="Voice.cancel-def"><a name="L118"></a><tt class="py-lineno">118</tt> <a class="py-toggle" href="#" id="Voice.cancel-toggle" onclick="return toggle('Voice.cancel');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="googlevoice.Voice-class.html#cancel">cancel</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">outgoingNumber</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">forwardingNumber</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Voice.cancel-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Voice.cancel-expanded"><a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"><tt class="py-docstring">        Cancels a call matching outgoing and forwarding numbers (if given)</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line"><tt class="py-docstring">        Will raise an error if no matching call is being placed</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="googlevoice.Voice.__do_special_page" class="py-name" href="#" onclick="return doclink('link-29', '__do_special_page', 'link-13');">__do_special_page</a></tt><tt class="py-op">(</tt><tt class="py-string">'CANCEL'</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">            <tt class="py-string">'outgoingNumber'</tt><tt class="py-op">:</tt><tt class="py-name">outgoingNumber</tt> <tt class="py-keyword">or</tt> <tt class="py-string">'undefined'</tt><tt class="py-op">,</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">            <tt class="py-string">'forwardingNumber'</tt><tt class="py-op">:</tt><tt class="py-name">forwardingNumber</tt> <tt class="py-keyword">or</tt> <tt class="py-string">'undefined'</tt><tt class="py-op">,</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">            <tt class="py-string">'cancelType'</tt><tt class="py-op">:</tt> <tt class="py-string">'C2C'</tt><tt class="py-op">,</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-op">}</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"> </tt>
+<a name="Voice.send_sms"></a><div id="Voice.send_sms-def"><a name="L129"></a><tt class="py-lineno">129</tt> <a class="py-toggle" href="#" id="Voice.send_sms-toggle" onclick="return toggle('Voice.send_sms');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="googlevoice.Voice-class.html#send_sms">send_sms</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">phoneNumber</tt><tt class="py-op">,</tt> <tt class="py-param">text</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Voice.send_sms-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Voice.send_sms-expanded"><a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"><tt class="py-docstring">        Send an SMS message to a given phone number with the given text message</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name"><a title="googlevoice.Voice.__do_special_page" class="py-name" href="#" onclick="return doclink('link-30', '__do_special_page', 'link-13');">__do_special_page</a></tt><tt class="py-op">(</tt><tt class="py-string">'SMS'</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">            <tt class="py-string">'phoneNumber'</tt><tt class="py-op">:</tt> <tt class="py-name">phoneNumber</tt><tt class="py-op">,</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">            <tt class="py-string">'text'</tt><tt class="py-op">:</tt> <tt class="py-name">text</tt><tt class="py-op">,</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">        <tt class="py-op">}</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">         </tt>
+<a name="Voice.download"></a><div id="Voice.download-def"><a name="L138"></a><tt class="py-lineno">138</tt> <a class="py-toggle" href="#" id="Voice.download-toggle" onclick="return toggle('Voice.download');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="googlevoice.Voice-class.html#download">download</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">msg</tt><tt class="py-op">,</tt> <tt class="py-param">adir</tt><tt class="py-op">=</tt><tt class="py-string">'.'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Voice.download-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Voice.download-expanded"><a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"><tt class="py-docstring">        Download a voicemail MP3 matching the given msg sha1 hash</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line"><tt class="py-docstring">        Saves files to adir (default current directory)</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line"><tt class="py-docstring">        Message hashes can be found in list(self.voicemail()['messages'])</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"><tt class="py-docstring">        Returns location of saved file</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">        <tt class="py-keyword">from</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt> <tt class="py-keyword">import</tt> <tt class="py-name">join</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">c</tt> <tt class="py-keyword">in</tt> <tt class="py-name">msg</tt><tt class="py-op">:</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">            <tt class="py-keyword">assert</tt> <tt class="py-name">c</tt> <tt class="py-keyword">in</tt> <tt class="py-string">'0123456789abcdef'</tt><tt class="py-op">,</tt> <tt class="py-string">'Message id not a sha1 hash'</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">        <tt class="py-name">fn</tt> <tt class="py-op">=</tt> <tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">adir</tt><tt class="py-op">,</tt> <tt class="py-string">'%s.mp3'</tt> <tt class="py-op">%</tt> <tt class="py-name">msg</tt><tt class="py-op">)</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">        <tt class="py-name">fo</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">fn</tt><tt class="py-op">,</tt> <tt class="py-string">'wb'</tt><tt class="py-op">)</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt class="py-name">fo</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name"><a title="googlevoice.Voice.__do_page" class="py-name" href="#" onclick="return doclink('link-31', '__do_page', 'link-11');">__do_page</a></tt><tt class="py-op">(</tt><tt class="py-string">'download'</tt><tt class="py-op">,</tt> <tt class="py-name">msg</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">read</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">        <tt class="py-name">fo</tt><tt class="py-op">.</tt><tt class="py-name">close</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">fn</tt> </tt>
+</div></div><a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    on Tue Jul 28 11:07:46 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
