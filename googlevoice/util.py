@@ -4,9 +4,9 @@ from pprint import pprint
 try:
     from urllib2 import build_opener,install_opener, \
         HTTPCookieProcessor,Request,urlopen
-    from urllib import urlencode,urlretrieve,quote
+    from urllib import urlencode,quote
 except ImportError:
-    from urllib.request import urlretrieve,build_opener,install_opener, \
+    from urllib.request import build_opener,install_opener, \
         HTTPCookieProcessor,Request,urlopen
     from urllib.parse import urlencode,quote
 try:
@@ -35,9 +35,23 @@ def is_sha1(s):
     """Returns True if the string is a SHA1 hash"""
     return bool(sha1_re.match(s))
 
-class LoginError(Exception): pass
-class ParsingError(Exception): pass
-
+class LoginError(Exception):
+    """
+    Occurs when login credentials are incorrect
+    """
+class ParsingError(Exception):
+    """
+    Happens when XML feed parsing fails
+    """
+class JSONError(Exception):
+    """
+    Failed JSON deserialization
+    """
+class DownloadError(Exception):
+    """
+    Cannot download message, probably not in voicemail/recorded
+    """
+    
 class XMLParser(dict):
     """
     XML Parser helper that can dig json and html out of the feeds

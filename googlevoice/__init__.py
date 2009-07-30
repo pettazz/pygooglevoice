@@ -1,5 +1,31 @@
+__all__ = ['Voice','util','settings','tests']
+__author__ = 'Justin Quick and Joe McCall'
+__email__ = 'justquick@gmail.com, joe@mcc4ll.us',
+__copyright__ = "Copyright 2009, Justin Quick and Joe McCall"
+__credits__ = ['Justin Quick','Joe McCall','Jacob Feisley']
+__license__ = "New BSD"
+__version__ = "0.2"
+__doc__ = """
+PyGoogleVoice: %(__copyright__)s
+
+Version: %(__version__)s
+
+This project aims to bring the power of the Google Voice API to the Python language in a simple,
+easy-to-use manner. Currently it allows you to place calls, send sms,
+download voicemails/recorded messages, and search the various folders of your Google Voice Accounts.
+You can use the Python API or command line script to schedule calls, check for new received calls/sms,
+or even sync your recorded voicemails/calls.
+Works for Python 2 and Python 3
+
+Contact: %(__email__)s
+""" % locals()
+
+from time import gmtime
+from datetime import datetime
+
 from googlevoice import settings
 from googlevoice.util import *
+
 
 class Voice(object):
     """
@@ -8,7 +34,6 @@ class Voice(object):
     """
     def __init__(self):
         install_opener(build_opener(HTTPCookieProcessor(CookieJar())))
-        
         for name in settings.FEEDS:
             setattr(self, name, self.__multiformat(name))
             setattr(self, '%s_html' % name, self.__multiformat(name, 'html'))
@@ -89,6 +114,27 @@ class Voice(object):
             'cancelType': 'C2C',
         })
         
+    @property
+    def _contacts(self):
+        if hasattr(self, '__contacts'):
+            return self.__contacts
+        self.__contacts = load(StringIO(self.__do_xml_page('contacts')[0]))
+        return self.__contacts
+    
+    @property
+    def phones(self):
+        """
+        Returns a dict mapping of your Google Voice phone numbers
+        """
+        return self._contacts['phones']
+    
+    @property
+    def settings(self):
+        """
+        Returns a dict of current Google Voice settings
+        """
+        return self._contacts['settings']
+    
     def send_sms(self, phoneNumber, text):
         """
         Send an SMS message to a given phone number with the given text message
@@ -101,9 +147,10 @@ class Voice(object):
     def search(self, query):
         """
         Search your Google Voice Account history for calls, voicemails, and sms
-        Returns formatted dict of anything matching query
+        Returns Folder instance containting matching messages
         """
-        return self.__multiformat('search', data='?q=%s'%quote(query))()
+        return Folder(self, 'search', self.__multiformat('search',
+                                    data='?q=%s' % quote(query))())
         
     def download(self, msg, adir=None):
         """
@@ -113,19 +160,24 @@ class Voice(object):
         Returns location of saved file
         """
         from os import path,getcwd
+        if isinstance(msg, Message):
+            msg = msg.id
         assert is_sha1(msg), 'Message id not a SHA1 hash'
         if adir is None:
             adir = getcwd()
+        try:
+            response = self.__do_page('download', msg)
+        except:
+            raise DownloadError
         fn = path.join(adir, '%s.mp3' % msg)
         fo = open(fn, 'wb')
-        fo.write(self.__do_page('download', msg).read())
+        fo.write(response.read())
         fo.close()
         return fn
 
     ######################
     # Experimental methods
     ######################
-    @property
     def _balance(self):
         """
         Returns current account balance
@@ -155,8 +207,9 @@ class Voice(object):
         page = page.upper()
         if isinstance(data, dict) or isinstance(data, tuple):
             data = urlencode(data)
+        headers.update({'User-Agent': 'PyGoogleVoice/%s' % __version__})
         if page in ('DOWNLOAD','XML_SEARCH'):
-            return urlopen(Request(getattr(settings, page) + data))
+            return urlopen(Request(getattr(settings, page) + data, None, headers))
         return urlopen(Request(getattr(settings, page), data, headers))
 
     def __do_special_page(self, page, data=None, headers={}):
@@ -174,17 +227,22 @@ class Voice(object):
         Parses XML folder page (eg inbox,voicemail,sms,etc)
         Returns a str tuple (json format, html format)
         """
-        return XMLParser(self.__do_special_page('XML_%s' % page.upper(), data, headers).read())()
+        return XMLParser(self.__do_special_page(
+            'XML_%s' % page.upper(), data, headers).read())()
     
     def __multiformat(self, page, format='json', data=None, headers={}):
         """
         Uses json/simplejson to load given format from folder page
         Returns wrapped function available at self.
         """
-        def inner():
+        def inner(*a,**kw):
             '''Formatted %s for the %s''' % (format.upper(), page.title())
             if format == 'json':
-                return load(StringIO(self.__do_xml_page(page, data, headers)[0]))
+                #try:
+                return Folder(self, page.lower(),
+                    load(StringIO(self.__do_xml_page(page, data, headers)[0])))
+                #except:
+                #    raise JSONError
             else:
                 return self.__do_xml_page(page, data, headers)[1]
         return inner
@@ -197,4 +255,73 @@ class Voice(object):
         for msg in msgs:
             assert is_sha1(msg), 'Message id not a SHA1 hash'
             data += ('messages',msg)
-        return self.__do_special_page(page, data)   
+        return self.__do_special_page(page, data)
+
+class AttrDict(dict):
+    def __getattr__(self, attr):
+        if attr in self:
+            return self[attr]    
+  
+class Message(AttrDict):
+    """
+    Wrapper for all call/sms message instances stored in Google Voice
+    Attributes are:
+        id: SHA1 identifier
+        isTrash: bool
+        displayStartDateTime: datetime
+        star: bool
+        isSpam: bool
+        startTime: gmtime
+        labels: list
+        displayStartTime: time
+        children: str
+        note: str
+        isRead: bool
+        displayNumber: str
+        relativeStartTime: str
+        phoneNumber: str
+        type: int
+    """
+    def __init__(self, folder, id, data):
+        assert is_sha1(id), 'Message id not a SHA1 hash'
+        super(AttrDict, self).__init__(data)
+        self.folder = folder
+        self.id = id
+        self['startTime'] = gmtime(int(self['startTime'])/1000)
+        self['displayStartDateTime'] = datetime.strptime(
+                self['displayStartDateTime'], '%m/%d/%y %I:%M %p')
+        self['displayStartTime'] = self['displayStartDateTime'].time()
+
+    def download(self, adir=None):
+        """
+        Download this message to adir
+        Same as Voice.download
+        """
+        return self.folder.voice.download(self, adir)
+
+    def __str__(self):
+        return self.id
+    
+    def __repr__(self):
+        return '<Message #%s (%s)>' % (self.id, self.phoneNumber)
+
+class Folder(AttrDict):
+    """
+    Folder wrapper for feeds from Google Voice
+    Attributes are:
+        totalSize: int (aka __len__)
+        unreadCounts: dict
+        resultsPerPage: int
+        messages: list of Message instances
+    """
+    def __init__(self, voice, name, data):
+        self.voice = voice
+        self.name = name
+        super(AttrDict, self).__init__(data)
+        
+    @property
+    def messages(self):
+        return [Message(self, *i) for i in self['messages'].items()]
+        
+    def __len__(self):
+        return self['totalSize']

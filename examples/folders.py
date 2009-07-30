@@ -1,6 +1,9 @@
-from googlevoice import Voice,util
+from googlevoice import Voice,util,settings
 
 voice = Voice()
 voice.login()
 
-util.pprint(getattr(voice,util.input('Folder to browse: '))())
+for feed in settings.FEEDS:
+    folder = getattr(voice,feed)()
+    util.pprint(feed)
+    util.pprint(.messages,indent=2)
