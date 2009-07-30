@@ -6,4 +6,4 @@ voice.login()
 
 phoneNumber = input('Number to send message to: ')
 text= input('Message text: ')
-voice.sms(phoneNumber, text)
+voice.send_sms(phoneNumber, text)
