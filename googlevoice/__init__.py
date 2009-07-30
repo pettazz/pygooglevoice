@@ -24,7 +24,10 @@ class Voice(object):
         if hasattr(self, '_special') and getattr(self, '_special'):
             return self._special
         try:
-            regex = bytes("('_rnr_se':) '(.+)'", 'utf8')
+            try:
+                regex = bytes("('_rnr_se':) '(.+)'", 'utf8')
+            except TypeError:
+                regex = bytes("('_rnr_se':) '(.+)'")
         except NameError:
             regex = r"('_rnr_se':) '(.+)'"
         try:
