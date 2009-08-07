@@ -3,4 +3,4 @@ from googlevoice import Voice,util
 voice = Voice()
 voice.login()
 
-util.pprint(voice.phones())
+util.pprint(voice.phones)

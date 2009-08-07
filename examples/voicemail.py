@@ -1,7 +1,7 @@
-from googlevoice import Voice
+from googlevoice import Voice,util
 
 voice = Voice()
 voice.login()
 
-for msg in list(voice.voicemail()['messages']):
-    voice.download(msg)
+for message in voice.voicemail().messages:
+    util.print_(message)

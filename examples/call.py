@@ -5,7 +5,8 @@ voice = Voice()
 voice.login()
 
 outgoingNumber = input('Number to call: ')
-forwardingNumber = input('Number to call from (your voice account) ')
+forwardingNumber = input('Number to call from: ')
+
 voice.call(outgoingNumber, forwardingNumber)
 
 if input('Calling now... cancel?[y/N] ').lower() == 'y':

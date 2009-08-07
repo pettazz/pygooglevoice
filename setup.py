@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name = "pygooglevoice",
-    version = '0.2',
+    version = '0.3',
     url = 'http://code.google.com/p/pygooglevoice',
     author = 'Justin Quick and Joe McCall',
     author_email='justquick@gmail.com, joe@mcc4ll.us',

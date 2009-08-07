@@ -1,6 +1,5 @@
 LOGIN = 'https://www.google.com/accounts/ServiceLoginAuth?service=grandcentral'
 FEEDS = ('inbox','starred','all','spam','trash','voicemail','sms','recorded','placed','recieved','missed')
-EXP_FEEDS = ('contacts',)
 
 BASE = 'https://www.google.com/voice/'
 LOGOUT = BASE+'account/signout'

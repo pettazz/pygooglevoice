@@ -14,14 +14,9 @@ Works for Python 2 and Python 3
 INSTALL
 -------------------------------
 
-**Download the code from GoogleCode**
+**Yes, its just that easy**
 
-    $ hg clone https://pygooglevoice.googlecode.com/hg/ pygooglevoice  
-
-**Install the module**
-
-    $ cd pygooglevoice
-    $ sudo python setup.py install
+    $ sudo easy_install pygooglevoice
 
 USAGE
 -------------------------------
@@ -35,7 +30,7 @@ Now try calling someone
     
     gvoice> call
     
-Fill in the outgoing number (number you wish to reach) and the forwarding number (the phone to place the call from, usually your Google Voice number). 
+Fill in the outgoing number (number you wish to reach) and the forwarding number (the phone to place the call from). 
 This will schedule a call between the two numbers, just wait for the forwarding phone to ring and let Google connect you. 
 To find out the other commands, type `help`. 
 

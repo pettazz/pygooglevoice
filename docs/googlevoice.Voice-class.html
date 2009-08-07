@@ -90,6 +90,79 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a href="googlevoice.Voice-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="login"></a><span class="summary-sig-name">login</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">email</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">passwd</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Login to the service using your Google Voice account Credentials will
+      be propmpted for if not given</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.login">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="logout"></a><span class="summary-sig-name">logout</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Logs out an instance and makes sure it does not still have a session</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.logout">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="call"></a><span class="summary-sig-name">call</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">outgoingNumber</span>,
+        <span class="summary-sig-arg">forwardingNumber</span>,
+        <span class="summary-sig-arg">subscriberNumber</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Make a call to an outgoing number using your forwarding number</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.call">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="__call__"></a><span class="summary-sig-name">__call__</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">outgoingNumber</span>,
         <span class="summary-sig-arg">forwardingNumber</span>,
@@ -97,6 +170,123 @@ object --+
       Make a call to an outgoing number using your forwarding number</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="googlevoice-pysrc.html#Voice.call">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="cancel"></a><span class="summary-sig-name">cancel</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">outgoingNumber</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">forwardingNumber</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Cancels a call matching outgoing and forwarding numbers (if given) 
+      Will raise an error if no matching call is being placed</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.cancel">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="send_sms"></a><span class="summary-sig-name">send_sms</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">phoneNumber</span>,
+        <span class="summary-sig-arg">text</span>)</span><br />
+      Send an SMS message to a given phone number with the given text 
+      message</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.send_sms">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="search"></a><span class="summary-sig-name">search</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">query</span>)</span><br />
+      Search your Google Voice Account history for calls, voicemails, and 
+      sms Returns Folder instance containting matching messages</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.search">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="download"></a><span class="summary-sig-name">download</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">adir</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Download a voicemail or recorded call MP3 matching the given msg sha1
+      hash Saves files to adir (default current directory) Message hashes 
+      can be found in self.voicemail().messages Returns location of saved 
+      file</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.download">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_delete"></a><span class="summary-sig-name">_delete</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*msgs</span>)</span><br />
+      Moves any messages indicated by sha1 hash to the Trash</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="googlevoice-pysrc.html#Voice._delete">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_star"></a><span class="summary-sig-name">_star</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*msgs</span>)</span><br />
+      Star a list of messages</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="googlevoice-pysrc.html#Voice._star">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -155,45 +345,9 @@ object --+
         <span class="summary-sig-arg">data</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">headers</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span><br />
       Parses XML folder page (eg inbox,voicemail,sms,etc) Returns a str 
-      tuple (json format, html format)</td>
+      tuple (json dict, html string)</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="googlevoice-pysrc.html#Voice.__do_xml_page">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="googlevoice.Voice-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.__init__">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="__messages_post"></a><span class="summary-sig-name">__messages_post</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">page</span>,
-        <span class="summary-sig-arg">*msgs</span>,
-        <span class="summary-sig-arg">**kwargs</span>)</span><br />
-      Performs message operations, eg deleting,staring,moving</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.__messages_post">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -229,167 +383,13 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_delete"></a><span class="summary-sig-name">_delete</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">*msgs</span>)</span><br />
-      Moves any messages indicated by sha1 hash to the Trash</td>
+          <td><span class="summary-sig"><a name="__messages_post"></a><span class="summary-sig-name">__messages_post</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">page</span>,
+        <span class="summary-sig-arg">*msgs</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Performs message operations, eg deleting,staring,moving</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="googlevoice-pysrc.html#Voice._delete">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_star"></a><span class="summary-sig-name">_star</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">*msgs</span>)</span><br />
-      Star a list of messages</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="googlevoice-pysrc.html#Voice._star">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="call"></a><span class="summary-sig-name">call</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">outgoingNumber</span>,
-        <span class="summary-sig-arg">forwardingNumber</span>,
-        <span class="summary-sig-arg">subscriberNumber</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Make a call to an outgoing number using your forwarding number</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.call">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="cancel"></a><span class="summary-sig-name">cancel</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">outgoingNumber</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">forwardingNumber</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Cancels a call matching outgoing and forwarding numbers (if given) 
-      Will raise an error if no matching call is being placed</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.cancel">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="download"></a><span class="summary-sig-name">download</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">adir</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Download a voicemail or recorded call MP3 matching the given msg sha1
-      hash Saves files to adir (default current directory) Message hashes 
-      can be found in list(self.voicemail()['messages']) Returns location 
-      of saved file</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.download">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="login"></a><span class="summary-sig-name">login</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">email</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">passwd</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Login to the service using your Google Voice account Credentials will
-      be propmpted for if not given</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.login">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="logout"></a><span class="summary-sig-name">logout</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Logs out an instance and makes sure it does not still have a session</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.logout">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="search"></a><span class="summary-sig-name">search</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">query</span>)</span><br />
-      Search your Google Voice Account history for calls, voicemails, and 
-      sms Returns formatted dict of anything matching query</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.search">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="send_sms"></a><span class="summary-sig-name">send_sms</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">phoneNumber</span>,
-        <span class="summary-sig-arg">text</span>)</span><br />
-      Send an SMS message to a given phone number with the given text 
-      message</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.send_sms">source&nbsp;code</a></span>
+            <span class="codelink"><a href="googlevoice-pysrc.html#Voice.__messages_post">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -415,20 +415,36 @@ object --+
     </table>
   </td>
 </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="googlevoice.Voice-class.html#_balance" class="summary-name" onclick="show_private();">_balance</a><br />
-      Returns current account balance
-    </td>
-  </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="googlevoice.Voice-class.html#special" class="summary-name">special</a><br />
       Returns special identifier for your session (if logged in)
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="googlevoice.Voice-class.html#phones" class="summary-name">phones</a><br />
+      Returns a dict of your Google Voice phone numbers
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="googlevoice.Voice-class.html#settings" class="summary-name">settings</a><br />
+      Returns a dict of current Google Voice settings
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="googlevoice.Voice-class.html#_contacts" class="summary-name" onclick="show_private();">_contacts</a><br />
+      Caches XML contacts page
     </td>
   </tr>
 </table>
@@ -493,17 +509,6 @@ object --+
   </td>
 </tr>
 </table>
-<a name="_balance"></a>
-<div class="private">
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">_balance</h3>
-  <p>Returns current account balance</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
 <a name="special"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -511,6 +516,39 @@ object --+
 <tr><td>
   <h3 class="epydoc">special</h3>
   <p>Returns special identifier for your session (if logged in)</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="phones"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">phones</h3>
+  <p>Returns a dict of your Google Voice phone numbers</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="settings"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">settings</h3>
+  <p>Returns a dict of current Google Voice settings</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_contacts"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_contacts</h3>
+  <p>Caches XML contacts page</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -543,7 +581,7 @@ object --+
   <tr>
     <td align="left" class="footer">
     Generated by Epydoc 3.0.1
-    on Wed Jul 29 14:56:53 2009
+    on Fri Aug  7 16:38:38 2009
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

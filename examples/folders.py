@@ -4,6 +4,6 @@ voice = Voice()
 voice.login()
 
 for feed in settings.FEEDS:
-    folder = getattr(voice,feed)()
-    util.pprint(feed)
-    util.pprint(.messages,indent=2)
+    util.print_(feed.title())
+    for message in getattr(voice,feed)().messages:
+        util.print_('\t', message)

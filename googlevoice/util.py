@@ -1,4 +1,5 @@
 import re
+from sys import stdout
 from xml.parsers.expat import ParserCreate
 from pprint import pprint
 try:
@@ -10,20 +11,13 @@ except ImportError:
         HTTPCookieProcessor,Request,urlopen
     from urllib.parse import urlencode,quote
 try:
-    from io import StringIO
-except ImportError:
-    try:
-        from cStringIO import StringIO
-    except ImportError:
-        from StringIO import StringIO
-try:
-    from json import load
-except ImportError:
-    from simplejson import load
-try:
     from http.cookiejar import LWPCookieJar as CookieJar
 except ImportError:
     from cookielib import LWPCookieJar as CookieJar
+try:
+    from json import loads
+except ImportError:
+    from simplejson import loads
 try:
     input = raw_input
 except NameError:
@@ -31,31 +25,42 @@ except NameError:
 
 sha1_re = re.compile(r'^[a-fA-F0-9]{40}$')
 
+def print_(*s):
+    stdout.write(''.join(map(str, s)))
+    stdout.write('\n')
+    stdout.flush()
+
 def is_sha1(s):
-    """Returns True if the string is a SHA1 hash"""
+    '''
+    Returns True if the string is a SHA1 hash
+    '''
     return bool(sha1_re.match(s))
 
 class LoginError(Exception):
-    """
+    '''
     Occurs when login credentials are incorrect
-    """
+    '''
+    
 class ParsingError(Exception):
-    """
+    '''
     Happens when XML feed parsing fails
-    """
+    '''
+    
 class JSONError(Exception):
-    """
+    '''
     Failed JSON deserialization
-    """
+    '''
+    
 class DownloadError(Exception):
-    """
+    '''
     Cannot download message, probably not in voicemail/recorded
-    """
+    '''
     
 class XMLParser(dict):
-    """
+    '''
     XML Parser helper that can dig json and html out of the feeds
-    """
+    Calling the parser returns a tuple of (data_dict, html_content)
+    '''
     attr = None
     def start_element(self, name, attrs):
         if name in ('json','html'):
@@ -77,4 +82,7 @@ class XMLParser(dict):
             raise ParsingError
 
     def __call__(self):
-        return self['json'], self['html']
+        try:
+            return loads(self['json']), self['html']
+        except:
+            raise JSONError

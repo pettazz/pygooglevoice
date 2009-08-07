@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>exceptions.AssertionError</title>
+  <title>googlevoice.Folder</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -37,9 +37,8 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        exceptions ::
-        AssertionError ::
-        Class&nbsp;AssertionError
+        <a href="googlevoice-module.html">Package&nbsp;googlevoice</a> ::
+        Class&nbsp;Folder
       </span>
     </td>
     <td>
@@ -49,28 +48,35 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="exceptions.AssertionError-class.html"
+            >]&nbsp;|&nbsp;<a href="googlevoice.Folder-class.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== TYPE DESCRIPTION ==================== -->
-<h1 class="epydoc">type AssertionError</h1><p class="nomargin-top"></p>
+<h1 class="epydoc">type Folder</h1><p class="nomargin-top"><span class="codelink"><a href="googlevoice-pysrc.html#Folder">source&nbsp;code</a></span></p>
 <pre class="base-tree">
-   object --+            
-            |            
-BaseException --+        
-                |        
-        Exception --+    
-                    |    
-        StandardError --+
-                        |
-                       <strong class="uidshort">AssertionError</strong>
+object --+        
+         |        
+      dict --+    
+             |    
+      <a href="googlevoice.AttrDict-class.html" onclick="show_private();">AttrDict</a> --+
+                 |
+                <strong class="uidshort">Folder</strong>
 </pre>
 
 <hr />
-<p>Assertion failed.</p>
+<pre class="literalblock">
+
+Folder wrapper for feeds from Google Voice
+Attributes are:
+    totalSize: int (aka __len__)
+    unreadCounts: dict
+    resultsPerPage: int
+    messages: list of Message instances
+
+</pre>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -91,14 +97,20 @@ BaseException --+
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type"><pre class="literalblock">
+new empty dictionary
+
+</pre></span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="exceptions.AssertionError-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">...</span>)</span><br />
+          <td><span class="summary-sig"><a href="googlevoice.Folder-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">voice</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">data</span>)</span><br />
       x.__init__(...) initializes x; see x.__class__.__doc__ for signature</td>
           <td align="right" valign="top">
-            
+            <span class="codelink"><a href="googlevoice-pysrc.html#Folder.__init__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -108,15 +120,31 @@ BaseException --+
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">a new object with type S, a subtype of T</span>
+      <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="exceptions.AssertionError-class.html#__new__" class="summary-sig-name">__new__</a>(<span class="summary-sig-arg">T</span>,
-        <span class="summary-sig-arg">S</span>,
-        <span class="summary-sig-arg">...</span>)</span></td>
+          <td><span class="summary-sig"><a href="googlevoice.Folder-class.html#__len__" class="summary-sig-name">__len__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      len(x)</td>
           <td align="right" valign="top">
+            <span class="codelink"><a href="googlevoice-pysrc.html#Folder.__len__">source&nbsp;code</a></span>
             
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="googlevoice.Folder-class.html#__repr__" class="summary-sig-name">__repr__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      repr(x)</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="googlevoice-pysrc.html#Folder.__repr__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -126,16 +154,40 @@ BaseException --+
   </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code>BaseException</code></b>:
-      <code>__delattr__</code>,
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="googlevoice.AttrDict-class.html" onclick="show_private();">AttrDict</a></code></b>:
+      <code><a href="googlevoice.AttrDict-class.html#__getattr__">__getattr__</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>dict</code></b>:
+      <code>__cmp__</code>,
+      <code>__contains__</code>,
+      <code>__delitem__</code>,
+      <code>__eq__</code>,
+      <code>__ge__</code>,
       <code>__getattribute__</code>,
       <code>__getitem__</code>,
-      <code>__getslice__</code>,
-      <code>__reduce__</code>,
-      <code>__repr__</code>,
-      <code>__setattr__</code>,
-      <code>__setstate__</code>,
-      <code>__str__</code>
+      <code>__gt__</code>,
+      <code>__hash__</code>,
+      <code>__iter__</code>,
+      <code>__le__</code>,
+      <code>__lt__</code>,
+      <code>__ne__</code>,
+      <code>__new__</code>,
+      <code>__setitem__</code>,
+      <code>clear</code>,
+      <code>copy</code>,
+      <code>fromkeys</code>,
+      <code>get</code>,
+      <code>has_key</code>,
+      <code>items</code>,
+      <code>iteritems</code>,
+      <code>iterkeys</code>,
+      <code>itervalues</code>,
+      <code>keys</code>,
+      <code>pop</code>,
+      <code>popitem</code>,
+      <code>setdefault</code>,
+      <code>update</code>,
+      <code>values</code>
       </p>
     </td>
   </tr>
@@ -157,12 +209,11 @@ BaseException --+
     </table>
   </td>
 </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code>BaseException</code></b>:
-      <code>args</code>,
-      <code>message</code>
-      </p>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="googlevoice.Folder-class.html#messages" class="summary-name">messages</a>
     </td>
   </tr>
 </table>
@@ -191,45 +242,106 @@ BaseException --+
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">...</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">voice</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">data</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
-    >&nbsp;
+    ><span class="codelink"><a href="googlevoice-pysrc.html#Folder.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
   <p>x.__init__(...) initializes x; see x.__class__.__doc__ for 
   signature</p>
   <dl class="fields">
+    <dt>Returns: <pre class="literalblock">
+new empty dictionary
+
+</pre></dt>
     <dt>Overrides:
-        BaseException.__init__
+        dict.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
 </td></tr></table>
 </div>
-<a name="__new__"></a>
+<a name="__len__"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__new__</span>(<span class="sig-arg">T</span>,
-        <span class="sig-arg">S</span>,
-        <span class="sig-arg">...</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__len__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Length operator)</em>
   </h3>
   </td><td align="right" valign="top"
-    >&nbsp;
+    ><span class="codelink"><a href="googlevoice-pysrc.html#Folder.__len__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
+  <p>len(x)</p>
+  <dl class="fields">
+    <dt>Overrides:
+        dict.__len__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__repr__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__repr__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="googlevoice-pysrc.html#Folder.__repr__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>repr(x)</p>
+  <dl class="fields">
+    <dt>Overrides:
+        dict.__repr__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== PROPERTY DETAILS ==================== -->
+<a name="section-PropertyDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Property Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-PropertyDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="messages"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">messages</h3>
   
   <dl class="fields">
-    <dt>Returns: a new object with type S, a subtype of T</dt>
-    <dt>Overrides:
-        BaseException.__new__
-    </dt>
   </dl>
 </td></tr></table>
 </div>
