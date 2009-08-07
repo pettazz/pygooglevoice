@@ -85,7 +85,7 @@ class Voice(object):
         '''
         Logs out an instance and makes sure it does not still have a session
         '''
-        urlopen(settings.LOGOUT)
+        self.__do_page('LOGOUT')
         del self._special 
         assert self.special == None
     

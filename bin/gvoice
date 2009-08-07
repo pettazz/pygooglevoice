@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import sys
+from atexit import register
 from optparse import OptionParser
 import googlevoice
-print googlevoice.__file__
 from googlevoice import Voice
 from googlevoice.util import LoginError,pprint,input,print_
 
@@ -65,6 +65,8 @@ if action == 'help':
 voice = Voice()
 login()
 
+register(voice.logout)
+
 if action == 'interactive':
     while 1:
         try:
@@ -91,6 +93,7 @@ if action == 'interactive':
         elif action in ('help','h','?'): print_(parser.usage)
         elif action in ('trash','t'): pprint_folder('trash')
         elif action in ('spam','sp'): pprint_folder('spam')
+        elif action in ('inbox','i'): pprint_folder('inbox')
         elif action in ('voicemail','v'): pprint_folder('voicemail')
         elif action in ('all','a'): pprint_folder('all')
         elif action in ('starred','st'): pprint_folder('starred')
@@ -107,3 +110,4 @@ else:
             sys.exit(0)
         args = (num, ' '.join(args))
     getattr(voice,action)(*args)
+    
