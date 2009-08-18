@@ -21,7 +21,7 @@ except ImportError:
 try:
     input = raw_input
 except NameError:
-    pass
+    input = input
 
 sha1_re = re.compile(r'^[a-fA-F0-9]{40}$')
 
