@@ -50,7 +50,6 @@ def validate_response(response):
     """
     Validates that the JSON response is A-OK
     """
-    print 'checking'
     try:
         assert 'ok' in response and response['ok']
     except AssertionError:
