@@ -2,7 +2,6 @@
 import sys
 from atexit import register
 from optparse import OptionParser
-import googlevoice
 from googlevoice import Voice
 from googlevoice.util import LoginError,pprint,input,print_
 
@@ -10,13 +9,13 @@ parser = OptionParser(usage='''gvoice [-e <email> -p <password>] commands
     Where commands are
     
     login (li) - log into the voice service
-    logout (lo) - log out of the service and make sure cookie is deleted
+    logout (lo) - log out of the service and make sure session is deleted
     help
 
     Voice Commands
         call (c) - call an outgoing number from a forwarding number
         cancel (cc) - cancel a particular call
-        download (d) - download mp3 message given id number
+        download (d) - download mp3 message given id hash
         send_sms (s) - send sms messages
             
     Folder Views
@@ -40,6 +39,7 @@ parser.add_option("-p", "--password", dest='passwd', default=None,
 options, args = parser.parse_args()
 
 def login(email=options.email, passwd=options.passwd):
+    global voice
     try:
         voice.login(options.email,options.passwd)
     except LoginError:
@@ -50,8 +50,8 @@ def login(email=options.email, passwd=options.passwd):
 
 def pprint_folder(name):
     folder = getattr(voice, name)()
-    print_('%s Folder (%s)' % (name.title(),len(folder)))
-    pprint(folder.messages,indent=2)
+    print_(folder)
+    pprint(folder.messages,indent=4)
 
 try:
     action,args = args[0],args[1:]
@@ -71,7 +71,7 @@ if action == 'interactive':
     while 1:
         try:
             action = input('gvoice> ').lower().strip()
-        except KeyboardInterrupt:
+        except (EOFError, KeyboardInterrupt):
             sys.exit(0)
         if not action: continue
         elif action in ('q','quit','exit'): break

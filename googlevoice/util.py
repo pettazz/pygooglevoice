@@ -25,42 +25,78 @@ except NameError:
 
 sha1_re = re.compile(r'^[a-fA-F0-9]{40}$')
 
-def print_(*s):
-    stdout.write(''.join(map(str, s)))
-    stdout.write('\n')
-    stdout.flush()
+def print_(*values, **kwargs):
+    """
+    Implementation of Python3's print function
+    
+    Prints the values to a stream, or to sys.stdout by default.
+    Optional keyword arguments:
+    file: a file-like object (stream); defaults to the current sys.stdout.
+    sep:  string inserted between values, default a space.
+    end:  string appended after the last value, default a newline.
+    """
+    fo = kwargs.pop('file', stdout)
+    fo.write(kwargs.pop('sep', ' ').join(map(str, values)))
+    fo.write(kwargs.pop('end', '\n'))
+    fo.flush()
 
 def is_sha1(s):
-    '''
+    """
     Returns True if the string is a SHA1 hash
-    '''
+    """
     return bool(sha1_re.match(s))
 
+def validate_response(response):
+    """
+    Validates that the JSON response is A-OK
+    """
+    print 'checking'
+    try:
+        assert 'ok' in response and response['ok']
+    except AssertionError:
+        raise ValidationError('There was a problem with GV: %s' % response)
+
+def load_and_validate(response):
+    """
+    Loads JSON data from http response then validates
+    """
+    validate_response(loads(response.read()))
+
+class ValidationError(Exception):
+    """
+    Bombs when response code back from Voice 500s
+    """
+
 class LoginError(Exception):
-    '''
+    """
     Occurs when login credentials are incorrect
-    '''
+    """
     
 class ParsingError(Exception):
-    '''
+    """
     Happens when XML feed parsing fails
-    '''
+    """
     
 class JSONError(Exception):
-    '''
+    """
     Failed JSON deserialization
-    '''
+    """
     
 class DownloadError(Exception):
-    '''
+    """
     Cannot download message, probably not in voicemail/recorded
-    '''
+    """
+    
+class ForwardingError(Exception):
+    """
+    Forwarding number given was incorrect
+    """
     
 class XMLParser(dict):
-    '''
+    """
     XML Parser helper that can dig json and html out of the feeds
     Calling the parser returns a tuple of (data_dict, html_content)
-    '''
+    """
     attr = None
     def start_element(self, name, attrs):
         if name in ('json','html'):

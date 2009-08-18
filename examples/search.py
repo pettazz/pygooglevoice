@@ -5,5 +5,5 @@ voice.login()
 
 folder = voice.search(util.input('Search query: '))
 
-util.pprint('Found %s messages:' % len(folder))
+util.print_('Found %s messages: ', len(folder))
 util.pprint(folder.messages)

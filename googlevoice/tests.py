@@ -32,6 +32,10 @@ class VoiceTest(TestCase):
     def test_search(self):
         self.assert_(len(self.voice.search('joe')))
     
+    def test_disable_enable(self):
+        self.voice.phones[0].disable()
+        self.voice.phones[0].enable()
+    
     def test_download(self):
         msg = list(self.voice.voicemail().messages)[0]
         fn = '%s.mp3' % msg.id

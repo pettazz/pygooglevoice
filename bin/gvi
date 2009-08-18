@@ -1,0 +1,4 @@
+#!/bin/bash
+# Simple script to startup a python interpreter after logging into the voice service
+#   local variable `voice` is set as the main Voice instance
+python -i -c 'from googlevoice import Voice; voice = Voice(); voice.login();'
