@@ -53,7 +53,7 @@ To find out the other commands, type `help`.
     
     # Folders
     print voice.inbox().items() # Prints out dict of vital stats and paginated list of inbox messages
-    print voice.inbox('html') # Prints out raw html listing of folder
+    print voice.inbox_html() # Prints out raw html listing of folder
     
     
 **Examples**
