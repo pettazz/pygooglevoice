@@ -97,6 +97,7 @@ class XMLParser(dict):
     Calling the parser returns a tuple of (data_dict, html_content)
     """
     attr = None
+        
     def start_element(self, name, attrs):
         if name in ('json','html'):
             self.attr = name
@@ -119,5 +120,5 @@ class XMLParser(dict):
     def __call__(self):
         try:
             return loads(self['json']), self['html']
-        except:
+        except Exception:
             raise JSONError
