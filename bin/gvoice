@@ -47,7 +47,7 @@ def login(email=options.email, passwd=options.passwd, batch=options.batch):
     global voice
     try:
         voice.login(options.email,options.passwd)
-    except LoginError, e:
+    except LoginError:
         if batch:
             print_('Login failed.')
             exit(0)
