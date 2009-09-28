@@ -38,8 +38,6 @@ parser.add_option("-p", "--password", dest='passwd', default=None,
                   help='Your account password (prompted if blank)')
 parser.add_option("-b", "--batch", dest='batch', default=False, action="store_true",
                   help='Batch operations, asking for no interactive input')
-parser.add_option("-d", "--debug", dest='debug', default=False, action="store_true",
-                  help='Print out debugging information')
 options, args = parser.parse_args()
 
 def login(email=options.email, passwd=options.passwd, batch=options.batch):
@@ -77,7 +75,7 @@ if action == 'help':
     print_(parser.usage)
     exit(0)
 
-voice = Voice(options.debug)
+voice = Voice()
 login()
 
 register(logout)

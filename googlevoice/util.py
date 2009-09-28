@@ -120,5 +120,5 @@ class XMLParser(dict):
     def __call__(self):
         try:
             return loads(self['json']), self['html']
-        except Exception:
+        except:
             raise JSONError
