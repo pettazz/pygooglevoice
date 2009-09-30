@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>googlevoice.util.XMLParser</title>
+  <title>googlevoice.voice.Phone</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,8 +38,8 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="googlevoice-module.html">Package&nbsp;googlevoice</a> ::
-        <a href="googlevoice.util-module.html">Module&nbsp;util</a> ::
-        Class&nbsp;XMLParser
+        <a href="googlevoice.voice-module.html" onclick="show_private();">Module&nbsp;voice</a> ::
+        Class&nbsp;Phone
       </span>
     </td>
     <td>
@@ -49,25 +49,50 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="googlevoice.util.XMLParser-class.html"
+            >]&nbsp;|&nbsp;<a href="googlevoice.voice.Phone-class.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== TYPE DESCRIPTION ==================== -->
-<h1 class="epydoc">type XMLParser</h1><p class="nomargin-top"><span class="codelink"><a href="googlevoice.util-pysrc.html#XMLParser">source&nbsp;code</a></span></p>
+<h1 class="epydoc">type Phone</h1><p class="nomargin-top"><span class="codelink"><a href="googlevoice.voice-pysrc.html#Phone">source&nbsp;code</a></span></p>
 <pre class="base-tree">
-object --+    
-         |    
-      dict --+
-             |
-            <strong class="uidshort">XMLParser</strong>
+object --+        
+         |        
+      dict --+    
+             |    
+      <a href="googlevoice.voice.AttrDict-class.html">AttrDict</a> --+
+                 |
+                <strong class="uidshort">Phone</strong>
 </pre>
 
 <hr />
-<p>XML Parser helper that can dig json and html out of the feeds Calling 
-  the parser returns a tuple of (data_dict, html_content)</p>
+<pre class="literalblock">
+
+Wrapper for phone objects used for phone specific methods
+Attributes are:
+    id: int
+    phoneNumber: i18n phone number
+    formattedNumber: humanized phone number string
+    we: data dict
+    wd: data dict
+    verified: bool
+    name: strign label
+    smsEnabled: bool
+    scheduleSet: bool
+    policyBitmask: int
+    weekdayTimes: list
+    dEPRECATEDDisabled: bool
+    weekdayAllDay: bool
+    telephonyVerified
+    weekendTimes: list
+    active: bool
+    weekendAllDay: bool
+    type: int
+    enabledForOthers: bool
+
+</pre>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -88,58 +113,6 @@ object --+
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="start_element"></a><span class="summary-sig-name">start_element</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">attrs</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="googlevoice.util-pysrc.html#XMLParser.start_element">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="end_element"></a><span class="summary-sig-name">end_element</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">name</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="googlevoice.util-pysrc.html#XMLParser.end_element">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="char_data"></a><span class="summary-sig-name">char_data</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">data</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="googlevoice.util-pysrc.html#XMLParser.char_data">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type"><pre class="literalblock">
 new empty dictionary
 
@@ -147,11 +120,12 @@ new empty dictionary
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="googlevoice.util.XMLParser-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="googlevoice.voice.Phone-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">voice</span>,
         <span class="summary-sig-arg">data</span>)</span><br />
       x.__init__(...) initializes x; see x.__class__.__doc__ for signature</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="googlevoice.util-pysrc.html#XMLParser.__init__">source&nbsp;code</a></span>
+            <span class="codelink"><a href="googlevoice.voice-pysrc.html#Phone.__init__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -165,9 +139,78 @@ new empty dictionary
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__call__"></a><span class="summary-sig-name">__call__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="enable"></a><span class="summary-sig-name">enable</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Enables forwarding to the given phoneNumber</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="googlevoice.util-pysrc.html#XMLParser.__call__">source&nbsp;code</a></span>
+            <span class="codelink"><a href="googlevoice.voice-pysrc.html#Phone.enable">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="disable"></a><span class="summary-sig-name">disable</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Disables forwarding to the given phoneNumber</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="googlevoice.voice-pysrc.html#Phone.disable">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__call_forwarding"></a><span class="summary-sig-name">__call_forwarding</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">enabled</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">1</code><code class="variable-quote">'</code></span>)</span><br />
+      Enables or disables your forwarding call numbers</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="googlevoice.voice-pysrc.html#Phone.__call_forwarding">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="googlevoice.voice.Phone-class.html#__str__" class="summary-sig-name">__str__</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="googlevoice.voice-pysrc.html#Phone.__str__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="googlevoice.voice.Phone-class.html#__repr__" class="summary-sig-name">__repr__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      repr(x)</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="googlevoice.voice-pysrc.html#Phone.__repr__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -177,6 +220,9 @@ new empty dictionary
   </tr>
   <tr>
     <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="googlevoice.voice.AttrDict-class.html">AttrDict</a></code></b>:
+      <code><a href="googlevoice.voice.AttrDict-class.html#__getattr__">__getattr__</a></code>
+      </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>dict</code></b>:
       <code>__cmp__</code>,
       <code>__contains__</code>,
@@ -193,7 +239,6 @@ new empty dictionary
       <code>__lt__</code>,
       <code>__ne__</code>,
       <code>__new__</code>,
-      <code>__repr__</code>,
       <code>__setitem__</code>,
       <code>clear</code>,
       <code>copy</code>,
@@ -211,31 +256,6 @@ new empty dictionary
       <code>update</code>,
       <code>values</code>
       </p>
-    </td>
-  </tr>
-</table>
-<!-- ==================== CLASS VARIABLES ==================== -->
-<a name="section-ClassVariables"></a>
-<table class="summary" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td colspan="2" class="table-header">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-      <tr valign="top">
-        <td align="left"><span class="table-header">Class Variables</span></td>
-        <td align="right" valign="top"
-         ><span class="options">[<a href="#section-ClassVariables"
-         class="privatelink" onclick="toggle_private();"
-         >hide private</a>]</span></td>
-      </tr>
-    </table>
-  </td>
-</tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="attr"></a><span class="summary-name">attr</span> = <code title="None">None</code>
     </td>
   </tr>
 </table>
@@ -265,11 +285,12 @@ new empty dictionary
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">voice</span>,
         <span class="sig-arg">data</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="googlevoice.util-pysrc.html#XMLParser.__init__">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="googlevoice.voice-pysrc.html#Phone.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
@@ -282,6 +303,54 @@ new empty dictionary
 </pre></dt>
     <dt>Overrides:
         dict.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__str__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__str__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Informal representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="googlevoice.voice-pysrc.html#Phone.__str__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        object.__str__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__repr__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__repr__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="googlevoice.voice-pysrc.html#Phone.__repr__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>repr(x)</p>
+  <dl class="fields">
+    <dt>Overrides:
+        dict.__repr__
         <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
