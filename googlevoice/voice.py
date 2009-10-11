@@ -60,8 +60,7 @@ class Voice(object):
         
         try:
             assert self.special
-        except (AssertionError, AttributeError), e:
-            self.logger.warning('No special token found after login: %s' % e)
+        except (AssertionError, AttributeError):
             raise LoginError
         
         return self
@@ -192,7 +191,7 @@ class Voice(object):
         load_and_validate(self.__do_special_page(page, data))
 
     _Phone__validate_special_page = __validate_special_page
-
+    
     def __do_special_page(self, page, data=None, headers={}):
         """
         Add self.special to request data
@@ -291,7 +290,7 @@ class Phone(AttrDict):
         """
         Enables or disables your forwarding call numbers
         """
-        self.voice.__validate_special_page('forward',
+        self.voice.__validate_special_page('default_forward',
             {'enabled':enabled, 'phoneId': self.id}
         )
         
