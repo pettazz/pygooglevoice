@@ -1,3 +1,10 @@
+"""
+Python API for the Google Voice "API"
+Project aims to bring the power of the Google Voice API to the Python language in a simple, easy-to-use manner.
+Currently it allows you to place calls, send sms, download voicemails/recorded messages, and search the various folders of your Google Voice Accounts.
+You can use the Python API or command line script to schedule calls, check for new received calls/sms, or even sync your recorded voicemails/calls.
+Works for Python 2 and Python 3 is coming soon
+"""
 from time import gmtime
 from datetime import datetime
 from util import *
