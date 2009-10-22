@@ -10,4 +10,3 @@ setup(
     packages = ['googlevoice'],
     scripts = ['bin/gvoice','bin/asterisk']#,'bin/gvi']
 )
-
