@@ -81,15 +81,16 @@ class Voice(object):
         assert self.special == None
         return self
     
-    def call(self, outgoingNumber, forwardingNumber, subscriberNumber=None):
+    def call(self, outgoingNumber, forwardingNumber, subscriberNumber=None, phoneType=None):
         """
         Make a call to an outgoing number using your forwarding number
         """
+        
         self.__validate_special_page('call', {
             'outgoingNumber': outgoingNumber,
             'forwardingNumber': forwardingNumber,
             'subscriberNumber': subscriberNumber or 'undefined',
-            'phoneType': '2',
+            'phoneType': phoneType or self.phones[0].type,
             'remember': '1'
         })
         
@@ -275,8 +276,13 @@ class Phone(AttrDict):
         weekendTimes: list
         active: bool
         weekendAllDay: bool
-        type: int
         enabledForOthers: bool
+        type: int
+            Available settings:
+                1 - Home
+                2 - Mobile
+                3 - Work
+                7 - Gizmo
     """
     def __init__(self, voice, data):
         self.voice = voice
