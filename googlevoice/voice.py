@@ -81,16 +81,24 @@ class Voice(object):
         assert self.special == None
         return self
     
-    def call(self, outgoingNumber, forwardingNumber, subscriberNumber=None, phoneType=None):
+    def call(self, outgoingNumber, forwardingNumber, subscriberNumber=None):
         """
         Make a call to an outgoing number using your forwarding number
         """
-        
+        # first phone matching forwardingNumber
+        nums = lambda c: c in '1234567890'
+        forwardingNumber = filter(nums, forwardingNumber)
+        phoneType = 2
+        for phone in self.phones:
+            if forwardingNumber == filter(nums, forwardingNumber):
+                phoneType = phone.type
+                break
+            
         self.__validate_special_page('call', {
             'outgoingNumber': outgoingNumber,
             'forwardingNumber': forwardingNumber,
             'subscriberNumber': subscriberNumber or 'undefined',
-            'phoneType': phoneType or self.phones[0].type,
+            'phoneType': phoneType,
             'remember': '1'
         })
         
