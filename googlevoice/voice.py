@@ -89,6 +89,7 @@ class Voice(object):
             'outgoingNumber': outgoingNumber,
             'forwardingNumber': forwardingNumber,
             'subscriberNumber': subscriberNumber or 'undefined',
+            'phoneType': '2',
             'remember': '1'
         })
         
