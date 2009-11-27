@@ -1,6 +1,6 @@
 LOGIN = 'https://www.google.com/accounts/ServiceLoginAuth?service=grandcentral'
 FEEDS = ('inbox', 'starred', 'all', 'spam', 'trash', 'voicemail', 'sms',
-        'recorded', 'placed', 'recieved', 'missed')
+        'recorded', 'placed', 'received', 'missed')
 
 BASE = 'https://www.google.com/voice/'
 LOGOUT = BASE + 'account/signout'
@@ -27,5 +27,5 @@ XML_VOICEMAIL = XML_RECENT + 'voicemail/'
 XML_SMS = XML_RECENT + 'sms/'
 XML_RECORDED = XML_RECENT + 'recorded/'
 XML_PLACED = XML_RECENT + 'placed/'
-XML_RECIEVED = XML_RECENT + 'recieved/'
+XML_RECEIVED = XML_RECENT + 'received/'
 XML_MISSED = XML_RECENT + 'missed/'
