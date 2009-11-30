@@ -19,8 +19,6 @@ class Voice(object):
     def __init__(self):
         install_opener(build_opener(HTTPCookieProcessor(CookieJar())))
         
-
-    
     ######################
     # Some handy methods
     ######################  
@@ -190,7 +188,10 @@ class Voice(object):
         page = page.upper()
         if isinstance(data, dict) or isinstance(data, tuple):
             data = urlencode(data)
-        headers.update({'User-Agent': 'PyGoogleVoice'})
+        headers.update({'User-Agent': 'PyGoogleVoice/0.5'})
+        if settings.DEBUG:
+            import logging
+            logging.debug('%s?%s - %s' % (getattr(settings, page)[22:], data, headers))
         if page in ('DOWNLOAD','XML_SEARCH'):
             return urlopen(Request(getattr(settings, page) + data, None, headers))
         if data:
@@ -304,8 +305,7 @@ class Phone(AttrDict):
         Enables or disables your forwarding call numbers
         """
         self.voice.__validate_special_page('default_forward',
-            {'enabled':enabled, 'phoneId': self.id}
-        )
+            {'enabled':enabled, 'phoneId': self.id})
         
     def __str__(self):
         return self.phoneNumber
@@ -349,7 +349,6 @@ class Message(AttrDict):
         """
         self.folder.voice.__messages_post('delete', self.id, trash=trash)
 
-        
     def star(self, star=1):
         """
         Star this message
@@ -361,7 +360,6 @@ class Message(AttrDict):
         Mark this message as read or not
         """
         self.folder.voice.__messages_post('mark', self.id, read=read)
-
         
     def download(self, adir=None):
         """

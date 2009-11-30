@@ -1,10 +1,9 @@
-__all__ = ['Voice','util','settings','tests']
 __author__ = 'Justin Quick and Joe McCall'
 __email__ = 'justquick@gmail.com, joe@mcc4ll.us',
 __copyright__ = 'Copyright 2009, Justin Quick and Joe McCall'
-__credits__ = ['Justin Quick','Joe McCall','Jacob Feisley']
+__credits__ = ['Justin Quick','Joe McCall','Jacob Feisley','John Nagle']
 __license__ = 'New BSD'
-__version__ = '0.4'
+__version__ = '0.5'
 __doc__ = """
 PyGoogleVoice: %(__copyright__)s
 Version: %(__version__)s
@@ -18,6 +17,5 @@ Works for Python 2 and Python 3
 
 Contact: %(__email__)s
 """ % locals()
-
 
 from voice import Voice, Phone, Message, Folder
