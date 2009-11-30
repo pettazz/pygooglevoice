@@ -1,3 +1,16 @@
+DEFAULT_CONFIG = """
+[gvoice]
+# Number to place calls from (eg, your google voice number)
+forwardingNumber=
+
+# Default phoneType for your forwardingNumber as defined below
+#  1 - Home
+#  2 - Mobile
+#  3 - Work
+#  7 - Gizmo
+phoneType=2
+"""
+
 LOGIN = 'https://www.google.com/accounts/ServiceLoginAuth?service=grandcentral'
 FEEDS = ('inbox', 'starred', 'all', 'spam', 'trash', 'voicemail', 'sms',
         'recorded', 'placed', 'received', 'missed')
@@ -10,7 +23,7 @@ CANCEL = BASE + 'call/cancel/'
 DEFAULT_FORWARD = BASE + 'settings/editDefaultForwarding/'
 FORWARD = BASE + 'settings/editForwarding/'
 DELETE = BASE + 'inbox/deleteMessages/'
-MARK = BASE + 'inbox/markMessages/'
+MARK = BASE + 'inbox/mark/'
 STAR = BASE + 'inbox/star/'
 SMS = BASE + 'sms/send/'
 DOWNLOAD = BASE + 'media/send_voicemail/'

@@ -1,19 +1,8 @@
 from ConfigParser import ConfigParser, NoOptionError
 import os
+import settings
 
 
-DEFAULT = """
-[gvoice]
-# Number to place calls from (eg, your google voice number)
-forwardingNumber=
-
-# Default phoneType for your forwardingNumber as defined below
-#  1 - Home
-#  2 - Mobile
-#  3 - Work
-#  7 - Gizmo
-phoneType=2
-"""
 
 class Config(ConfigParser):
     def __init__(self):
@@ -21,7 +10,7 @@ class Config(ConfigParser):
 
         if not os.path.exists(self.fname):
             f = open(self.fname, 'w')
-            f.write(DEFAULT)
+            f.write(settings.DEFAULT_CONFIG)
             f.write()
             
         ConfigParser.__init__(self)
