@@ -10,6 +10,13 @@ from datetime import datetime
 from util import *
 import settings
 
+if settings.DEBUG:
+    import logging
+    logging.basicConfig()
+    log = logging.getLogger('PyGoogleVoice')
+    log.setLevel(logging.DEBUG)
+else:
+    log = None
 
 class Voice(object):
     """
@@ -189,9 +196,8 @@ class Voice(object):
         if isinstance(data, dict) or isinstance(data, tuple):
             data = urlencode(data)
         headers.update({'User-Agent': 'PyGoogleVoice/0.5'})
-        if settings.DEBUG:
-            import logging
-            logging.debug('%s?%s - %s' % (getattr(settings, page)[22:], data, headers))
+        if log:
+            log.debug('%s?%s - %s' % (getattr(settings, page)[22:], data or '', headers))
         if page in ('DOWNLOAD','XML_SEARCH'):
             return urlopen(Request(getattr(settings, page) + data, None, headers))
         if data:
