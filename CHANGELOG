@@ -1,3 +1,16 @@
+== v0.5 ==
+  * asterisk-gvoice-setup
+  * Call fixes
+  * Fixed typo
+
+== v0.4 ==
+Workin:
+  * New login scheme
+  * Asterisk setup script
+  
+Kinda Broke:
+  * Different phone types (new Google "API")
+
 == v0.3 ==
 Workin:
   * Message/Folder classes
@@ -25,7 +38,6 @@ Future plans:
   * Message actions (delete,star,etc)
 
 == v0.1 ==
-
 What currently works:
   * Login
   * Logout

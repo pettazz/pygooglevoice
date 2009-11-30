@@ -91,7 +91,11 @@ if action == 'interactive':
         elif action in ('login','li'): login()
         elif action in ('logout','lo'): voice.logout()
         elif action in ('call','c'): 
-            voice.call(input('Outgoing number: '), input('Forwarding number: '))
+            voice.call(
+                input('Outgoing number: '),
+                input('Forwarding number [optional]: ') or None,
+                int(input('Phone type [1-Home, 2-Mobile, 3-Work, 7-Gizmo]:') or 2)
+            )
             print_('Calling...')
         elif action in ('cancelcall','cc'): voice.cancel()
         elif action in ('sendsms','s'):
