@@ -18,9 +18,7 @@ class Voice(object):
     """
     def __init__(self):
         install_opener(build_opener(HTTPCookieProcessor(CookieJar())))
-        for name in settings.FEEDS:
-            setattr(self, name, self.__multiformat(name))
-            setattr(self, '%s_html' % name, self.__multiformat(name, 'html'))
+        
 
     
     ######################
@@ -60,15 +58,21 @@ class Voice(object):
             passwd = getpass()
 
         content = self.__do_page('login').read()
+        # holy hackjob
         galx = re.search(r"name=\"GALX\"\s+value=\"(.+)\"", content).group(1)
-        self.__do_page('login', {'Email':email,'Passwd':passwd, 'GALX': galx})
+        self.__do_page('login', {'Email': email, 'Passwd': passwd, 'GALX': galx})
         
-        del email,passwd
+        del email, passwd
         
         try:
             assert self.special
         except (AssertionError, AttributeError):
             raise LoginError
+
+        for name in settings.FEEDS:
+            json, html = self.__multiformat(name)
+            setattr(self, name, json)
+            setattr(self, '%s_html' % name, html)
         
         return self
         
@@ -81,18 +85,16 @@ class Voice(object):
         assert self.special == None
         return self
     
-    def call(self, outgoingNumber, forwardingNumber, subscriberNumber=None):
+    def call(self, outgoingNumber, forwardingNumber=None, phoneType=None, subscriberNumber=None):
         """
         Make a call to an outgoing number using your forwarding number
         """
-        # first phone matching forwardingNumber
-        nums = lambda c: c in '1234567890'
-        forwardingNumber = filter(nums, forwardingNumber)
-        phoneType = 2
-        for phone in self.phones:
-            if forwardingNumber == filter(nums, forwardingNumber):
-                phoneType = phone.type
-                break
+        from conf import config
+        
+        if forwardingNumber is None:
+            forwardingNumber = config.forwardingNumber
+        if phoneType is None:
+            phoneType = config.phoneType
             
         self.__validate_special_page('call', {
             'outgoingNumber': outgoingNumber,
@@ -142,8 +144,7 @@ class Voice(object):
         Search your Google Voice Account history for calls, voicemails, and sms
         Returns Folder instance containting matching messages
         """
-        return Folder(self, 'search', self.__multiformat('search',
-                                    data='?q=%s' % quote(query))())
+        return self.__multiformat('search', data='?q=%s' % quote(query))[0]
         
     def download(self, msg, adir=None):
         """
@@ -167,10 +168,6 @@ class Voice(object):
         fo.write(response.read())
         fo.close()
         return fn
-
-    ######################
-    # Experimental methods
-    ######################
 
 
     ######################
@@ -230,19 +227,13 @@ class Voice(object):
         return XMLParser(self.__do_special_page(
             'XML_%s' % page.upper(), data, headers).read())()
     
-    def __multiformat(self, page, format='json', data=None, headers={}):
+    def __multiformat(self, page, data=None, headers={}):
         """
         Uses json/simplejson to load given format from folder page
         Returns wrapped function available at self.
         """
-        def inner():
-            """Formatted %s for the %s""" % (format.upper(), page.title())
-            if format == 'json':
-                return Folder(self, page.lower(),
-                        self.__do_xml_page(page, data, headers)[0])
-            else:
-                return self.__do_xml_page(page, data, headers)[1]
-        return inner
+        json, html = self.__do_xml_page(page, data, headers)
+        return Folder(self, page.lower(), json), html
   
     def __messages_post(self, page, *msgs, **kwargs):
         """
@@ -286,7 +277,7 @@ class Phone(AttrDict):
         weekendAllDay: bool
         enabledForOthers: bool
         type: int
-            Available settings:
+            Available types:
                 1 - Home
                 2 - Mobile
                 3 - Work

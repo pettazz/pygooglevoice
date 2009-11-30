@@ -1,6 +1,6 @@
 from googlevoice import Voice, util
-from os import path,remove
-from unittest import TestCase,main
+from os import path, remove
+from unittest import TestCase, main
 
 class VoiceTest(TestCase):
     voice = Voice()
@@ -8,7 +8,7 @@ class VoiceTest(TestCase):
     outgoing = util.input('Outgoing number (blank to ignore call tests): ')
     forwarding = None
     if outgoing:
-        forwarding = util.input('Forwarding number: ')
+        forwarding = util.input('Forwarding number [optional]: ')
     
     if outgoing and forwarding:
         def test_1call(self):
@@ -46,5 +46,9 @@ class VoiceTest(TestCase):
     def test_zlogout(self):
         self.voice.logout()
         self.assert_(self.voice.special is None)
+        
+    def test_config(self):
+        from conf import config
+        print config.forwardingNumber, config.phoneType, config.get('wtf')
         
 if __name__ == '__main__': main()
