@@ -5,5 +5,5 @@ voice.login()
 
 for feed in settings.FEEDS:
     util.print_(feed.title())
-    for message in getattr(voice,feed)().messages:
+    for message in getattr(voice, feed)().messages:
         util.print_('\t', message)

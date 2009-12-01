@@ -34,6 +34,7 @@ def extractsms(htmlsms) :
     
 voice = googlevoice.Voice()
 voice.login()
+voice.sms()
 
-for msg in extractsms(voice.sms_html()):
+for msg in extractsms(voice.sms.html):
     print str(msg)

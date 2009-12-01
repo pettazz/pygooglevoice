@@ -5,7 +5,7 @@ voice = Voice()
 voice.login()
 
 outgoingNumber = input('Number to call: ')
-forwardingNumber = input('Number to call from: ')
+forwardingNumber = input('Number to call from [optional]: ') or None
 
 voice.call(outgoingNumber, forwardingNumber)
 
