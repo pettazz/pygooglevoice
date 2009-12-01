@@ -5,8 +5,7 @@ Currently it allows you to place calls, send sms, download voicemails/recorded m
 You can use the Python API or command line script to schedule calls, check for new received calls/sms, or even sync your recorded voicemails/calls.
 Works for Python 2 and Python 3 is coming soon
 """
-from time import gmtime
-from datetime import datetime
+from conf import config
 from util import *
 import settings
 
@@ -56,8 +55,12 @@ class Voice(object):
         Credentials will be propmpted for if not given
         """
         if email is None:
+            email = config.get('email', 'auth')
+        if email is None:
             email = input('Email address: ')
         
+        if passwd is None:
+            passwd = config.get('password', 'auth')
         if passwd is None:
             from getpass import getpass
             passwd = getpass()
@@ -75,9 +78,7 @@ class Voice(object):
             raise LoginError
 
         for name in settings.FEEDS:
-            json, html = self.__multiformat(name)
-            setattr(self, name, json)
-            setattr(self, '%s_html' % name, html)
+            setattr(self, name, self.__get_xml_page(name))
         
         return self
         
@@ -93,9 +94,7 @@ class Voice(object):
     def call(self, outgoingNumber, forwardingNumber=None, phoneType=None, subscriberNumber=None):
         """
         Make a call to an outgoing number using your forwarding number
-        """
-        from conf import config
-        
+        """        
         if forwardingNumber is None:
             forwardingNumber = config.forwardingNumber
         if phoneType is None:
@@ -149,7 +148,7 @@ class Voice(object):
         Search your Google Voice Account history for calls, voicemails, and sms
         Returns Folder instance containting matching messages
         """
-        return self.__multiformat('search', data='?q=%s' % quote(query))[0]
+        return self.__get_xml_page('search', data='?q=%s' % quote(query))()
         
     def download(self, msg, adir=None):
         """
@@ -184,7 +183,7 @@ class Voice(object):
         """
         if hasattr(self, '__contacts'):
             return self.__contacts
-        self.__contacts = self.__do_xml_page('contacts')[0]
+        self.__contacts = self.__get_xml_page('contacts')()
         return self.__contacts
     _contacts = property(_contacts)
     
@@ -226,22 +225,12 @@ class Voice(object):
         
     _Phone__do_special_page = __do_special_page
     
-    def __do_xml_page(self, page, data=None, headers={}):
+    def __get_xml_page(self, page, data=None, headers={}):
         """
-        Parses XML folder page (eg inbox,voicemail,sms,etc)
-        Returns a str tuple (json dict, html string)
+        Return XMLParser instance generated from given page
         """
-        return XMLParser(self.__do_special_page(
-            'XML_%s' % page.upper(), data, headers).read())()
-    
-    def __multiformat(self, page, data=None, headers={}):
-        """
-        Uses json/simplejson to load given format from folder page
-        Returns wrapped function available at self.
-        """
-        json, html = self.__do_xml_page(page, data, headers)
-        return Folder(self, page.lower(), json), html
-  
+        return XMLParser(self, page, lambda: self.__do_special_page('XML_%s' % page.upper(), data, headers).read())
+      
     def __messages_post(self, page, *msgs, **kwargs):
         """
         Performs message operations, eg deleting,staring,moving
@@ -255,150 +244,3 @@ class Voice(object):
         return self.__do_special_page(page, dict(data))
     
     _Message__messages_post = __messages_post
-    
-class AttrDict(dict):
-    def __getattr__(self, attr):
-        if attr in self:
-            return self[attr]
-
-class Phone(AttrDict):
-    """
-    Wrapper for phone objects used for phone specific methods
-    Attributes are:
-        id: int
-        phoneNumber: i18n phone number
-        formattedNumber: humanized phone number string
-        we: data dict
-        wd: data dict
-        verified: bool
-        name: strign label
-        smsEnabled: bool
-        scheduleSet: bool
-        policyBitmask: int
-        weekdayTimes: list
-        dEPRECATEDDisabled: bool
-        weekdayAllDay: bool
-        telephonyVerified
-        weekendTimes: list
-        active: bool
-        weekendAllDay: bool
-        enabledForOthers: bool
-        type: int
-            Available types:
-                1 - Home
-                2 - Mobile
-                3 - Work
-                7 - Gizmo
-    """
-    def __init__(self, voice, data):
-        self.voice = voice
-        super(Phone, self).__init__(data)
-    
-    def enable(self,):
-        """
-        Enables forwarding to the given phoneNumber
-        """
-        return self.__call_forwarding()
-
-    def disable(self):
-        """
-        Disables forwarding to the given phoneNumber
-        """
-        return self.__call_forwarding('0')
-        
-    def __call_forwarding(self, enabled='1'):
-        """
-        Enables or disables your forwarding call numbers
-        """
-        self.voice.__validate_special_page('default_forward',
-            {'enabled':enabled, 'phoneId': self.id})
-        
-    def __str__(self):
-        return self.phoneNumber
-    
-    def __repr__(self):
-        return '<Phone %s>' % self.phoneNumber
-        
-class Message(AttrDict):
-    """
-    Wrapper for all call/sms message instances stored in Google Voice
-    Attributes are:
-        id: SHA1 identifier
-        isTrash: bool
-        displayStartDateTime: datetime
-        star: bool
-        isSpam: bool
-        startTime: gmtime
-        labels: list
-        displayStartTime: time
-        children: str
-        note: str
-        isRead: bool
-        displayNumber: str
-        relativeStartTime: str
-        phoneNumber: str
-        type: int
-    """
-    def __init__(self, folder, id, data):
-        assert is_sha1(id), 'Message id not a SHA1 hash'
-        self.folder = folder
-        self.id = id
-        super(AttrDict, self).__init__(data)
-        self['startTime'] = gmtime(int(self['startTime'])/1000)
-        self['displayStartDateTime'] = datetime.strptime(
-                self['displayStartDateTime'], '%m/%d/%y %I:%M %p')
-        self['displayStartTime'] = self['displayStartDateTime'].time()
-    
-    def delete(self, trash=1):
-        """
-        Moves this message to the Trash
-        """
-        self.folder.voice.__messages_post('delete', self.id, trash=trash)
-
-    def star(self, star=1):
-        """
-        Star this message
-        """
-        self.folder.voice.__messages_post('star', self.id, star=star)
-        
-    def mark(self, read=1):
-        """
-        Mark this message as read or not
-        """
-        self.folder.voice.__messages_post('mark', self.id, read=read)
-        
-    def download(self, adir=None):
-        """
-        Download this message to adir
-        """
-        return self.folder.voice.download(self, adir)
-
-    def __str__(self):
-        return self.id
-    
-    def __repr__(self):
-        return '<Message #%s (%s)>' % (self.id, self.phoneNumber)
-
-class Folder(AttrDict):
-    """
-    Folder wrapper for feeds from Google Voice
-    Attributes are:
-        totalSize: int (aka __len__)
-        unreadCounts: dict
-        resultsPerPage: int
-        messages: list of Message instances
-    """
-    def __init__(self, voice, name, data):
-        self.voice = voice
-        self.name = name
-        super(AttrDict, self).__init__(data)
-        
-    def messages(self):
-        return [Message(self, *i) for i in self['messages'].items()]
-    messages = property(messages)
-    
-    def __len__(self):
-        return self['totalSize']
-
-    def __repr__(self):
-        return '<Folder %s (%s)>' % (self.name, len(self))

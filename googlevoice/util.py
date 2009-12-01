@@ -1,6 +1,8 @@
 import re
 from sys import stdout
 from xml.parsers.expat import ParserCreate
+from time import gmtime
+from datetime import datetime
 from pprint import pprint
 try:
     from urllib2 import build_opener,install_opener, \
@@ -91,7 +93,155 @@ class ForwardingError(Exception):
     Forwarding number given was incorrect
     """
     
-class XMLParser(dict):
+    
+class AttrDict(dict):
+    def __getattr__(self, attr):
+        if attr in self:
+            return self[attr]
+
+class Phone(AttrDict):
+    """
+    Wrapper for phone objects used for phone specific methods
+    Attributes are:
+        id: int
+        phoneNumber: i18n phone number
+        formattedNumber: humanized phone number string
+        we: data dict
+        wd: data dict
+        verified: bool
+        name: strign label
+        smsEnabled: bool
+        scheduleSet: bool
+        policyBitmask: int
+        weekdayTimes: list
+        dEPRECATEDDisabled: bool
+        weekdayAllDay: bool
+        telephonyVerified
+        weekendTimes: list
+        active: bool
+        weekendAllDay: bool
+        enabledForOthers: bool
+        type: int
+            Available types:
+                1 - Home
+                2 - Mobile
+                3 - Work
+                7 - Gizmo
+    """
+    def __init__(self, voice, data):
+        self.voice = voice
+        super(Phone, self).__init__(data)
+    
+    def enable(self,):
+        """
+        Enables forwarding to the given phoneNumber
+        """
+        return self.__call_forwarding()
+
+    def disable(self):
+        """
+        Disables forwarding to the given phoneNumber
+        """
+        return self.__call_forwarding('0')
+        
+    def __call_forwarding(self, enabled='1'):
+        """
+        Enables or disables your forwarding call numbers
+        """
+        self.voice.__validate_special_page('default_forward',
+            {'enabled':enabled, 'phoneId': self.id})
+        
+    def __str__(self):
+        return self.phoneNumber
+    
+    def __repr__(self):
+        return '<Phone %s>' % self.phoneNumber
+        
+class Message(AttrDict):
+    """
+    Wrapper for all call/sms message instances stored in Google Voice
+    Attributes are:
+        id: SHA1 identifier
+        isTrash: bool
+        displayStartDateTime: datetime
+        star: bool
+        isSpam: bool
+        startTime: gmtime
+        labels: list
+        displayStartTime: time
+        children: str
+        note: str
+        isRead: bool
+        displayNumber: str
+        relativeStartTime: str
+        phoneNumber: str
+        type: int
+    """
+    def __init__(self, folder, id, data):
+        assert is_sha1(id), 'Message id not a SHA1 hash'
+        self.folder = folder
+        self.id = id
+        super(AttrDict, self).__init__(data)
+        self['startTime'] = gmtime(int(self['startTime'])/1000)
+        self['displayStartDateTime'] = datetime.strptime(
+                self['displayStartDateTime'], '%m/%d/%y %I:%M %p')
+        self['displayStartTime'] = self['displayStartDateTime'].time()
+    
+    def delete(self, trash=1):
+        """
+        Moves this message to the Trash
+        """
+        self.folder.voice.__messages_post('delete', self.id, trash=trash)
+
+    def star(self, star=1):
+        """
+        Star this message
+        """
+        self.folder.voice.__messages_post('star', self.id, star=star)
+        
+    def mark(self, read=1):
+        """
+        Mark this message as read or not
+        """
+        self.folder.voice.__messages_post('mark', self.id, read=read)
+        
+    def download(self, adir=None):
+        """
+        Download this message to adir
+        """
+        return self.folder.voice.download(self, adir)
+
+    def __str__(self):
+        return self.id
+    
+    def __repr__(self):
+        return '<Message #%s (%s)>' % (self.id, self.phoneNumber)
+
+class Folder(AttrDict):
+    """
+    Folder wrapper for feeds from Google Voice
+    Attributes are:
+        totalSize: int (aka __len__)
+        unreadCounts: dict
+        resultsPerPage: int
+        messages: list of Message instances
+    """
+    def __init__(self, voice, name, data):
+        self.voice = voice
+        self.name = name
+        super(AttrDict, self).__init__(data)
+        
+    def messages(self):
+        return [Message(self, *i) for i in self['messages'].items()]
+    messages = property(messages)
+    
+    def __len__(self):
+        return self['totalSize']
+
+    def __repr__(self):
+        return '<Folder %s (%s)>' % (self.name, len(self))
+    
+class XMLParser(object):
     """
     XML Parser helper that can dig json and html out of the feeds
     Calling the parser returns a tuple of (data_dict, html_content)
@@ -104,21 +254,34 @@ class XMLParser(dict):
     def end_element(self, name): self.attr = None
     def char_data(self, data):
         if self.attr and data:
-            self[self.attr] += data
+            setattr(self, self.attr, getattr(self, self.attr) + data)
 
-    def __init__(self, data):
-        dict.__init__(self, {'json':'', 'html':''})
-        p = ParserCreate()
-        p.StartElementHandler = self.start_element
-        p.EndElementHandler = self.end_element
-        p.CharacterDataHandler = self.char_data
+    def __init__(self, voice, name, datafunc):
+        self.json,self.html = '',''
+        self.datafunc = datafunc
+        self.voice = voice
+        self.name = name
+        
+    def __call__(self):
         try:
-            p.Parse(data, 1)
+            self.json,self.html = '',''
+            parser = ParserCreate()
+            parser.StartElementHandler = self.start_element
+            parser.EndElementHandler = self.end_element
+            parser.CharacterDataHandler = self.char_data
+            parser.Parse(self.datafunc(), 1)
+            return self.folder
         except:
             raise ParsingError
 
-    def __call__(self):
+    def folder(self):
+        return Folder(self.voice, self.name, self.data)        
+    folder = property(folder)
+    
+    def data(self):
         try:
-            return loads(self['json']), self['html']
+            return loads(self.json)
         except:
             raise JSONError
+    data = property(data)
+    

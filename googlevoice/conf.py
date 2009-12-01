@@ -16,9 +16,9 @@ class Config(ConfigParser):
         ConfigParser.__init__(self)
         self.read([self.fname])
 
-    def get(self, option):
+    def get(self, option, section='gvoice'):
         try:
-            return ConfigParser.get(self, 'gvoice', option) or None
+            return ConfigParser.get(self, section, option).strip() or None
         except NoOptionError:
             return
 

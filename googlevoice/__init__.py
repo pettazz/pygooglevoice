@@ -18,4 +18,5 @@ Works for Python 2 and Python 3
 Contact: %(__email__)s
 """ % locals()
 
-from voice import Voice, Phone, Message, Folder
+from voice import Voice
+from util import Phone, Message, Folder
