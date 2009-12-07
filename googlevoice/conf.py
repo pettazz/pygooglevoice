@@ -3,15 +3,18 @@ import os
 import settings
 
 
-
 class Config(ConfigParser):
+    """
+    ``ConfigParser`` subclass that looks into your home folder for a file named
+    ``.gvoice`` and parses configuration data from it.
+    """
     def __init__(self):
         self.fname = os.path.expanduser('~/.gvoice')
 
         if not os.path.exists(self.fname):
             f = open(self.fname, 'w')
             f.write(settings.DEFAULT_CONFIG)
-            f.write()
+            f.close()
             
         ConfigParser.__init__(self)
         self.read([self.fname])
@@ -21,16 +24,26 @@ class Config(ConfigParser):
             return ConfigParser.get(self, section, option).strip() or None
         except NoOptionError:
             return
+        
+    def set(self, option, value, section='gvoice'):
+        return ConfigParser.set(self, section, option, value)
 
     def phoneType(self):
         try:
             return int(self.get('phoneType'))
         except TypeError:
             return
+        
+    def save(self):
+        f = open(self.fname, 'w')
+        self.write(f)
+        f.close()
+        
+
     phoneType = property(phoneType)
-
-    def forwardingNumber(self):
-        return self.get('forwardingNumber')
-    forwardingNumber = property(forwardingNumber)
-
+    forwardingNumber = property(lambda self: self.get('forwardingNumber'))
+    cookieFile = property(lambda self: self.get('cookieFile') or os.path.expanduser('~/.gcookie'))
+    email = property(lambda self: self.get('email','auth'))
+    password = property(lambda self: self.get('password','auth'))
+    secret = property(lambda self: self.get('secret'))
 config = Config()

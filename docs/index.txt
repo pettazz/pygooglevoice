@@ -8,18 +8,18 @@ PyGoogleVoice Documentation
    Joe McCall <joe@mcc4ll.us>
 :Version: 0.5
 
-This project aims to bring the power of the Google Voice API to the Python language in a simple, easy-to-use manner.
-Currently it allows you to place calls, send sms, download voicemails/recorded messages, and search the various folders
-of your Google Voice Accounts. You can use the Python API or command line script to schedule calls, check for new received calls/sms,
-or even sync your recorded voicemails/calls.
-
-
-Contents
-=========
-
 .. automodule:: googlevoice
    :members:
 
+.. toctree::
+   :maxdepth: 2
+
+   install
+   config
+   scripts
+   examples
+   api
+   changelog
 
 Indices and tables
 ==================

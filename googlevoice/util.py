@@ -33,6 +33,7 @@ def print_(*values, **kwargs):
     
     Prints the values to a stream, or to sys.stdout by default.
     Optional keyword arguments:
+    
     file: a file-like object (stream); defaults to the current sys.stdout.
     sep:  string inserted between values, default a space.
     end:  string appended after the last value, default a newline.
@@ -44,7 +45,7 @@ def print_(*values, **kwargs):
 
 def is_sha1(s):
     """
-    Returns True if the string is a SHA1 hash
+    Returns ``True`` if the string is a SHA1 hash
     """
     return bool(sha1_re.match(s))
 
@@ -103,30 +104,27 @@ class Phone(AttrDict):
     """
     Wrapper for phone objects used for phone specific methods
     Attributes are:
-        id: int
-        phoneNumber: i18n phone number
-        formattedNumber: humanized phone number string
-        we: data dict
-        wd: data dict
-        verified: bool
-        name: strign label
-        smsEnabled: bool
-        scheduleSet: bool
-        policyBitmask: int
-        weekdayTimes: list
-        dEPRECATEDDisabled: bool
-        weekdayAllDay: bool
-        telephonyVerified
-        weekendTimes: list
-        active: bool
-        weekendAllDay: bool
-        enabledForOthers: bool
-        type: int
-            Available types:
-                1 - Home
-                2 - Mobile
-                3 - Work
-                7 - Gizmo
+    
+     * id: int
+     * phoneNumber: i18n phone number
+     * formattedNumber: humanized phone number string
+     * we: data dict
+     * wd: data dict
+     * verified: bool
+     * name: strign label
+     * smsEnabled: bool
+     * scheduleSet: bool
+     * policyBitmask: int
+     * weekdayTimes: list
+     * dEPRECATEDDisabled: bool
+     * weekdayAllDay: bool
+     * telephonyVerified
+     * weekendTimes: list
+     * active: bool
+     * weekendAllDay: bool
+     * enabledForOthers: bool
+     * type: int (1 - Home, 2 - Mobile, 3 - Work, 4 - Gizmo)
+            
     """
     def __init__(self, voice, data):
         self.voice = voice
@@ -134,19 +132,19 @@ class Phone(AttrDict):
     
     def enable(self,):
         """
-        Enables forwarding to the given phoneNumber
+        Enables this phone for usage
         """
         return self.__call_forwarding()
 
     def disable(self):
         """
-        Disables forwarding to the given phoneNumber
+        Disables this phone
         """
         return self.__call_forwarding('0')
         
     def __call_forwarding(self, enabled='1'):
         """
-        Enables or disables your forwarding call numbers
+        Enables or disables this phone
         """
         self.voice.__validate_special_page('default_forward',
             {'enabled':enabled, 'phoneId': self.id})
@@ -161,21 +159,23 @@ class Message(AttrDict):
     """
     Wrapper for all call/sms message instances stored in Google Voice
     Attributes are:
-        id: SHA1 identifier
-        isTrash: bool
-        displayStartDateTime: datetime
-        star: bool
-        isSpam: bool
-        startTime: gmtime
-        labels: list
-        displayStartTime: time
-        children: str
-        note: str
-        isRead: bool
-        displayNumber: str
-        relativeStartTime: str
-        phoneNumber: str
-        type: int
+    
+     * id: SHA1 identifier
+     * isTrash: bool
+     * displayStartDateTime: datetime
+     * star: bool
+     * isSpam: bool
+     * startTime: gmtime
+     * labels: list
+     * displayStartTime: time
+     * children: str
+     * note: str
+     * isRead: bool
+     * displayNumber: str
+     * relativeStartTime: str
+     * phoneNumber: str
+     * type: int
+     
     """
     def __init__(self, folder, id, data):
         assert is_sha1(id), 'Message id not a SHA1 hash'
@@ -189,25 +189,28 @@ class Message(AttrDict):
     
     def delete(self, trash=1):
         """
-        Moves this message to the Trash
+        Moves this message to the Trash. Use ``message.delete(0)`` to move it out of the Trash.
         """
         self.folder.voice.__messages_post('delete', self.id, trash=trash)
 
     def star(self, star=1):
         """
-        Star this message
+        Star this message. Use ``message.star(0)`` to unstar it.
         """
         self.folder.voice.__messages_post('star', self.id, star=star)
         
     def mark(self, read=1):
         """
-        Mark this message as read or not
+        Mark this message as read. Use ``message.mark(0)`` to mark it as unread.
         """
         self.folder.voice.__messages_post('mark', self.id, read=read)
         
     def download(self, adir=None):
         """
-        Download this message to adir
+        Download the message MP3 (if any). 
+        Saves files to ``adir`` (defaults to current directory). 
+        Message hashes can be found in ``self.voicemail().messages`` for example. 
+        Returns location of saved file.        
         """
         return self.folder.voice.download(self, adir)
 
@@ -221,10 +224,11 @@ class Folder(AttrDict):
     """
     Folder wrapper for feeds from Google Voice
     Attributes are:
-        totalSize: int (aka __len__)
-        unreadCounts: dict
-        resultsPerPage: int
-        messages: list of Message instances
+    
+     * totalSize: int (aka ``__len__``)
+     * unreadCounts: dict
+     * resultsPerPage: int
+     * messages: list of Message instances
     """
     def __init__(self, voice, name, data):
         self.voice = voice
@@ -232,6 +236,9 @@ class Folder(AttrDict):
         super(AttrDict, self).__init__(data)
         
     def messages(self):
+        """
+        Returns a list of all messages in this folder
+        """
         return [Message(self, *i) for i in self['messages'].items()]
     messages = property(messages)
     
@@ -243,8 +250,21 @@ class Folder(AttrDict):
     
 class XMLParser(object):
     """
-    XML Parser helper that can dig json and html out of the feeds
-    Calling the parser returns a tuple of (data_dict, html_content)
+    XML Parser helper that can dig json and html out of the feeds. 
+    The parser takes a ``Voice`` instance, page name, and function to grab data from. 
+    Calling the parser calls the data function once, sets up the ``json`` and ``html``
+    attributes and returns a ``Folder`` instance for the given page::
+    
+        >>> o = XMLParser(voice, 'voicemail', lambda: 'some xml payload')
+        >>> o()
+        ... <Folder ...>
+        >>> o.json
+        ... 'some json payload'
+        >>> o.data
+        ... 'loaded json payload'
+        >>> o.html
+        ... 'some html payload'
+        
     """
     attr = None
         
@@ -257,28 +277,36 @@ class XMLParser(object):
             setattr(self, self.attr, getattr(self, self.attr) + data)
 
     def __init__(self, voice, name, datafunc):
-        self.json,self.html = '',''
+        self.json, self.html = '',''
         self.datafunc = datafunc
         self.voice = voice
         self.name = name
         
     def __call__(self):
+        self.json, self.html = '',''
+        parser = ParserCreate()
+        parser.StartElementHandler = self.start_element
+        parser.EndElementHandler = self.end_element
+        parser.CharacterDataHandler = self.char_data
         try:
-            self.json,self.html = '',''
-            parser = ParserCreate()
-            parser.StartElementHandler = self.start_element
-            parser.EndElementHandler = self.end_element
-            parser.CharacterDataHandler = self.char_data
-            parser.Parse(self.datafunc(), 1)
-            return self.folder
+            data = self.datafunc()
+            print data
+            parser.Parse(data, 1)
         except:
             raise ParsingError
+        return self.folder
 
     def folder(self):
+        """
+        Returns associated ``Folder`` instance for given page (``self.name``)
+        """
         return Folder(self.voice, self.name, self.data)        
     folder = property(folder)
     
     def data(self):
+        """
+        Returns the parsed json information after calling the XMLParser
+        """
         try:
             return loads(self.json)
         except:

@@ -1,13 +1,7 @@
-"""
-Python API for the Google Voice "API"
-Project aims to bring the power of the Google Voice API to the Python language in a simple, easy-to-use manner.
-Currently it allows you to place calls, send sms, download voicemails/recorded messages, and search the various folders of your Google Voice Accounts.
-You can use the Python API or command line script to schedule calls, check for new received calls/sms, or even sync your recorded voicemails/calls.
-Works for Python 2 and Python 3 is coming soon
-"""
 from conf import config
 from util import *
 import settings
+import os
 
 if settings.DEBUG:
     import logging
@@ -20,10 +14,13 @@ else:
 class Voice(object):
     """
     Main voice instance for interacting with the Google Voice service
-    Also contains callable methods for each folder (eg inbox,voicemail,sms,etc)
+    Handles login/logout and most of the baser HTTP methods
     """
     def __init__(self):
         install_opener(build_opener(HTTPCookieProcessor(CookieJar())))
+
+        for name in settings.FEEDS:
+            setattr(self, name, self.__get_xml_page(name))
         
     ######################
     # Some handy methods
@@ -52,15 +49,18 @@ class Voice(object):
     def login(self, email=None, passwd=None):
         """
         Login to the service using your Google Voice account
-        Credentials will be propmpted for if not given
+        Credentials will be propmpted for if not given as args or in the ``~/.gvoice`` config file
         """
+        if hasattr(self, '_special') and getattr(self, '_special'):
+            return self
+        
         if email is None:
-            email = config.get('email', 'auth')
+            email = config.email
         if email is None:
             email = input('Email address: ')
         
         if passwd is None:
-            passwd = config.get('password', 'auth')
+            passwd = config.password
         if passwd is None:
             from getpass import getpass
             passwd = getpass()
@@ -77,9 +77,6 @@ class Voice(object):
         except (AssertionError, AttributeError):
             raise LoginError
 
-        for name in settings.FEEDS:
-            setattr(self, name, self.__get_xml_page(name))
-        
         return self
         
     def logout(self):
@@ -90,10 +87,11 @@ class Voice(object):
         del self._special 
         assert self.special == None
         return self
-    
+        
     def call(self, outgoingNumber, forwardingNumber=None, phoneType=None, subscriberNumber=None):
         """
-        Make a call to an outgoing number using your forwarding number
+        Make a call to an ``outgoingNumber`` from your ``forwardingNumber`` (optional).
+        If you pass in your ``forwardingNumber``, please also pass in the correct ``phoneType``
         """        
         if forwardingNumber is None:
             forwardingNumber = config.forwardingNumber
@@ -112,7 +110,7 @@ class Voice(object):
     
     def cancel(self, outgoingNumber=None, forwardingNumber=None):
         """
-        Cancels a call matching outgoing and forwarding numbers (if given)
+        Cancels a call matching outgoing and forwarding numbers (if given). 
         Will raise an error if no matching call is being placed
         """
         self.__validate_special_page('cancel', {
@@ -123,39 +121,38 @@ class Voice(object):
 
     def phones(self):
         """
-        Returns a dict of your Google Voice phone numbers
+        Returns a list of ``Phone`` instances attached to your account.
         """
-        return [Phone(self, data) for data in self._contacts['phones'].values()]
+        return [Phone(self, data) for data in self.contacts['phones'].values()]
     phones = property(phones)
 
     def settings(self):
         """
-        Returns a dict of current Google Voice settings
+        Dict of current Google Voice settings
         """
-        return AttrDict(self._contacts['settings'])
+        return AttrDict(self.contacts['settings'])
     settings = property(settings)
     
     def send_sms(self, phoneNumber, text):
         """
-        Send an SMS message to a given phone number with the given text message
+        Send an SMS message to a given ``phoneNumber`` with the given ``text`` message
         """
-        self.__validate_special_page('sms',
-            {'phoneNumber': phoneNumber, 'text': text}
-        )
+        self.__validate_special_page('sms', {'phoneNumber': phoneNumber, 'text': text})
 
     def search(self, query):
         """
         Search your Google Voice Account history for calls, voicemails, and sms
-        Returns Folder instance containting matching messages
+        Returns ``Folder`` instance containting matching messages
         """
         return self.__get_xml_page('search', data='?q=%s' % quote(query))()
         
     def download(self, msg, adir=None):
         """
-        Download a voicemail or recorded call MP3 matching the given msg sha1 hash
-        Saves files to adir (default current directory)
-        Message hashes can be found in self.voicemail().messages
-        Returns location of saved file
+        Download a voicemail or recorded call MP3 matching the given ``msg``
+        which can either be a ``Message`` instance, or a SHA1 identifier. 
+        Saves files to ``adir`` (defaults to current directory). 
+        Message hashes can be found in ``self.voicemail().messages`` for example. 
+        Returns location of saved file.
         """
         from os import path,getcwd
         if isinstance(msg, Message):
@@ -172,20 +169,22 @@ class Voice(object):
         fo.write(response.read())
         fo.close()
         return fn
-
+    
+    def contacts(self):
+        """
+        Partial data of your Google Account Contacts related to your Voice account.
+        For a more comprehensive suite of APIs, check out http://code.google.com/apis/contacts/docs/1.0/developers_guide_python.html
+        """
+        if hasattr(self, '_contacts'):
+            return self._contacts
+        self._contacts = self.__get_xml_page('contacts')()
+        return self._contacts
+    contacts = property(contacts)
 
     ######################
     # Helper methods
     ######################
-    def _contacts(self):
-        """
-        Caches XML contacts page
-        """
-        if hasattr(self, '__contacts'):
-            return self.__contacts
-        self.__contacts = self.__get_xml_page('contacts')()
-        return self.__contacts
-    _contacts = property(_contacts)
+
     
     def __do_page(self, page, data=None, headers={}):
         """

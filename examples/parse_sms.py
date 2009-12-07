@@ -4,7 +4,7 @@
 #John Nagle
 #   nagle@animats.com
 #
-import googlevoice
+from googlevoice import Voice
 import sys
 import BeautifulSoup
 
@@ -32,9 +32,9 @@ def extractsms(htmlsms) :
             msgitems.append(msgitem)					# add msg dictionary to list
     return msgitems
     
-voice = googlevoice.Voice()
+voice = Voice()
 voice.login()
-voice.sms()
 
+voice.sms()
 for msg in extractsms(voice.sms.html):
     print str(msg)
