@@ -18,7 +18,7 @@ forwardingNumber=
 phoneType=2
 """
 
-DEBUG = True
+DEBUG = False
 LOGIN = 'https://www.google.com/accounts/ServiceLoginAuth?service=grandcentral'
 FEEDS = ('inbox', 'starred', 'all', 'spam', 'trash', 'voicemail', 'sms',
         'recorded', 'placed', 'received', 'missed')

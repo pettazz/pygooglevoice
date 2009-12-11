@@ -12,12 +12,18 @@ class Config(ConfigParser):
         self.fname = os.path.expanduser('~/.gvoice')
 
         if not os.path.exists(self.fname):
-            f = open(self.fname, 'w')
+            try:
+                f = open(self.fname, 'w')
+            except IOError:
+                return
             f.write(settings.DEFAULT_CONFIG)
             f.close()
             
         ConfigParser.__init__(self)
-        self.read([self.fname])
+        try:
+            self.read([self.fname])
+        except IOError:
+            return
 
     def get(self, option, section='gvoice'):
         try:
@@ -42,8 +48,8 @@ class Config(ConfigParser):
 
     phoneType = property(phoneType)
     forwardingNumber = property(lambda self: self.get('forwardingNumber'))
-    cookieFile = property(lambda self: self.get('cookieFile') or os.path.expanduser('~/.gcookie'))
     email = property(lambda self: self.get('email','auth'))
     password = property(lambda self: self.get('password','auth'))
     secret = property(lambda self: self.get('secret'))
+    
 config = Config()

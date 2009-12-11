@@ -290,7 +290,6 @@ class XMLParser(object):
         parser.CharacterDataHandler = self.char_data
         try:
             data = self.datafunc()
-            print data
             parser.Parse(data, 1)
         except:
             raise ParsingError
