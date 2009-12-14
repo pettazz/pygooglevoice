@@ -66,6 +66,7 @@ exten => _X.,n,Playback(pls-wait-connect-call)
 exten => _X.,n,System(gvoice -b -e \${ACCTNAME} -p \${ACCTPASS} call \${EXTEN} \${RINGBACK})
 exten => _X.,n,Set(PARKINGEXTEN=\${CALLPARK})
 exten => _X.,n,Park()
+exten => _X.,n,ParkAndAnnounce(pbx-transfer:PARKED|45|Console/dsp)
 
 [custom-park]
 exten => s,1,Wait(4)
