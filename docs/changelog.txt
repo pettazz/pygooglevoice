@@ -1,0 +1,80 @@
+.. _changelog:
+
+Change Log
+==========
+
+v0.5
+-----
+
+Works:
+
+  * Lowered network traffic used in parsing feeds
+  * asterisk-gvoice-setup
+  * Call fixes
+  * Fixed typo
+
+Needs work:
+
+  * Session saving
+
+v0.4
+-----
+
+Workin:
+
+  * New login scheme
+  * Asterisk setup script
+  
+Kinda Broke:
+
+  * Different phone types (new Google "API")
+
+v0.3
+-----
+
+Workin:
+
+  * Message/Folder classes
+  * Phones/settings lists
+  * Search Folder generation
+  * Response validation and error reporting
+  
+Future plans:
+
+  * Html parser for messages?
+  * Message actions (delete,star,etc)
+  * Call widget creation
+  * Greeting recording
+  
+v0.2
+-----
+
+What works:
+
+  * SMS
+  * Download voicemail/recorded calls
+  * Call canceling
+  * Google Voice Search
+
+
+Future plans:
+
+  * Contacts (Integrate w/ Python GData?)
+  * Fix Py3 Request problems (see issues)
+  * Balance reports
+  * Message actions (delete,star,etc)
+
+v0.1
+-----
+
+What currently works:
+
+  * Login
+  * Logout
+  * Place a call
+
+Future Plans:
+
+  * SMS message
+  * Contacts
+  * etc.

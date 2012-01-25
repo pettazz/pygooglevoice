@@ -1,0 +1,29 @@
+.. _index:
+
+PyGoogleVoice Documentation
+=============================
+
+:Authors:
+   Justin Quick <justquick@gmail.com>
+   Joe McCall <joe@mcc4ll.us>
+:Version: 0.5
+
+.. automodule:: googlevoice
+   :members:
+
+.. toctree::
+   :maxdepth: 2
+
+   install
+   config
+   scripts
+   examples
+   api
+   changelog
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

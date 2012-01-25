@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+
+"""
+Simple script to startup a python interpreter after logging into the voice service
+   local variable `voice` is set as the main Voice instance
+"""
+import code
+from googlevoice import Voice
+
+voice = Voice()
+voice.login()
+
+code.interact(banner="""
+You are now using Google Voice in the interactive python shell
+Try 'help(voice)' for more info
+""",local={'voice':voice})
