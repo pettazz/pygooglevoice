@@ -1,7 +1,9 @@
 from conf import config
 from util import *
 import settings
-import os
+import base64
+
+qpat = re.compile(r'\?')
 
 if settings.DEBUG:
     import logging
@@ -10,6 +12,7 @@ if settings.DEBUG:
     log.setLevel(logging.DEBUG)
 else:
     log = None
+
 
 class Voice(object):
     """
@@ -21,10 +24,12 @@ class Voice(object):
 
         for name in settings.FEEDS:
             setattr(self, name, self.__get_xml_page(name))
-        
+
+        setattr(self, 'message', self.__get_xml_page('message'))
+
     ######################
     # Some handy methods
-    ######################  
+    ######################
     def special(self):
         """
         Returns special identifier for your session (if logged in)
@@ -45,20 +50,20 @@ class Voice(object):
         self._special = sp
         return sp
     special = property(special)
-    
-    def login(self, email=None, passwd=None):
+
+    def login(self, email=None, passwd=None, smsKey=None):
         """
         Login to the service using your Google Voice account
         Credentials will be propmpted for if not given as args or in the ``~/.gvoice`` config file
         """
         if hasattr(self, '_special') and getattr(self, '_special'):
             return self
-        
+
         if email is None:
             email = config.email
         if email is None:
             email = input('Email address: ')
-        
+
         if passwd is None:
             passwd = config.password
         if passwd is None:
@@ -67,37 +72,83 @@ class Voice(object):
 
         content = self.__do_page('login').read()
         # holy hackjob
-        galx = re.search(r"name=\"GALX\"\s+value=\"(.+)\"", content).group(1)
-        self.__do_page('login', {'Email': email, 'Passwd': passwd, 'GALX': galx})
-        
+        galx = re.search(r"name=\"GALX\"\s+value=\"([^\"]+)\"", content).group(1)
+        result = self.__do_page('login', {'Email': email, 'Passwd': passwd, 'GALX': galx})
+
+        if result.geturl().startswith(getattr(settings, "SMSAUTH")):
+            content = self.__smsAuth(smsKey)
+
+            try:
+                smsToken = re.search(r"name=\"smsToken\"\s+value=\"([^\"]+)\"", content).group(1)
+                galx = re.search(r"name=\"GALX\"\s+value=\"([^\"]+)\"", content).group(1)
+                content = self.__do_page('login', {'smsToken': smsToken, 'service': "grandcentral", 'GALX': galx})
+            except AttributeError:
+                raise LoginError
+
+            del smsKey, smsToken, galx
+
         del email, passwd
-        
+
         try:
             assert self.special
         except (AssertionError, AttributeError):
             raise LoginError
 
         return self
-        
+
+    def __smsAuth(self, smsKey=None):
+        if smsKey is None:
+            smsKey = config.smsKey
+
+        if smsKey is None:
+            from getpass import getpass
+            smsPin = getpass("SMS PIN: ")
+            content = self.__do_page('smsauth', {'smsUserPin': smsPin}).read()
+
+        else:
+            smsKey = base64.b32decode(re.sub(r' ', '', smsKey), casefold=True).encode("hex")
+            content = self.__oathtoolAuth(smsKey)
+
+            try_count = 1
+
+            while "The code you entered didn&#39;t verify." in content and try_count < 5:
+                sleep_seconds = 10
+                try_count += 1
+                print 'invalid code, retrying after {0} seconds (attempt {1})'.format(sleep_seconds, try_count)
+                import time
+                time.sleep(sleep_seconds)
+                content = self.__oathtoolAuth(smsKey)
+
+        del smsKey
+
+        return content
+
+    def __oathtoolAuth(self, smsKey):
+        import commands
+        smsPin = commands.getstatusoutput('oathtool --totp ' + smsKey)[1]
+        content = self.__do_page('smsauth', {'smsUserPin': smsPin}).read()
+        del smsPin
+        return content
+
     def logout(self):
         """
         Logs out an instance and makes sure it does not still have a session
         """
         self.__do_page('logout')
-        del self._special 
+        del self._special
         assert self.special == None
         return self
-        
+
     def call(self, outgoingNumber, forwardingNumber=None, phoneType=None, subscriberNumber=None):
         """
         Make a call to an ``outgoingNumber`` from your ``forwardingNumber`` (optional).
         If you pass in your ``forwardingNumber``, please also pass in the correct ``phoneType``
-        """        
+        """
         if forwardingNumber is None:
             forwardingNumber = config.forwardingNumber
         if phoneType is None:
             phoneType = config.phoneType
-            
+
         self.__validate_special_page('call', {
             'outgoingNumber': outgoingNumber,
             'forwardingNumber': forwardingNumber,
@@ -105,12 +156,12 @@ class Voice(object):
             'phoneType': phoneType,
             'remember': '1'
         })
-        
+
     __call__ = call
-    
+
     def cancel(self, outgoingNumber=None, forwardingNumber=None):
         """
-        Cancels a call matching outgoing and forwarding numbers (if given). 
+        Cancels a call matching outgoing and forwarding numbers (if given).
         Will raise an error if no matching call is being placed
         """
         self.__validate_special_page('cancel', {
@@ -132,7 +183,7 @@ class Voice(object):
         """
         return AttrDict(self.contacts['settings'])
     settings = property(settings)
-    
+
     def send_sms(self, phoneNumber, text):
         """
         Send an SMS message to a given ``phoneNumber`` with the given ``text`` message
@@ -145,16 +196,34 @@ class Voice(object):
         Returns ``Folder`` instance containting matching messages
         """
         return self.__get_xml_page('search', data='?q=%s' % quote(query))()
-        
+
+    def archive(self, msg, archive=1):
+        """
+        Archive the specified message by removing it from the Inbox.
+        """
+        if isinstance(msg, Message):
+            msg = msg.id
+        assert is_sha1(msg), 'Message id not a SHA1 hash'
+        self.__messages_post('archive', msg, archive=archive)
+
+    def delete(self, msg, trash=1):
+        """
+        Moves this message to the Trash. Use ``message.delete(0)`` to move it out of the Trash.
+        """
+        if isinstance(msg, Message):
+            msg = msg.id
+        assert is_sha1(msg), 'Message id not a SHA1 hash'
+        self.__messages_post('delete', msg, trash=trash)
+
     def download(self, msg, adir=None):
         """
         Download a voicemail or recorded call MP3 matching the given ``msg``
-        which can either be a ``Message`` instance, or a SHA1 identifier. 
-        Saves files to ``adir`` (defaults to current directory). 
-        Message hashes can be found in ``self.voicemail().messages`` for example. 
+        which can either be a ``Message`` instance, or a SHA1 identifier.
+        Saves files to ``adir`` (defaults to current directory).
+        Message hashes can be found in ``self.voicemail().messages`` for example.
         Returns location of saved file.
         """
-        from os import path,getcwd
+        from os import path, getcwd
         if isinstance(msg, Message):
             msg = msg.id
         assert is_sha1(msg), 'Message id not a SHA1 hash'
@@ -169,7 +238,7 @@ class Voice(object):
         fo.write(response.read())
         fo.close()
         return fn
-    
+
     def contacts(self):
         """
         Partial data of your Google Account Contacts related to your Voice account.
@@ -185,8 +254,7 @@ class Voice(object):
     # Helper methods
     ######################
 
-    
-    def __do_page(self, page, data=None, headers={}):
+    def __do_page(self, page, data=None, headers={}, terms={}):
         """
         Loads a page out of the settings and pass it on to urllib Request
         """
@@ -196,11 +264,22 @@ class Voice(object):
         headers.update({'User-Agent': 'PyGoogleVoice/0.5'})
         if log:
             log.debug('%s?%s - %s' % (getattr(settings, page)[22:], data or '', headers))
-        if page in ('DOWNLOAD','XML_SEARCH'):
+        if page in ('DOWNLOAD', 'XML_SEARCH'):
             return urlopen(Request(getattr(settings, page) + data, None, headers))
         if data:
             headers.update({'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'})
-        return urlopen(Request(getattr(settings, page), data, headers))
+        pageuri = getattr(settings, page)
+        if len(terms) > 0:
+            m = qpat.match(page)
+            if m:
+                pageuri += '&'
+            else:
+                pageuri += '?'
+            for i, k in enumerate(terms.keys()):
+                pageuri += k + '=' + terms[k]
+                if i < len(terms) - 1:
+                    pageuri += '&'
+        return urlopen(Request(pageuri, data, headers))
 
     def __validate_special_page(self, page, data={}, **kwargs):
         """
@@ -210,7 +289,7 @@ class Voice(object):
         load_and_validate(self.__do_special_page(page, data))
 
     _Phone__validate_special_page = __validate_special_page
-    
+
     def __do_special_page(self, page, data=None, headers={}):
         """
         Add self.special to request data
@@ -221,15 +300,15 @@ class Voice(object):
         elif isinstance(data, dict):
             data.update({'_rnr_se': self.special})
         return self.__do_page(page, data, headers)
-        
+
     _Phone__do_special_page = __do_special_page
-    
+
     def __get_xml_page(self, page, data=None, headers={}):
         """
         Return XMLParser instance generated from given page
         """
-        return XMLParser(self, page, lambda: self.__do_special_page('XML_%s' % page.upper(), data, headers).read())
-      
+        return XMLParser(self, page, lambda: self.__do_special_page('XML_%s' % page.upper(), data, headers, terms).read())
+
     def __messages_post(self, page, *msgs, **kwargs):
         """
         Performs message operations, eg deleting,staring,moving
@@ -239,7 +318,7 @@ class Voice(object):
             if isinstance(msg, Message):
                 msg = msg.id
             assert is_sha1(msg), 'Message id not a SHA1 hash'
-            data += (('messages',msg),)
+            data += (('messages', msg),)
         return self.__do_special_page(page, dict(data))
-    
+
     _Message__messages_post = __messages_post
