@@ -234,9 +234,8 @@ class Voice(object):
         except:
             raise DownloadError
         fn = path.join(adir, '%s.mp3' % msg)
-        fo = open(fn, 'wb')
-        fo.write(response.read())
-        fo.close()
+        with open(fn, 'wb') as fo:
+            fo.write(response.read())
         return fn
 
     def contacts(self):
@@ -290,7 +289,7 @@ class Voice(object):
 
     _Phone__validate_special_page = __validate_special_page
 
-    def __do_special_page(self, page, data=None, headers={}):
+    def __do_special_page(self, page, data=None, headers={}, terms={}):
         """
         Add self.special to request data
         """
@@ -299,7 +298,7 @@ class Voice(object):
             data += ('_rnr_se', self.special)
         elif isinstance(data, dict):
             data.update({'_rnr_se': self.special})
-        return self.__do_page(page, data, headers)
+        return self.__do_page(page, data, headers, terms)
 
     _Phone__do_special_page = __do_special_page
 
@@ -307,7 +306,7 @@ class Voice(object):
         """
         Return XMLParser instance generated from given page
         """
-        return XMLParser(self, page, lambda: self.__do_special_page('XML_%s' % page.upper(), data, headers, terms).read())
+        return XMLParser(self, page, lambda terms={}: self.__do_special_page('XML_%s' % page.upper(), data, headers, terms).read())
 
     def __messages_post(self, page, *msgs, **kwargs):
         """
