@@ -37,7 +37,7 @@ SMSAUTH = 'https://accounts.google.com/SmsAuth'
 FEEDS = ('inbox', 'starred', 'all', 'spam', 'trash', 'voicemail', 'sms',
         'recorded', 'placed', 'received', 'missed')
 
-BASE = 'https://www.google.com/voice/'
+BASE = 'https://www.google.com/voice/b/0/'
 LOGOUT = BASE + 'account/signout'
 INBOX = BASE + '#inbox'
 CALL = BASE + 'call/connect/'
