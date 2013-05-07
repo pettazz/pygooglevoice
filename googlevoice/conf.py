@@ -13,11 +13,10 @@ class Config(ConfigParser):
 
         if not os.path.exists(self.fname):
             try:
-                f = open(self.fname, 'w')
+                with open(self.fname, 'w') as f:
+                    f.write(settings.DEFAULT_CONFIG)
             except IOError:
                 return
-            f.write(settings.DEFAULT_CONFIG)
-            f.close()
 
         ConfigParser.__init__(self)
 
@@ -42,9 +41,8 @@ class Config(ConfigParser):
             return
 
     def save(self):
-        f = open(self.fname, 'w')
-        self.write(f)
-        f.close()
+        with open(self.f, 'w') as f:
+            f.write(f)
 
     phoneType = property(phoneType)
     forwardingNumber = property(lambda self: self.get('forwardingNumber'))
