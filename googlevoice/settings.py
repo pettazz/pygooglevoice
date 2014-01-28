@@ -38,7 +38,7 @@ FEEDS = ('inbox', 'starred', 'all', 'spam', 'trash', 'voicemail', 'sms',
         'recorded', 'placed', 'received', 'missed')
 
 BASE = 'https://www.google.com/voice/b/0/'
-LOGOUT = BASE + 'account/signout'
+LOGOUT = 'https://www.google.com/voice/account/signout'
 INBOX = BASE + '#inbox'
 CALL = BASE + 'call/connect/'
 CANCEL = BASE + 'call/cancel/'
