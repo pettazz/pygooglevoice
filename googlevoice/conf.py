@@ -1,6 +1,6 @@
 from ConfigParser import ConfigParser, NoOptionError
 import os
-import settings
+from . import settings
 
 
 class Config(ConfigParser):

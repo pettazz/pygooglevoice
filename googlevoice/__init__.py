@@ -14,5 +14,5 @@ __credits__ = ['Justin Quick','Joe McCall','Jacob Feisley','John Nagle']
 __license__ = 'New BSD'
 __version__ = '0.5'
 
-from voice import Voice
-from util import Phone, Message, Folder
+from .voice import Voice
+from .util import Phone, Message, Folder
