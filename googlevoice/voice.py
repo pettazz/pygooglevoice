@@ -1,6 +1,12 @@
+import re
+import base64
+
 from .conf import config
 from . import settings
-import base64
+from . import util
+
+from six.moves import urllib
+from six.moves import http_cookiejar
 
 qpat = re.compile(r'\?')
 
@@ -19,7 +25,10 @@ class Voice(object):
     Handles login/logout and most of the baser HTTP methods
     """
     def __init__(self):
-        install_opener(build_opener(HTTPCookieProcessor(CookieJar())))
+        jar = http_cookiejar.CookieJar()
+        processor = urllib.request.HTTPCookieProcessor(jar)
+        opener = urllib.request.build_opener(processor)
+        urllib.request.install_opener(opener)
 
         for name in settings.FEEDS:
             setattr(self, name, self.__get_xml_page(name))
@@ -43,7 +52,8 @@ class Voice(object):
         except NameError:
             regex = r"('_rnr_se':) '(.+)'"
         try:
-            sp = re.search(regex, urlopen(settings.INBOX).read()).group(2)
+            req = urllib.request.urlopen(settings.INBOX)
+            sp = re.search(regex, req.read()).group(2)
         except AttributeError:
             sp = None
         self._special = sp
@@ -81,7 +91,7 @@ class Voice(object):
                 smsToken = re.search(r"name=\"smsToken\"\s+value=\"([^\"]+)\"", content).group(1)
                 content = self.__do_page('login', {'smsToken': smsToken, 'service': "grandcentral"})
             except AttributeError:
-                raise LoginError
+                raise util.LoginError
 
             del smsKey, smsToken, gxf
 
@@ -90,7 +100,7 @@ class Voice(object):
         try:
             assert self.special
         except (AssertionError, AttributeError):
-            raise LoginError
+            raise util.LoginError
 
         return self
 
@@ -172,14 +182,14 @@ class Voice(object):
         """
         Returns a list of ``Phone`` instances attached to your account.
         """
-        return [Phone(self, data) for data in self.contacts['phones'].values()]
+        return [util.Phone(self, data) for data in self.contacts['phones'].values()]
     phones = property(phones)
 
     def settings(self):
         """
         Dict of current Google Voice settings
         """
-        return AttrDict(self.contacts['settings'])
+        return util.AttrDict(self.contacts['settings'])
     settings = property(settings)
 
     def send_sms(self, phoneNumber, text):
@@ -193,24 +203,25 @@ class Voice(object):
         Search your Google Voice Account history for calls, voicemails, and sms
         Returns ``Folder`` instance containting matching messages
         """
-        return self.__get_xml_page('search', data='?q=%s' % quote(query))()
+        query = urllib.parse.quote(query)
+        return self.__get_xml_page('search', data='?q=%s' % query)()
 
     def archive(self, msg, archive=1):
         """
         Archive the specified message by removing it from the Inbox.
         """
-        if isinstance(msg, Message):
+        if isinstance(msg, util.Message):
             msg = msg.id
-        assert is_sha1(msg), 'Message id not a SHA1 hash'
+        assert util.is_sha1(msg), 'Message id not a SHA1 hash'
         self.__messages_post('archive', msg, archive=archive)
 
     def delete(self, msg, trash=1):
         """
         Moves this message to the Trash. Use ``message.delete(0)`` to move it out of the Trash.
         """
-        if isinstance(msg, Message):
+        if isinstance(msg, util.Message):
             msg = msg.id
-        assert is_sha1(msg), 'Message id not a SHA1 hash'
+        assert util.is_sha1(msg), 'Message id not a SHA1 hash'
         self.__messages_post('delete', msg, trash=trash)
 
     def download(self, msg, adir=None):
@@ -222,15 +233,15 @@ class Voice(object):
         Returns location of saved file.
         """
         from os import path, getcwd
-        if isinstance(msg, Message):
+        if isinstance(msg, util.Message):
             msg = msg.id
-        assert is_sha1(msg), 'Message id not a SHA1 hash'
+        assert util.is_sha1(msg), 'Message id not a SHA1 hash'
         if adir is None:
             adir = getcwd()
         try:
             response = self.__do_page('download', msg)
         except:
-            raise DownloadError
+            raise util.DownloadError
         fn = path.join(adir, '%s.mp3' % msg)
         with open(fn, 'wb') as fo:
             fo.write(response.read())
@@ -257,12 +268,13 @@ class Voice(object):
         """
         page = page.upper()
         if isinstance(data, dict) or isinstance(data, tuple):
-            data = urlencode(data)
+            data = urllib.parse.urlencode(data)
         headers.update({'User-Agent': 'PyGoogleVoice/0.5'})
         if log:
             log.debug('%s?%s - %s' % (getattr(settings, page)[22:], data or '', headers))
         if page in ('DOWNLOAD', 'XML_SEARCH'):
-            return urlopen(Request(getattr(settings, page) + data, None, headers))
+            req = urllib.request.Request(getattr(settings, page) + data, None, headers)
+            return urllib.request.urlopen(req)
         if data:
             headers.update({'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'})
         pageuri = getattr(settings, page)
@@ -276,14 +288,15 @@ class Voice(object):
                 pageuri += k + '=' + terms[k]
                 if i < len(terms) - 1:
                     pageuri += '&'
-        return urlopen(Request(pageuri, data, headers))
+        req = urllib.request.Request(pageuri, data, headers)
+        return urllib.request.urlopen(req)
 
     def __validate_special_page(self, page, data={}, **kwargs):
         """
         Validates a given special page for an 'ok' response
         """
         data.update(kwargs)
-        load_and_validate(self.__do_special_page(page, data))
+        util.load_and_validate(self.__do_special_page(page, data))
 
     _Phone__validate_special_page = __validate_special_page
 
@@ -304,7 +317,7 @@ class Voice(object):
         """
         Return XMLParser instance generated from given page
         """
-        return XMLParser(self, page, lambda terms={}: self.__do_special_page('XML_%s' % page.upper(), data, headers, terms).read())
+        return util.XMLParser(self, page, lambda terms={}: self.__do_special_page('XML_%s' % page.upper(), data, headers, terms).read())
 
     def __messages_post(self, page, *msgs, **kwargs):
         """
@@ -312,9 +325,9 @@ class Voice(object):
         """
         data = kwargs.items()
         for msg in msgs:
-            if isinstance(msg, Message):
+            if isinstance(msg, util.Message):
                 msg = msg.id
-            assert is_sha1(msg), 'Message id not a SHA1 hash'
+            assert util.is_sha1(msg), 'Message id not a SHA1 hash'
             data += (('messages', msg),)
         return self.__do_special_page(page, dict(data))
 

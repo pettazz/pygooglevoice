@@ -26,6 +26,7 @@ params = dict(
     long_description = README,
     packages = ['googlevoice'],
     scripts = ['bin/gvoice','bin/asterisk-gvoice-setup', 'bin/gvi'],
+    install_requires=['six'],
 )
 
 if __name__ == '__main__':
