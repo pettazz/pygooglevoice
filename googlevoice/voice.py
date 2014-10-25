@@ -270,25 +270,25 @@ class Voice(object):
         if isinstance(data, dict) or isinstance(data, tuple):
             data = urllib.parse.urlencode(data)
         headers.update({'User-Agent': 'PyGoogleVoice/0.5'})
+        url = getattr(settings, page)
         if log:
-            log.debug('%s?%s - %s' % (getattr(settings, page)[22:], data or '', headers))
+            log.debug('%s?%s - %s' % (url[22:], data or '', headers))
         if page in ('DOWNLOAD', 'XML_SEARCH'):
-            req = urllib.request.Request(getattr(settings, page) + data, None, headers)
+            req = urllib.request.Request(url + data, None, headers)
             return urllib.request.urlopen(req)
         if data:
             headers.update({'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'})
-        pageuri = getattr(settings, page)
         if len(terms) > 0:
             m = qpat.match(page)
             if m:
-                pageuri += '&'
+                url += '&'
             else:
-                pageuri += '?'
+                url += '?'
             for i, k in enumerate(terms.keys()):
-                pageuri += k + '=' + terms[k]
+                url += k + '=' + terms[k]
                 if i < len(terms) - 1:
-                    pageuri += '&'
-        req = urllib.request.Request(pageuri, data, headers)
+                    url += '&'
+        req = urllib.request.Request(url, data, headers)
         return urllib.request.urlopen(req)
 
     def __validate_special_page(self, page, data={}, **kwargs):
