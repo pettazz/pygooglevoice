@@ -1,4 +1,4 @@
-from distutils.core import setup
+import setuptools
 
 
 README = """Python Google Voice
@@ -16,7 +16,7 @@ Works for Python 2 and Python 3
 Full documentation is available up at http://sphinxdoc.github.com/pygooglevoice/
 """
 
-setup(
+params = dict(
     name = "pygooglevoice",
     version = '0.5',
     url = 'http://code.google.com/p/pygooglevoice',
@@ -27,3 +27,6 @@ setup(
     packages = ['googlevoice'],
     scripts = ['bin/gvoice','bin/asterisk-gvoice-setup', 'bin/gvi']
 )
+
+if __name__ == '__main__':
+    setuptools.setup(**params)
