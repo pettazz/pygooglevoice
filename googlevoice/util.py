@@ -1,12 +1,9 @@
 import re
+import json
 from sys import stdout
 from xml.parsers.expat import ParserCreate
 from time import gmtime
 from datetime import datetime
-try:
-    from json import loads
-except ImportError:
-    from simplejson import loads
 
 sha1_re = re.compile(r'^[a-fA-F0-9]{40}$')
 
@@ -45,7 +42,7 @@ def load_and_validate(response):
     """
     Loads JSON data from http response then validates
     """
-    validate_response(loads(response.read()))
+    validate_response(json.loads(response.read()))
 
 class ValidationError(Exception):
     """
@@ -290,7 +287,7 @@ class XMLParser(object):
         Returns the parsed json information after calling the XMLParser
         """
         try:
-            return loads(self.json)
+            return json.loads(self.json)
         except:
             raise JSONError
     data = property(data)
