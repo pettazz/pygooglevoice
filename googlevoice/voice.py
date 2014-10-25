@@ -1,5 +1,4 @@
 from .conf import config
-from .util import *
 from . import settings
 import base64
 
