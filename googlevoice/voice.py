@@ -46,16 +46,10 @@ class Voice(object):
         """
         if hasattr(self, '_special') and getattr(self, '_special'):
             return self._special
+        pattern = re.compile(r"('_rnr_se':) '(.+)'")
+        resp = requests.get(settings.INBOX).text
         try:
-            try:
-                regex = bytes("('_rnr_se':) '(.+)'", 'utf8')
-            except TypeError:
-                regex = bytes("('_rnr_se':) '(.+)'")
-        except NameError:
-            regex = r"('_rnr_se':) '(.+)'"
-        try:
-            req = urllib.request.urlopen(settings.INBOX)
-            sp = re.search(regex, req.read()).group(2)
+            sp = pattern.search(resp).group(2)
         except AttributeError:
             sp = None
         self._special = sp
