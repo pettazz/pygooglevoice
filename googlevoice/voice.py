@@ -44,7 +44,7 @@ class Voice(object):
         """
         Returns special identifier for your session (if logged in)
         """
-        if hasattr(self, '_special') and getattr(self, '_special'):
+        if getattr(self, '_special', None):
             return self._special
         pattern = re.compile(r"('_rnr_se':) '(.+)'")
         resp = self.session.get(settings.INBOX).text
