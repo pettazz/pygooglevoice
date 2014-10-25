@@ -25,7 +25,7 @@ params = dict(
     description = 'Python 2/3 Interface for Google Voice',
     long_description = README,
     packages = ['googlevoice'],
-    scripts = ['bin/gvoice','bin/asterisk-gvoice-setup', 'bin/gvi']
+    scripts = ['bin/gvoice','bin/asterisk-gvoice-setup', 'bin/gvi'],
 )
 
 if __name__ == '__main__':
