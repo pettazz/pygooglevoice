@@ -274,8 +274,8 @@ class Voice(object):
         if log:
             log.debug('%s?%s - %s' % (url[22:], data or '', headers))
         if page in ('DOWNLOAD', 'XML_SEARCH'):
-            req = urllib.request.Request(url + data, None, headers)
-            return urllib.request.urlopen(req)
+            url = url + data
+            data = None
         if data:
             headers.update({'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'})
         if len(terms) > 0:
