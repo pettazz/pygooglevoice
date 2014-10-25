@@ -135,7 +135,7 @@ class Voice(object):
         """
         self.__do_page('logout')
         del self._special
-        assert self.special == None
+        assert self.special is None
         return self
 
     def call(self, outgoingNumber, forwardingNumber=None, phoneType=None, subscriberNumber=None):
