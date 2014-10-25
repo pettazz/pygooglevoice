@@ -1,4 +1,7 @@
-from ConfigParser import ConfigParser, NoOptionError
+try:
+    from configparser import ConfigParser, NoOptionError
+except ImportError:
+    from ConfigParser import ConfigParser, NoOptionError
 import os
 from . import settings
 
