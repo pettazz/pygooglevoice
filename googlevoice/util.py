@@ -4,18 +4,6 @@ from xml.parsers.expat import ParserCreate
 from time import gmtime
 from datetime import datetime
 try:
-    from urllib2 import build_opener,install_opener, \
-        HTTPCookieProcessor,Request,urlopen
-    from urllib import urlencode,quote
-except ImportError:
-    from urllib.request import build_opener,install_opener, \
-        HTTPCookieProcessor,Request,urlopen
-    from urllib.parse import urlencode,quote
-try:
-    from http.cookiejar import LWPCookieJar as CookieJar
-except ImportError:
-    from cookielib import LWPCookieJar as CookieJar
-try:
     from json import loads
 except ImportError:
     from simplejson import loads
