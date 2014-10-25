@@ -191,8 +191,8 @@ class Voice(object):
         Search your Google Voice Account history for calls, voicemails, and sms
         Returns ``Folder`` instance containting matching messages
         """
-        query = urllib.parse.quote(query)
-        return self.__get_xml_page('search', data='?q=%s' % query)()
+        data = dict(q=query)
+        return self.__get_xml_page('search', terms=data)()
 
     def archive(self, msg, archive=1):
         """
@@ -259,7 +259,7 @@ class Voice(object):
         url = getattr(settings, page)
         log.debug('url is %s', url)
         log.debug('data is %s', data)
-        if page in ('DOWNLOAD', 'XML_SEARCH'):
+        if page in ('DOWNLOAD',):
             data = urllib.parse.urlencode(data)
             url = url + data
             data = None
