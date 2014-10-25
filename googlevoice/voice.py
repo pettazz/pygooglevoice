@@ -25,8 +25,12 @@ class Voice(object):
     Main voice instance for interacting with the Google Voice service
     Handles login/logout and most of the baser HTTP methods
     """
+
+    user_agent = 'PyGoogleVoice/0.5'
+
     def __init__(self):
         self.session = requests.Session()
+        self.session.headers.update({'User-Agent': self.user_agent})
 
         for name in settings.FEEDS:
             setattr(self, name, self.__get_xml_page(name))
@@ -252,7 +256,6 @@ class Voice(object):
         Return Response.
         """
         page = page.upper()
-        headers.update({'User-Agent': 'PyGoogleVoice/0.5'})
         url = getattr(settings, page)
         log.debug('url is %s', url)
         log.debug('data is %s', data)
