@@ -42,7 +42,7 @@ def load_and_validate(response):
     """
     Loads JSON data from http response then validates
     """
-    validate_response(json.loads(response.read()))
+    validate_response(response.json())
 
 class ValidationError(Exception):
     """

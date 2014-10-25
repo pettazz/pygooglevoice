@@ -8,6 +8,8 @@ from . import util
 from six.moves import urllib
 from six.moves import http_cookiejar
 
+import requests
+
 qpat = re.compile(r'\?')
 
 if settings.DEBUG:
@@ -79,7 +81,7 @@ class Voice(object):
             from getpass import getpass
             passwd = getpass()
 
-        content = self.__do_page('login').read()
+        content = self.__do_page('login').text
         # holy hackjob
         gxf = re.search(r"type=\"hidden\"\s+name=\"gxf\"\s+value=\"(.+)\"", content).group(1)
         result = self.__do_page('login_post', {'Email': email, 'Passwd': passwd, 'gxf': gxf})
@@ -244,7 +246,7 @@ class Voice(object):
             raise util.DownloadError
         fn = path.join(adir, '%s.mp3' % msg)
         with open(fn, 'wb') as fo:
-            fo.write(response.read())
+            fo.write(response.raw_content)
         return fn
 
     def contacts(self):
@@ -262,9 +264,10 @@ class Voice(object):
     # Helper methods
     ######################
 
-    def __do_page(self, page, data=None, headers={}, terms={}):
+    def __do_page(self, page, data=None, headers={}, terms=None):
         """
-        Loads a page out of the settings and pass it on to urllib Request
+        Loads a page out of the settings and request it using requests.
+        Return Response.
         """
         page = page.upper()
         if isinstance(data, dict) or isinstance(data, tuple):
@@ -278,18 +281,7 @@ class Voice(object):
             data = None
         if data:
             headers.update({'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'})
-        if len(terms) > 0:
-            m = qpat.match(page)
-            if m:
-                url += '&'
-            else:
-                url += '?'
-            for i, k in enumerate(terms.keys()):
-                url += k + '=' + terms[k]
-                if i < len(terms) - 1:
-                    url += '&'
-        req = urllib.request.Request(url, data, headers)
-        return urllib.request.urlopen(req)
+        return requests.get(url, data=data, params=terms or None, headers=headers)
 
     def __validate_special_page(self, page, data={}, **kwargs):
         """
