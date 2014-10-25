@@ -3,7 +3,6 @@ from sys import stdout
 from xml.parsers.expat import ParserCreate
 from time import gmtime
 from datetime import datetime
-from pprint import pprint
 try:
     from urllib2 import build_opener,install_opener, \
         HTTPCookieProcessor,Request,urlopen
