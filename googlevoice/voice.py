@@ -252,16 +252,14 @@ class Voice(object):
         Return Response.
         """
         page = page.upper()
-        if isinstance(data, dict) or isinstance(data, tuple):
-            data = urllib.parse.urlencode(data)
         headers.update({'User-Agent': 'PyGoogleVoice/0.5'})
         url = getattr(settings, page)
-        log.debug('%s?%s - %s' % (url[22:], data or '', headers))
+        log.debug('url is %s', url)
+        log.debug('data is %s', data)
         if page in ('DOWNLOAD', 'XML_SEARCH'):
+            data = urllib.parse.urlencode(data)
             url = url + data
             data = None
-        if data:
-            headers.update({'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'})
         return self.session.get(url, data=data, params=terms or None, headers=headers)
 
     def __validate_special_page(self, page, data={}, **kwargs):
