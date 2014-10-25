@@ -253,17 +253,17 @@ class XMLParser(object):
     The parser takes a ``Voice`` instance, page name, and function to grab data from. 
     Calling the parser calls the data function once, sets up the ``json`` and ``html``
     attributes and returns a ``Folder`` instance for the given page::
-    
-        >>> o = XMLParser(voice, 'voicemail', lambda: 'some xml payload')
-        >>> o()
-        ... <Folder ...>
-        >>> o.json
-        ... 'some json payload'
-        >>> o.data
-        ... 'loaded json payload'
-        >>> o.html
-        ... 'some html payload'
-        
+
+        o = XMLParser(voice, 'voicemail', lambda: 'some xml payload')
+        o()
+        <Folder ...>
+        o.json
+        'some json payload'
+        o.data
+        'loaded json payload'
+        o.html
+        'some html payload'
+
     """
     attr = None
         
@@ -310,4 +310,3 @@ class XMLParser(object):
         except:
             raise JSONError
     data = property(data)
-    
