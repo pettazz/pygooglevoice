@@ -114,7 +114,7 @@ class Voice(object):
             while "The code you entered didn&#39;t verify." in content and try_count < 5:
                 sleep_seconds = 10
                 try_count += 1
-                print('invalid code, retrying after %s seconds (attempt %s)' % sleep_seconds, try_count)
+                print('invalid code, retrying after %s seconds (attempt %s)' % (sleep_seconds, try_count))
                 import time
                 time.sleep(sleep_seconds)
                 content = self.__oathtoolAuth(smsKey)
