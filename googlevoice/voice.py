@@ -72,7 +72,7 @@ class Voice(object):
 
         content = self.__do_page('login').read()
         # holy hackjob
-        galx = re.search(r"\type=\"hidden\"\s+name=\"GALX\"\s+value=\"(.+)\"", content).group(1)
+        galx = re.search(r"type=\"hidden\"\s+name=\"GALX\"\s+value=\"(.+)\"", content).group(1)
         result = self.__do_page('login', {'Email': email, 'Passwd': passwd, 'GALX': galx})
 
         if result.geturl().startswith(getattr(settings, "SMSAUTH")):
