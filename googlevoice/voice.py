@@ -261,7 +261,7 @@ class Voice(object):
         page = page.upper()
         if isinstance(data, dict) or isinstance(data, tuple):
             data = urlencode(data)
-        headers.update({'User-Agent': 'PyGoogleVoice/0.5'})
+        headers.update({'User-Agent': getattr(settings, "USER_AGENT")})
         if log:
             log.debug('%s?%s - %s' % (getattr(settings, page)[22:], data or '', headers))
         if page in ('DOWNLOAD', 'XML_SEARCH'):
