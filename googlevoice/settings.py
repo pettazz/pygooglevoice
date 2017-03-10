@@ -33,14 +33,14 @@ TYPES = {
 
 DEBUG = False
 LOGIN = 'https://accounts.google.com/ServiceLogin?service=grandcentral&passive=1209600&continue=https://www.google.com/voice&followup=https://www.google.com/voice&ltmpl=open'
-LOGIN_POST = 'https://accounts.google.com/signin/challenge/sl/password?service=grandcentral&continue=https://www.google.com/voice&followup=https://www.google.com/voice&ltmpl=open'
+LOGIN_POST = 'https://accounts.google.com/signin/challenge/sl/password?service=grandcentral&continue=https://www.google.com/voice/redirection/voice&followup=https://www.google.com/voice&ltmpl=open'
 SMSAUTH = 'https://accounts.google.com/SmsAuth'
 FEEDS = ('inbox', 'starred', 'all', 'spam', 'trash', 'voicemail', 'sms',
         'recorded', 'placed', 'received', 'missed')
 
 BASE = 'https://www.google.com/voice/b/0/'
 LOGOUT = 'https://www.google.com/voice/account/signout'
-INBOX = BASE + 'redirection/voice#inbox'
+INBOX = BASE + '#inbox'
 CALL = BASE + 'call/connect/'
 CANCEL = BASE + 'call/cancel/'
 DEFAULT_FORWARD = BASE + 'settings/editDefaultForwarding/'
