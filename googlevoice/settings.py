@@ -38,9 +38,9 @@ SMSAUTH = 'https://accounts.google.com/SmsAuth'
 FEEDS = ('inbox', 'starred', 'all', 'spam', 'trash', 'voicemail', 'sms',
         'recorded', 'placed', 'received', 'missed')
 
-BASE = 'https://www.google.com/voice/b/0/redirection/voice'
+BASE = 'https://www.google.com/voice/b/0/'
 LOGOUT = 'https://www.google.com/voice/account/signout'
-INBOX = BASE + '#inbox'
+INBOX = BASE + 'redirection/voice#inbox'
 CALL = BASE + 'call/connect/'
 CANCEL = BASE + 'call/cancel/'
 DEFAULT_FORWARD = BASE + 'settings/editDefaultForwarding/'
