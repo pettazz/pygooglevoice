@@ -18,7 +18,7 @@ Full documentation is available up at http://sphinxdoc.github.com/pygooglevoice/
 
 setup(
     name = "pygooglevoice",
-    version = '0.5',
+    version = '0.5.3',
     url = 'http://code.google.com/p/pygooglevoice',
     author = 'Justin Quick and Joe McCall',
     author_email='justquick@gmail.com, joe@mcc4ll.us',
