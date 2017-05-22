@@ -33,10 +33,11 @@ TYPES = {
 
 DEBUG = False
 
+LOGIN = 'https://accounts.google.com/ServiceLogin?continue=https://www.google.com/voice&rip=1&nojavascript=1&followup=https://www.google.com/voice&service=grandcentral&ltmpl=open&flowName=GlifWebSignIn&flowEntry=Identifier'
+LOGIN_POST = 'https://accounts.google.com/signin/challenge/sl/password?service=grandcentral&continue=https://www.google.com/voice/redirection/voice&followup=https://www.google.com/voice&ltmpl=open'
+
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36'
 
-LOGIN = 'https://accounts.google.com/ServiceLogin?service=grandcentral&passive=1209600&continue=https://www.google.com/voice&followup=https://www.google.com/voice&ltmpl=open'
-LOGIN_POST = 'https://accounts.google.com/signin/challenge/sl/password?service=grandcentral&continue=https://www.google.com/voice&followup=https://www.google.com/voice&ltmpl=open'
 SMSAUTH = 'https://accounts.google.com/SmsAuth'
 FEEDS = ('inbox', 'starred', 'all', 'spam', 'trash', 'voicemail', 'sms',
         'recorded', 'placed', 'received', 'missed')
