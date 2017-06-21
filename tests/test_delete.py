@@ -1,8 +1,11 @@
 from googlevoice import Voice
 
-voice = Voice()
-voice.login()
+def test_delete:
+    voice = Voice()
+    # voice.login()
 
-for message in voice.sms().messages:
-    if message.isRead:
-        message.delete()
+    for message in voice.sms().messages:
+        if message.isRead:
+            message.delete()
+
+    assert 1 == 1
