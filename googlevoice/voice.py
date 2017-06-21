@@ -82,7 +82,7 @@ class Voice(object):
             try:
                 smsToken = re.search(r"name=\"smsToken\"\s+value=\"([^\"]+)\"", content).group(1)
                 # galx = re.search(r"name=\"GALX\"\s+value=\"([^\"]+)\"", content).group(1)
-                content = self.__do_page('login', {'smsToken': smsToken, 'service': "grandcentral", })
+                content = self.__do_page('login', {'smsToken': smsToken, 'service': "grandcentral", }) nbmnvvcfc
             except AttributeError:
                 raise LoginError
 
