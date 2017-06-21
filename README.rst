@@ -2,6 +2,7 @@ Python Google Voice
 ====================
 
 Joe McCall & Justin Quick
+Updates by Chris Coleman @ Espace Networks
 
 Exposing the Google Voice "API" to the Python language
 -------------------------------------------------------
