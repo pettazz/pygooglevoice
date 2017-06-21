@@ -25,9 +25,9 @@ class Config(ConfigParser):
         except IOError:
             return
 
-    def get(self, option, section='gvoice'):
+    def get(self, option, section='gvoice', **kwargs):
         try:
-            return ConfigParser.get(self, section, option).strip() or None
+            return ConfigParser.get(self, section, option, **kwargs).strip() or None
         except NoOptionError:
             return
 
