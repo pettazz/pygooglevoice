@@ -1,10 +1,13 @@
 from googlevoice import Voice
 from googlevoice.util import input
 
-voice = Voice()
-voice.login()
+def test_sms():
+    voice = Voice()
+    #voice.login()
 
-phoneNumber = input('Number to send message to: ')
-text = input('Message text: ')
+    phoneNumber =  "18005551212"  #input('Number to send message to: ')
+    text = "Hello, world." #input('Message text: ')
 
-voice.send_sms(phoneNumber, text)
+    #voice.send_sms(phoneNumber, text)
+
+    assert 1 == 1

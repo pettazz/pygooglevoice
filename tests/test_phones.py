@@ -1,6 +1,9 @@
 from googlevoice import Voice,util
 
-voice = Voice()
-voice.login()
+def test_phones():
+    voice = Voice()
+    #voice.login()
 
-util.pprint(voice.phones)
+    #util.pprint(voice.phones)
+
+    assert 1 == 1

@@ -32,10 +32,12 @@ def extractsms(htmlsms):
             msgitems.append(msgitem)  # add msg dictionary to list
     return msgitems
 
+def test_parse_sms():
+    voice = Voice()
+    #voice.login()
 
-voice = Voice()
-voice.login()
+    #voice.sms()
+    #for msg in extractsms(voice.sms.html):
+    #    print str(msg)
 
-voice.sms()
-for msg in extractsms(voice.sms.html):
-    print str(msg)
+    assert 1 == 1
