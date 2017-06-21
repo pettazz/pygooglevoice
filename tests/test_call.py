@@ -1,13 +1,21 @@
 from googlevoice import Voice
 from googlevoice.util import input
 
-voice = Voice()
-voice.login()
 
-outgoingNumber = input('Number to call: ')
-forwardingNumber = input('Number to call from [optional]: ') or None
+def test_call():
+    # assert inc(3) == 5
 
-voice.call(outgoingNumber, forwardingNumber)
+    voice = Voice()
+    # voice.login()
 
-if input('Calling now... cancel?[y/N] ').lower() == 'y':
-    voice.cancel(outgoingNumber, forwardingNumber)
+    outgoingNumber = "18005551212" # input('Number to call: ')
+    forwardingNumber = None # input('Number to call from [optional]: ') or None
+
+    voice.call(outgoingNumber, forwardingNumber)
+
+    """
+    if input('Calling now... cancel?[y/N] ').lower() == 'y':
+        voice.cancel(outgoingNumber, forwardingNumber)
+    """
+
+   assert 1 == 1
