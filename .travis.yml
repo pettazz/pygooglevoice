@@ -3,11 +3,13 @@ sudo: false # false = docker container environment
 language: python
 python:
   - "2.7"
-  - "nightly" # currently points to 3.9-dev
+  - "3.4"
+  # - "nightly" # currently points to 3.9-dev
 # command to install dependencies
 install:
   - "pip install -r requirements.txt"
   - "python setup.py install"
-  - "sudo cp -p bin/gvoice /usr/bin/."
+  - "export PATH=$PATH:."
+  - "cp -p bin/gvoice ."
 # command to run tests
 script: pytest
