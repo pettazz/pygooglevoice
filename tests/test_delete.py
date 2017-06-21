@@ -1,6 +1,6 @@
 from googlevoice import Voice
 
-def test_delete:
+def test_delete():
     voice = Voice()
     # voice.login()
 
