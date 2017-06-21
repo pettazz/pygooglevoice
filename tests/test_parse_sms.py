@@ -6,7 +6,7 @@
 #
 from googlevoice import Voice
 import sys
-import BeautifulSoup
+from bs4 import BeautifulSoup
 
 
 def extractsms(htmlsms):
