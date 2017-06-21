@@ -72,21 +72,19 @@ class Voice(object):
 
         content = self.__do_page('login').read()
         # holy hackjob
-        galx = re.search(r"type=\"hidden\"\s+name=\"GALX\"\s+value=\"(.+)\"", content).group(1)
         gxf = re.search(r"type=\"hidden\"\s+name=\"gxf\"\s+value=\"(.+)\"", content).group(1)
-        result = self.__do_page('login_post', {'Email': email, 'Passwd': passwd, 'GALX': galx, 'gxf': gxf})
+        result = self.__do_page('login_post', {'Email': email, 'Passwd': passwd, 'gxf': gxf})
 
         if result.geturl().startswith(getattr(settings, "SMSAUTH")):
             content = self.__smsAuth(smsKey)
 
             try:
                 smsToken = re.search(r"name=\"smsToken\"\s+value=\"([^\"]+)\"", content).group(1)
-                galx = re.search(r"name=\"GALX\"\s+value=\"([^\"]+)\"", content).group(1)
-                content = self.__do_page('login', {'smsToken': smsToken, 'service': "grandcentral", 'GALX': galx})
+                content = self.__do_page('login', {'smsToken': smsToken, 'service': "grandcentral"})
             except AttributeError:
                 raise LoginError
 
-            del smsKey, smsToken, galx, gxf
+            del smsKey, smsToken, gxf
 
         del email, passwd
 
