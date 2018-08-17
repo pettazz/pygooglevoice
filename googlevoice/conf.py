@@ -4,6 +4,7 @@ from six.moves import configparser
 
 from . import settings
 
+
 class Config(configparser.ConfigParser):
     """
     ``ConfigParser`` subclass that looks into your home folder for a file named
@@ -28,7 +29,8 @@ class Config(configparser.ConfigParser):
 
     def get(self, option, section='gvoice', **kwargs):
         try:
-            return configparser.ConfigParser.get(self, section, option, **kwargs).strip() or None
+            return configparser.ConfigParser.get(
+                self, section, option, **kwargs).strip() or None
         except configparser.NoOptionError:
             return
 
@@ -51,5 +53,6 @@ class Config(configparser.ConfigParser):
     password = property(lambda self: self.get('password', 'auth'))
     smsKey = property(lambda self: self.get('smsKey', 'auth'))
     secret = property(lambda self: self.get('secret'))
+
 
 config = Config()

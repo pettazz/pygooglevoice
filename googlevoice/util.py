@@ -7,6 +7,7 @@ from datetime import datetime
 
 sha1_re = re.compile(r'^[a-fA-F0-9]{40}$')
 
+
 def print_(*values, **kwargs):
     """
     Implementation of Python3's print function
@@ -23,11 +24,13 @@ def print_(*values, **kwargs):
     fo.write(kwargs.pop('end', '\n'))
     fo.flush()
 
+
 def is_sha1(s):
     """
     Returns ``True`` if the string is a SHA1 hash
     """
     return bool(sha1_re.match(s))
+
 
 def validate_response(response):
     """
@@ -38,36 +41,43 @@ def validate_response(response):
     except AssertionError:
         raise ValidationError('There was a problem with GV: %s' % response)
 
+
 def load_and_validate(response):
     """
     Loads JSON data from http response then validates
     """
     validate_response(response.json())
 
+
 class ValidationError(Exception):
     """
     Bombs when response code back from Voice 500s
     """
+
 
 class LoginError(Exception):
     """
     Occurs when login credentials are incorrect
     """
 
+
 class ParsingError(Exception):
     """
     Happens when XML feed parsing fails
     """
+
 
 class JSONError(Exception):
     """
     Failed JSON deserialization
     """
 
+
 class DownloadError(Exception):
     """
     Cannot download message, probably not in voicemail/recorded
     """
+
 
 class ForwardingError(Exception):
     """
@@ -79,6 +89,7 @@ class AttrDict(dict):
     def __getattr__(self, attr):
         if attr in self:
             return self[attr]
+
 
 class Phone(AttrDict):
     """
@@ -126,14 +137,16 @@ class Phone(AttrDict):
         """
         Enables or disables this phone
         """
-        self.voice.__validate_special_page('default_forward',
-            {'enabled':enabled, 'phoneId': self.id})
+        self.voice.__validate_special_page(
+            'default_forward',
+            {'enabled': enabled, 'phoneId': self.id})
 
     def __str__(self):
         return self.phoneNumber
 
     def __repr__(self):
         return '<Phone %s>' % self.phoneNumber
+
 
 class Message(AttrDict):
     """
@@ -169,7 +182,8 @@ class Message(AttrDict):
 
     def delete(self, trash=1):
         """
-        Moves this message to the Trash. Use ``message.delete(0)`` to move it out of the Trash.
+        Moves this message to the Trash. Use ``message.delete(0)``
+        to move it out of the Trash.
         """
         self.folder.voice.__messages_post('delete', self.id, trash=trash)
 
@@ -181,7 +195,8 @@ class Message(AttrDict):
 
     def mark(self, read=1):
         """
-        Mark this message as read. Use ``message.mark(0)`` to mark it as unread.
+        Mark this message as read. Use ``message.mark(0)`` to
+        mark it as unread.
         """
         self.folder.voice.__messages_post('mark', self.id, read=read)
 
@@ -189,7 +204,8 @@ class Message(AttrDict):
         """
         Download the message MP3 (if any).
         Saves files to ``adir`` (defaults to current directory).
-        Message hashes can be found in ``self.voicemail().messages`` for example.
+        Message hashes can be found in ``self.voicemail().messages``
+        for example.
         Returns location of saved file.
         """
         return self.folder.voice.download(self, adir)
@@ -199,6 +215,7 @@ class Message(AttrDict):
 
     def __repr__(self):
         return '<Message #%s (%s)>' % (self.id, self.phoneNumber)
+
 
 class Folder(AttrDict):
     """
@@ -228,11 +245,14 @@ class Folder(AttrDict):
     def __repr__(self):
         return '<Folder %s (%s)>' % (self.name, len(self))
 
+
 class XMLParser(object):
     """
     XML Parser helper that can dig json and html out of the feeds.
-    The parser takes a ``Voice`` instance, page name, and function to grab data from.
-    Calling the parser calls the data function once, sets up the ``json`` and ``html``
+    The parser takes a ``Voice`` instance, page name, and function
+    to grab data from.
+    Calling the parser calls the data function once, sets up the
+    ``json`` and ``html``
     attributes and returns a ``Folder`` instance for the given page::
 
         o = XMLParser(voice, 'voicemail', lambda: 'some xml payload')
@@ -249,21 +269,23 @@ class XMLParser(object):
     attr = None
 
     def start_element(self, name, attrs):
-        if name in ('json','html'):
+        if name in ('json', 'html'):
             self.attr = name
+
     def end_element(self, name): self.attr = None
+
     def char_data(self, data):
         if self.attr and data:
             setattr(self, self.attr, getattr(self, self.attr) + data)
 
     def __init__(self, voice, name, datafunc):
-        self.json, self.html = '',''
+        self.json, self.html = '', ''
         self.datafunc = datafunc
         self.voice = voice
         self.name = name
 
     def __call__(self):
-        self.json, self.html = '',''
+        self.json, self.html = '', ''
         parser = ParserCreate()
         parser.StartElementHandler = self.start_element
         parser.EndElementHandler = self.end_element
@@ -271,7 +293,7 @@ class XMLParser(object):
         try:
             data = self.datafunc()
             parser.Parse(data, 1)
-        except:
+        except Exception:
             raise ParsingError
         return self.folder
 
@@ -288,6 +310,6 @@ class XMLParser(object):
         """
         try:
             return json.loads(self.json)
-        except:
+        except Exception:
             raise JSONError
     data = property(data)

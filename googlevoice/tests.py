@@ -2,6 +2,7 @@ from googlevoice import Voice, util
 from os import path, remove
 from unittest import TestCase, main
 
+
 class VoiceTest(TestCase):
     voice = Voice()
     voice.login()
@@ -39,7 +40,8 @@ class VoiceTest(TestCase):
     def test_download(self):
         msg = list(self.voice.voicemail.messages)[0]
         fn = '%s.mp3' % msg.id
-        if path.isfile(fn): remove(fn)
+        if path.isfile(fn):
+            remove(fn)
         self.voice.download(msg)
         self.assert_(path.isfile(fn))
 
@@ -53,4 +55,6 @@ class VoiceTest(TestCase):
         self.assert_(str(config.phoneType) in '1237')
         self.assertEqual(config.get('wtf'), None)
 
-if __name__ == '__main__': main()
+
+if __name__ == '__main__':
+    main()

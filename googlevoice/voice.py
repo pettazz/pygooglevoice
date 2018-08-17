@@ -58,7 +58,8 @@ class Voice(object):
     def login(self, email=None, passwd=None, smsKey=None):
         """
         Login to the service using your Google Voice account
-        Credentials will be propmpted for if not given as args or in the ``~/.gvoice`` config file
+        Credentials will be propmpted for if not given as args or in the
+        ``~/.gvoice`` config file
         """
         if hasattr(self, '_special') and getattr(self, '_special'):
             return self
@@ -68,15 +69,23 @@ class Voice(object):
 
         content = self.__do_page('login').text
         # holy hackjob
-        gxf = re.search(r"type=\"hidden\"\s+name=\"gxf\"\s+value=\"(.+)\"", content).group(1)
-        result = self.__do_page('login_post', {'Email': email, 'Passwd': passwd, 'gxf': gxf})
+        gxf = re.search(
+            r"type=\"hidden\"\s+name=\"gxf\"\s+value=\"(.+)\"",
+            content).group(1)
+        result = self.__do_page(
+            'login_post',
+            {'Email': email, 'Passwd': passwd, 'gxf': gxf})
 
         if result.geturl().startswith(getattr(settings, "SMSAUTH")):
             content = self.__smsAuth(smsKey)
 
             try:
-                smsToken = re.search(r"name=\"smsToken\"\s+value=\"([^\"]+)\"", content).group(1)
-                content = self.__do_page('login', {'smsToken': smsToken, 'service': "grandcentral"})
+                smsToken = re.search(
+                    r"name=\"smsToken\"\s+value=\"([^\"]+)\"",
+                    content).group(1)
+                content = self.__do_page(
+                    'login',
+                    {'smsToken': smsToken, 'service': "grandcentral"})
             except AttributeError:
                 raise util.LoginError
 
@@ -101,15 +110,19 @@ class Voice(object):
             content = self.__do_page('smsauth', {'smsUserPin': smsPin}).read()
 
         else:
-            smsKey = base64.b32decode(re.sub(r' ', '', smsKey), casefold=True).encode("hex")
+            smsKey = base64.b32decode(
+                re.sub(r' ', '', smsKey), casefold=True).encode("hex")
             content = self.__oathtoolAuth(smsKey)
 
             try_count = 1
 
-            while "The code you entered didn&#39;t verify." in content and try_count < 5:
+            while ("The code you entered didn&#39;t verify." in content
+                    and try_count < 5):
                 sleep_seconds = 10
                 try_count += 1
-                print('invalid code, retrying after %s seconds (attempt %s)' % (sleep_seconds, try_count))
+                print(
+                    'invalid code, retrying after %s seconds (attempt %s)'
+                    % (sleep_seconds, try_count))
                 import time
                 time.sleep(sleep_seconds)
                 content = self.__oathtoolAuth(smsKey)
@@ -134,10 +147,14 @@ class Voice(object):
         assert self.special is None
         return self
 
-    def call(self, outgoingNumber, forwardingNumber=None, phoneType=None, subscriberNumber=None):
+    def call(
+            self, outgoingNumber, forwardingNumber=None, phoneType=None,
+            subscriberNumber=None):
         """
-        Make a call to an ``outgoingNumber`` from your ``forwardingNumber`` (optional).
-        If you pass in your ``forwardingNumber``, please also pass in the correct ``phoneType``
+        Make a call to an ``outgoingNumber`` from your
+        ``forwardingNumber`` (optional).
+        If you pass in your ``forwardingNumber``, please also pass
+        in the correct ``phoneType``
         """
         if forwardingNumber is None:
             forwardingNumber = config.forwardingNumber
@@ -169,7 +186,9 @@ class Voice(object):
         """
         Returns a list of ``Phone`` instances attached to your account.
         """
-        return [util.Phone(self, data) for data in self.contacts['phones'].values()]
+        return [
+            util.Phone(self, data)
+            for data in self.contacts['phones'].values()]
     phones = property(phones)
 
     def settings(self):
@@ -181,9 +200,11 @@ class Voice(object):
 
     def send_sms(self, phoneNumber, text):
         """
-        Send an SMS message to a given ``phoneNumber`` with the given ``text`` message
+        Send an SMS message to a given ``phoneNumber`` with
+        the given ``text`` message
         """
-        self.__validate_special_page('sms', {'phoneNumber': phoneNumber, 'text': text})
+        self.__validate_special_page(
+            'sms', {'phoneNumber': phoneNumber, 'text': text})
 
     def search(self, query):
         """
@@ -204,7 +225,8 @@ class Voice(object):
 
     def delete(self, msg, trash=1):
         """
-        Moves this message to the Trash. Use ``message.delete(0)`` to move it out of the Trash.
+        Moves this message to the Trash. Use ``message.delete(0)``
+        to move it out of the Trash.
         """
         if isinstance(msg, util.Message):
             msg = msg.id
@@ -216,7 +238,8 @@ class Voice(object):
         Download a voicemail or recorded call MP3 matching the given ``msg``
         which can either be a ``Message`` instance, or a SHA1 identifier.
         Saves files to ``adir`` (defaults to current directory).
-        Message hashes can be found in ``self.voicemail().messages`` for example.
+        Message hashes can be found in ``self.voicemail().messages`` for
+        example.
         Returns location of saved file.
         """
         from os import path, getcwd
@@ -230,7 +253,7 @@ class Voice(object):
         try:
             resp = self.__do_url(url)
             resp.raise_for_status()
-        except:
+        except Exception:
             raise util.DownloadError
         fn = path.join(adir, '%s.mp3' % msg)
         with open(fn, 'wb') as fo:
@@ -239,8 +262,10 @@ class Voice(object):
 
     def contacts(self):
         """
-        Partial data of your Google Account Contacts related to your Voice account.
-        For a more comprehensive suite of APIs, check out http://code.google.com/apis/contacts/docs/1.0/developers_guide_python.html
+        Partial data of your Google Account Contacts related to
+        your Voice account.
+        For a more comprehensive suite of APIs, check out
+        http://code.google.com/apis/contacts/docs/1.0/developers_guide_python.html
         """
         if hasattr(self, '_contacts'):
             return self._contacts
@@ -265,7 +290,8 @@ class Voice(object):
     def __do_url(self, url, data=None, headers=None, terms=None):
         log.debug('url is %s', url)
         log.debug('data is %s', data)
-        return self.session.get(url, data=data, params=terms or None, headers=headers)
+        return self.session.get(
+            url, data=data, params=terms or None, headers=headers)
 
     def __validate_special_page(self, page, data={}, **kwargs):
         """
