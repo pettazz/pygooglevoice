@@ -1,6 +1,8 @@
-from googlevoice import Voice,util
+import pprint
+
+from googlevoice import Voice
 
 voice = Voice()
 voice.login()
 
-util.pprint(voice.phones)
+pprint.pprint(voice.phones)

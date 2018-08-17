@@ -1,10 +1,15 @@
-from googlevoice import Voice,util
+from __future__ import print_function
 
+import pprint
+
+from six.moves import input
+
+from googlevoice import Voice
 
 voice = Voice()
 voice.login()
 
-folder = voice.search(util.input('Search query: '))
+folder = voice.search(input('Search query: '))
 
-util.print_('Found %s messages: ', len(folder))
-util.pprint(folder.messages)
+print('Found %s messages: ', len(folder))
+pprint.pprint(folder.messages)
