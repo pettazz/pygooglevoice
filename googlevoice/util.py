@@ -1,28 +1,10 @@
 import re
 import json
-from sys import stdout
 from xml.parsers.expat import ParserCreate
 from time import gmtime
 from datetime import datetime
 
 sha1_re = re.compile(r'^[a-fA-F0-9]{40}$')
-
-
-def print_(*values, **kwargs):
-    """
-    Implementation of Python3's print function
-
-    Prints the values to a stream, or to sys.stdout by default.
-    Optional keyword arguments:
-
-    file: a file-like object (stream); defaults to the current sys.stdout.
-    sep:  string inserted between values, default a space.
-    end:  string appended after the last value, default a newline.
-    """
-    fo = kwargs.pop('file', stdout)
-    fo.write(kwargs.pop('sep', ' ').join(map(str, values)))
-    fo.write(kwargs.pop('end', '\n'))
-    fo.flush()
 
 
 def is_sha1(s):
