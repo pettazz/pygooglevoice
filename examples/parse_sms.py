@@ -35,9 +35,13 @@ def extractsms(htmlsms):
     return msgitems
 
 
-voice = Voice()
-voice.login()
+def run():
+    voice = Voice()
+    voice.login()
 
-voice.sms()
-for msg in extractsms(voice.sms.html):
-    print(msg)
+    voice.sms()
+    for msg in extractsms(voice.sms.html):
+        print(msg)
+
+
+__name__ == '__main__' and run()
