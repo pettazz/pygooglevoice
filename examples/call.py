@@ -1,4 +1,4 @@
-from six.move import input
+from six.moves import input
 
 from googlevoice import Voice
 
