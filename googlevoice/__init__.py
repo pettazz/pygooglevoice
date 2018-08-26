@@ -15,7 +15,13 @@ __email__ = 'justquick@gmail.com, joe@mcc4ll.us',
 __copyright__ = 'Copyright 2009, Justin Quick and Joe McCall'
 __credits__ = ['Justin Quick', 'Joe McCall', 'Jacob Feisley', 'John Nagle']
 __license__ = 'New BSD'
-__version__ = '0.5'
+
+try:
+	__version__ = (
+		__import__('pkg_resources').get_distribution('googlevoice').version
+	)
+except Exception:
+	__version__ = 'unknown'
 
 from .voice import Voice
 from .util import Phone, Message, Folder
