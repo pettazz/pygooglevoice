@@ -44,8 +44,8 @@ class Config(configparser.ConfigParser):
             return
 
     def save(self):
-        with open(self.f, 'w') as f:
-            f.write(f)
+        with open(self.fname, 'w') as f:
+            self.write(f)
 
     phoneType = property(phoneType)
     forwardingNumber = property(lambda self: self.get('forwardingNumber'))
