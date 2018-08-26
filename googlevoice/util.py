@@ -1,17 +1,7 @@
-import re
 import json
 from xml.parsers.expat import ParserCreate
 from time import gmtime
 from datetime import datetime
-
-sha1_re = re.compile(r'^[a-fA-F0-9]{40}$')
-
-
-def is_sha1(s):
-    """
-    Returns ``True`` if the string is a SHA1 hash
-    """
-    return bool(sha1_re.match(s))
 
 
 def validate_response(response):

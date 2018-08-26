@@ -222,7 +222,6 @@ class Voice(object):
         """
         if isinstance(msg, util.Message):
             msg = msg.id
-        assert util.is_sha1(msg), 'Message id not a SHA1 hash'
         self.__messages_post('archive', msg, archive=archive)
 
     def delete(self, msg, trash=1):
@@ -232,7 +231,6 @@ class Voice(object):
         """
         if isinstance(msg, util.Message):
             msg = msg.id
-        assert util.is_sha1(msg), 'Message id not a SHA1 hash'
         self.__messages_post('delete', msg, trash=trash)
 
     def download(self, msg, adir=None):
@@ -247,7 +245,6 @@ class Voice(object):
         from os import path, getcwd
         if isinstance(msg, util.Message):
             msg = msg.id
-        assert util.is_sha1(msg), 'Message id not a SHA1 hash'
         if adir is None:
             adir = getcwd()
         url = self.__resolve_page('download')
@@ -335,7 +332,6 @@ class Voice(object):
         for msg in msgs:
             if isinstance(msg, util.Message):
                 msg = msg.id
-            assert util.is_sha1(msg), 'Message id not a SHA1 hash'
             data += (('messages', msg),)
         return self.__do_special_page(page, dict(data))
 
