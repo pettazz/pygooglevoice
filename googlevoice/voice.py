@@ -2,6 +2,7 @@ import re
 import logging
 import getpass
 import base64
+import platform
 
 from .conf import config
 from . import settings
@@ -25,8 +26,8 @@ class Voice(object):
     Handles login/logout and most of the baser HTTP methods
     """
 
-    user_agent = 'PyGoogleVoice/{__version__}'.format(
-        **vars(__import__('googlevoice')))
+    user_agent = 'PyGoogleVoice/{__version__} Python/{pyver}'.format(
+        pyver=platform.python_version(), **vars(__import__('googlevoice')))
 
     def __init__(self):
         self.session = requests.Session()
