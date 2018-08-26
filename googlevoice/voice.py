@@ -292,8 +292,9 @@ class Voice(object):
     def __do_url(self, url, data=None, headers=None, terms=None):
         log.debug('url is %s', url)
         log.debug('data is %s', data)
-        return self.session.get(
-            url, data=data, params=terms or None, headers=headers)
+        method = 'POST' if data else 'GET'
+        return self.session.request(
+            method, url, data=data, params=terms or None, headers=headers)
 
     def __validate_special_page(self, page, data={}, **kwargs):
         """
