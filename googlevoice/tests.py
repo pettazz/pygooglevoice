@@ -1,15 +1,18 @@
-from googlevoice import Voice, util
 from os import path, remove
 from unittest import TestCase, main
+
+from six.moves import input
+
+from googlevoice import Voice
 
 
 class VoiceTest(TestCase):
     voice = Voice()
     voice.login()
-    outgoing = util.input('Outgoing number (blank to ignore call tests): ')
+    outgoing = input('Outgoing number (blank to ignore call tests): ')
     forwarding = None
     if outgoing:
-        forwarding = util.input('Forwarding number [optional]: ') or None
+        forwarding = input('Forwarding number [optional]: ') or None
 
     if outgoing:
         def test_1call(self):
