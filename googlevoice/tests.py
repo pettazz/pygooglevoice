@@ -1,4 +1,4 @@
-from os import path, remove
+import os
 from unittest import TestCase, main
 
 from six.moves import input
@@ -43,10 +43,10 @@ class VoiceTest(TestCase):
     def test_download(self):
         msg = list(self.voice.voicemail.messages)[0]
         fn = '%s.mp3' % msg.id
-        if path.isfile(fn):
-            remove(fn)
+        if os.path.isfile(fn):
+            os.remove(fn)
         self.voice.download(msg)
-        self.assert_(path.isfile(fn))
+        self.assert_(os.path.isfile(fn))
 
     def test_zlogout(self):
         self.voice.logout()
