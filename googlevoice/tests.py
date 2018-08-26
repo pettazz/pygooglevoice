@@ -42,7 +42,7 @@ class VoiceTest(TestCase):
         self.voice.phones[0].enable()
 
     def test_download(self):
-        msg = list(self.voice.voicemail.messages)[0]
+        msg = list(self.voice.voicemail().messages)[0]
         fn = '%s.mp3' % msg.id
         if os.path.isfile(fn):
             os.remove(fn)
