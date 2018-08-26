@@ -25,7 +25,8 @@ class Voice(object):
     Handles login/logout and most of the baser HTTP methods
     """
 
-    user_agent = 'PyGoogleVoice/0.5'
+    user_agent = 'PyGoogleVoice/{__version__}'.format(
+        **vars(__import__('googlevoice')))
 
     def __init__(self):
         self.session = requests.Session()
