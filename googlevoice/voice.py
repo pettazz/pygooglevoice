@@ -259,7 +259,7 @@ class Voice(object):
             raise util.DownloadError
         fn = path.join(adir, '%s.mp3' % msg)
         with open(fn, 'wb') as fo:
-            fo.write(resp.raw_content)
+            fo.write(resp.content)
         return fn
 
     def contacts(self):
