@@ -78,7 +78,7 @@ class Voice(object):
             'login_post',
             {'Email': email, 'Passwd': passwd, 'gxf': gxf})
 
-        if result.geturl().startswith(getattr(settings, "SMSAUTH")):
+        if result.url.startswith(getattr(settings, "SMSAUTH")):
             content = self.__smsAuth(smsKey)
 
             try:
