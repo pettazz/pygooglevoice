@@ -4,6 +4,7 @@ from unittest import TestCase, main
 from six.moves import input
 
 from googlevoice import Voice
+from googlevoice import conf
 
 
 class VoiceTest(TestCase):
@@ -53,10 +54,9 @@ class VoiceTest(TestCase):
         self.assert_(self.voice.special is None)
 
     def test_config(self):
-        from conf import config
-        self.assert_(config.forwardingNumber)
-        self.assert_(str(config.phoneType) in '1237')
-        self.assertEqual(config.get('wtf'), None)
+        self.assert_(conf.config.forwardingNumber)
+        self.assert_(str(conf.config.phoneType) in '1237')
+        self.assertEqual(conf.config.get('wtf'), None)
 
 
 if __name__ == '__main__':
