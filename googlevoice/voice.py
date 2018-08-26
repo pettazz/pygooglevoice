@@ -318,11 +318,11 @@ class Voice(object):
 
     _Phone__do_special_page = __do_special_page
 
-    def __get_xml_page(self, page, data=None, headers={}):
+    def __get_xml_page(self, page, data=None, headers={}, terms={}):
         """
         Return XMLParser instance generated from given page
         """
-        def getter(terms={}):
+        def getter():
             page_name = 'XML_%s' % page.upper()
             return self.__do_special_page(page_name, data, headers, terms).text
         return util.XMLParser(self, page, getter)
