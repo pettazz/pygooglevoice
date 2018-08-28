@@ -220,8 +220,6 @@ class Voice(object):
         """
         Archive the specified message by removing it from the Inbox.
         """
-        if isinstance(msg, util.Message):
-            msg = msg.id
         self.__messages_post('archive', msg, archive=archive)
 
     def delete(self, msg, trash=1):
