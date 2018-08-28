@@ -322,15 +322,16 @@ class Voice(object):
             return self.__do_special_page(page_name, data, headers, terms).text
         return util.XMLParser(self, page, getter)
 
-    def __messages_post(self, page, *msgs, **kwargs):
+    def __messages_post(self, page, *msgs, **data):
         """
         Performs message operations, eg deleting,staring,moving
         """
-        data = kwargs.items()
+        if len(msgs) != 1:
+            raise NotImplementedError("Only supports one message")
         for msg in msgs:
             if isinstance(msg, util.Message):
                 msg = msg.id
-            data += (('messages', msg),)
-        return self.__do_special_page(page, dict(data))
+            data['messages'] = msg
+        return self.__do_special_page(page, data)
 
     _Message__messages_post = __messages_post
