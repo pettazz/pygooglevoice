@@ -229,8 +229,6 @@ class Voice(object):
         Moves this message to the Trash. Use ``message.delete(0)``
         to move it out of the Trash.
         """
-        if isinstance(msg, util.Message):
-            msg = msg.id
         self.__messages_post('delete', msg, trash=trash)
 
     def download(self, msg, adir=None):
