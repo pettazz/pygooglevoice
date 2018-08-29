@@ -1,7 +1,14 @@
-from googlevoice import Voice,util
+from __future__ import print_function
 
-voice = Voice()
-voice.login()
+from googlevoice import Voice
 
-for message in voice.voicemail().messages:
-    util.print_(message)
+
+def run():
+    voice = Voice()
+    voice.login()
+
+    for message in voice.voicemail().messages:
+        print(message)
+
+
+__name__ == '__main__' and run()

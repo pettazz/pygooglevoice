@@ -1,9 +1,14 @@
 from googlevoice import Voice
 
-download_dir = '.'
 
-voice = Voice()
-voice.login()
+def run():
+    download_dir = '.'
 
-for message in voice.voicemail().messages:
-    message.download(download_dir)
+    voice = Voice()
+    voice.login()
+
+    for message in voice.voicemail().messages:
+        message.download(download_dir)
+
+
+__name__ == '__main__' and run()

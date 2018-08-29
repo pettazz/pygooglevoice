@@ -1,6 +1,13 @@
-from googlevoice import Voice,util
+import pprint
 
-voice = Voice()
-voice.login()
+from googlevoice import Voice
 
-util.pprint(voice.phones)
+
+def run():
+    voice = Voice()
+    voice.login()
+
+    pprint.pprint(voice.phones)
+
+
+__name__ == '__main__' and run()

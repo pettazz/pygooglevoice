@@ -1,9 +1,16 @@
-from googlevoice import Voice,util,settings
+from __future__ import print_function
 
-voice = Voice()
-voice.login()
+from googlevoice import Voice, settings
 
-for feed in settings.FEEDS:
-    util.print_(feed.title())
-    for message in getattr(voice, feed)().messages:
-        util.print_('\t', message)
+
+def run():
+    voice = Voice()
+    voice.login()
+
+    for feed in settings.FEEDS:
+        print(feed.title())
+        for message in getattr(voice, feed)().messages:
+            print('\t', message)
+
+
+__name__ == '__main__' and run()
