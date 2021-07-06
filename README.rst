@@ -10,4 +10,4 @@ Google Voice for Python Allows you to place calls, send sms, download voicemail,
 You can use the Python API or command line script to schedule calls, check for new recieved calls/sms, or even sync your recorded voicemails/calls.  
 Works for Python 2 and Python 3
 
-Full documentation is available up at http://sphinxdoc.github.com/pygooglevoice/
+Full documentation is available up at http://sphinxdoc.github.io/pygooglevoice/
